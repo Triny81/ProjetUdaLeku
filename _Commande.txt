@@ -1,0 +1,4 @@
+
+
+git remote add origin https://github.com/Triny81/ProjetUdaLeku.git
+git pull origin master
