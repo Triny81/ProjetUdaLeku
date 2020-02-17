@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Etablissement
      * @ORM\Column(type="string", length=50)
      */
     private $ville;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="etablissement")
+     */
+    private $enfants;
+
+    public function __construct()
+    {
+        $this->enfants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,37 @@ class Etablissement
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enfant[]
+     */
+    public function getEnfants(): Collection
+    {
+        return $this->enfants;
+    }
+
+    public function addEnfant(Enfant $enfant): self
+    {
+        if (!$this->enfants->contains($enfant)) {
+            $this->enfants[] = $enfant;
+            $enfant->setEtablissement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnfant(Enfant $enfant): self
+    {
+        if ($this->enfants->contains($enfant)) {
+            $this->enfants->removeElement($enfant);
+            // set the owning side to null (unless already changed)
+            if ($enfant->getEtablissement() === $this) {
+                $enfant->setEtablissement(null);
+            }
+        }
 
         return $this;
     }

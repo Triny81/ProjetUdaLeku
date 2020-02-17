@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class ResponsableLegal
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $tel_trav;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
+     */
+    private $enfants;
+
+    public function __construct()
+    {
+        $this->enfants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +131,34 @@ class ResponsableLegal
     public function setTelTrav(?string $tel_trav): self
     {
         $this->tel_trav = $tel_trav;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enfant[]
+     */
+    public function getEnfants(): Collection
+    {
+        return $this->enfants;
+    }
+
+    public function addEnfant(Enfant $enfant): self
+    {
+        if (!$this->enfants->contains($enfant)) {
+            $this->enfants[] = $enfant;
+            $enfant->addResponsableLegal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnfant(Enfant $enfant): self
+    {
+        if ($this->enfants->contains($enfant)) {
+            $this->enfants->removeElement($enfant);
+            $enfant->removeResponsableLegal($this);
+        }
 
         return $this;
     }

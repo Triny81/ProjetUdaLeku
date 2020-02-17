@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,21 @@ class Sejour
      * @ORM\Column(type="integer")
      */
     private $cout;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="sejour")
+     */
+    private $enfants;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ListeAffaire", inversedBy="sejour")
+     */
+    private $listeAffaire;
+
+    public function __construct()
+    {
+        $this->enfants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +119,46 @@ class Sejour
     public function setCout(int $cout): self
     {
         $this->cout = $cout;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enfant[]
+     */
+    public function getEnfants(): Collection
+    {
+        return $this->enfants;
+    }
+
+    public function addEnfant(Enfant $enfant): self
+    {
+        if (!$this->enfants->contains($enfant)) {
+            $this->enfants[] = $enfant;
+            $enfant->addSejour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnfant(Enfant $enfant): self
+    {
+        if ($this->enfants->contains($enfant)) {
+            $this->enfants->removeElement($enfant);
+            $enfant->removeSejour($this);
+        }
+
+        return $this;
+    }
+
+    public function getListeAffaire(): ?ListeAffaire
+    {
+        return $this->listeAffaire;
+    }
+
+    public function setListeAffaire(?ListeAffaire $listeAffaire): self
+    {
+        $this->listeAffaire = $listeAffaire;
 
         return $this;
     }

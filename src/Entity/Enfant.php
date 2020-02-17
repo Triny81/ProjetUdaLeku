@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +57,32 @@ class Enfant
      * @ORM\Column(type="string", length=6)
      */
     private $code_postal;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
+     */
+    private $responsable_legal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", inversedBy="enfants")
+     */
+    private $etablissement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Centre", inversedBy="enfants")
+     */
+    private $centre;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sejour", inversedBy="enfants")
+     */
+    private $sejour;
+
+    public function __construct()
+    {
+        $this->responsable_legal = new ArrayCollection();
+        $this->sejour = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -153,6 +181,82 @@ class Enfant
     public function setCodePostal(string $code_postal): self
     {
         $this->code_postal = $code_postal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResponsableLegal[]
+     */
+    public function getResponsableLegal(): Collection
+    {
+        return $this->responsable_legal;
+    }
+
+    public function addResponsableLegal(ResponsableLegal $responsableLegal): self
+    {
+        if (!$this->responsable_legal->contains($responsableLegal)) {
+            $this->responsable_legal[] = $responsableLegal;
+        }
+
+        return $this;
+    }
+
+    public function removeResponsableLegal(ResponsableLegal $responsableLegal): self
+    {
+        if ($this->responsable_legal->contains($responsableLegal)) {
+            $this->responsable_legal->removeElement($responsableLegal);
+        }
+
+        return $this;
+    }
+
+    public function getEtablissement(): ?Etablissement
+    {
+        return $this->etablissement;
+    }
+
+    public function setEtablissement(?Etablissement $etablissement): self
+    {
+        $this->etablissement = $etablissement;
+
+        return $this;
+    }
+
+    public function getCentre(): ?Centre
+    {
+        return $this->centre;
+    }
+
+    public function setCentre(?Centre $centre): self
+    {
+        $this->centre = $centre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sejour[]
+     */
+    public function getSejour(): Collection
+    {
+        return $this->sejour;
+    }
+
+    public function addSejour(Sejour $sejour): self
+    {
+        if (!$this->sejour->contains($sejour)) {
+            $this->sejour[] = $sejour;
+        }
+
+        return $this;
+    }
+
+    public function removeSejour(Sejour $sejour): self
+    {
+        if ($this->sejour->contains($sejour)) {
+            $this->sejour->removeElement($sejour);
+        }
 
         return $this;
     }
