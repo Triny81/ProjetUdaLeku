@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enfant index{% endblock %}
+
+{% block body %}
+    <h1>Enfant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date_naiss</th>
+                <th>Remarque</th>
+                <th>Adresse_1</th>
+                <th>Adresse_2</th>
+                <th>Ville</th>
+                <th>Code_postal</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enfant in enfants %}
+            <tr>
+                <td>{{ enfant.id }}</td>
+                <td>{{ enfant.nom }}</td>
+                <td>{{ enfant.prenom }}</td>
+                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
+                <td>{{ enfant.remarque }}</td>
+                <td>{{ enfant.adresse1 }}</td>
+                <td>{{ enfant.adresse2 }}</td>
+                <td>{{ enfant.ville }}</td>
+                <td>{{ enfant.codePostal }}</td>
+                <td>
+                    <a href="{{ path('enfant_consultation', {'id': enfant.id}) }}">show</a>
+                    <a href="{{ path('enfant_modification', {'id': enfant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('enfant_creation') }}">Create new</a>
+{% endblock %}

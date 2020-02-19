@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affaire index{% endblock %}
+
+{% block body %}
+    <h1>Affaire index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_français</th>
+                <th>Nom_basque</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for affaire in affaires %}
+            <tr>
+                <td>{{ affaire.id }}</td>
+                <td>{{ affaire.nomFrançais }}</td>
+                <td>{{ affaire.nomBasque }}</td>
+                <td>
+                    <a href="{{ path('affaire_modification', {'id': affaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('affaire_creation') }}">Create new</a>
+{% endblock %}
