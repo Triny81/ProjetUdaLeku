@@ -40,6 +40,9 @@ class AppFixtures extends Fixture
 			$responsableLegal -> setTelDom($faker -> phoneNumber);
 			$responsableLegal -> setTelPort($faker -> phoneNumber);
 			$responsableLegal -> setTelTrav($faker -> phoneNumber);
+			
+			$manager->persist(Enfant);
+			$manager->persist(ResponsableLegal);
           }
 		  
 		 
@@ -47,46 +50,57 @@ class AppFixtures extends Fixture
 		$affaire = new affaire();
 		$affaire -> setNomFrançais("Lunette");
 		$affaire -> setNomBasque("???");
+		$manager->persist(Affaire);
 		
 		$affaire = new affaire();
 		$affaire -> setNomFrançais("T-shirt");
 		$affaire -> setNomBasque("???");
+		$manager->persist(Affaire);
 		
 		$affaire = new affaire();
 		$affaire -> setNomFrançais("short");
 		$affaire -> setNomBasque("???");
+		$manager->persist(Affaire);
 		
 		$affaire = new affaire();
 		$affaire -> setNomFrançais("basket");
 		$affaire -> setNomBasque("???");
+		$manager->persist(Affaire);
 		
 		// Centre
 		$centre = new Centre();
 		$centre -> setVille("Bayonne");
+		$manager->persist(Centre);
 		
 		$centre = new Centre();
 		$centre -> setVille("Ustaritz");
+		$manager->persist(Centre);
 		
 		$centre = new Centre();
 		$centre -> setVille("Biarritz");
+		$manager->persist(Centre);
 		
 		// Etablissement
 		$etablissement = new Etablissement();
 		$etablissement -> setNom("Jean Cavailles");
 		$etablissement -> setVille("Bayonne");
+		$manager->persist(Etablissement);
 		
 		$etablissement = new Etablissement();
 		$etablissement -> setNom("Jules Ferry");
 		$etablissement -> setVille("Bayonne");
+		$manager->persist(Etablissement);
 		
 		// ListeAffaire
 		$listeAffaire = new ListeAffaire();
 		$listeAffaire -> setNomFrançais("Été");
 		$listeAffaire -> setNomBasque("???");
+		$manager->persist(ListeAffaire);
 		
 		$listeAffaire = new ListeAffaire();
 		$listeAffaire -> setNomFrançais("Hiver");
 		$listeAffaire -> setNomBasque("???");
+		$manager->persist(ListeAffaire);
 		
 		// Séjour
 		$sejour = new Sejour();
@@ -95,6 +109,7 @@ class AppFixtures extends Fixture
 		$sejour -> setDateFin("20/12/12");
 		$sejour -> setN°Ministre("123456AX");
 		$sejour -> setCout(350);
+		$manager->persist(Sejour);
 		
 		$sejour = new Sejour();
 		$sejour -> setNom("Equitation");
@@ -102,16 +117,20 @@ class AppFixtures extends Fixture
 		$sejour -> setDateFin("20/12/12");
 		$sejour -> setN°Ministre("123456AX");
 		$sejour -> setCout(350);
+		$manager->persist(Sejour);
 		
 		// TypeAffaire
 		$typeAffaire = new typeAffaire();
 		$typeAffaire -> setNom("Vêtement");
+		$manager->persist(TypeAffaire);
 		
 		$typeAffaire = new typeAffaire();
 		$typeAffaire -> setNom("Toilette");
+		$manager->persist(TypeAffaire);
 		
 		$typeAffaire = new typeAffaire();
 		$typeAffaire -> setNom("Autre");
+		$manager->persist(TypeAffaire);
 
         $manager->flush();
     }
