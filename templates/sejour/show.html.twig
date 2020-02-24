@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sejour{% endblock %}
+
+{% block body %}
+    <h1>Sejour</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sejour.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ sejour.nom }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ sejour.dateDebut ? sejour.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ sejour.dateFin ? sejour.dateFin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>N°_ministre</th>
+                <td>{{ sejour.n°Ministre }}</td>
+            </tr>
+            <tr>
+                <th>Cout</th>
+                <td>{{ sejour.cout }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('sejour_index') }}">back to list</a>
+
+    <a href="{{ path('sejour_modification', {'id': sejour.id}) }}">edit</a>
+
+    {{ include('sejour/_delete_form.html.twig') }}
+{% endblock %}
