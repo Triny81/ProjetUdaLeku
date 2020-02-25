@@ -20,9 +20,9 @@ class SejourController extends AbstractController
      */
     public function index(SejourRepository $sejourRepository): Response
     {
-        return $this->render('sejour/index.html.twig'/*, [
+        return $this->render('sejour/index.html.twig', [
             'sejours' => $sejourRepository->findAll(),
-        ]*/);
+        ]);
     }
 
     /**

@@ -1,54 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Enfant{% endblock %}
+{% block title %}Affaire{% endblock %}
 
 {% block body %}
-    <h1>Enfant</h1>
+    <h1>Affaire</h1>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ enfant.id }}</td>
+                <td>{{ affaire.id }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ enfant.nom }}</td>
+                <th>Nom français</th>
+                <td>{{ affaire.nom_francais }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
-                <td>{{ enfant.prenom }}</td>
+                <th>Nom Basque</th>
+                <td>{{ affaire.nom_basque }}</td>
             </tr>
             <tr>
-                <th>Date_naiss</th>
-                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Remarque</th>
-                <td>{{ enfant.remarque }}</td>
-            </tr>
-            <tr>
-                <th>Adresse_1</th>
-                <td>{{ enfant.adresse1 }}</td>
-            </tr>
-            <tr>
-                <th>Adresse_2</th>
-                <td>{{ enfant.adresse2 }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ enfant.ville }}</td>
-            </tr>
-            <tr>
-                <th>Code_postal</th>
-                <td>{{ enfant.codePostal }}</td>
+                <th>Type Affaire</th>
+                <td>{{ affaire.type_affaire.nom }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('enfant_index') }}">back to list</a>
+    <a href="{{ path('affaire_index') }}">back to list</a>
 
-    <a href="{{ path('enfant_modification', {'id': enfant.id}) }}">edit</a>
+    <a href="{{ path('affaire_modification', {'id': affaire.id}) }}">edit</a>
 
-    {{ include('enfant/_delete_form.html.twig') }}
+    {{ include('affaire/_delete_form.html.twig') }}
 {% endblock %}

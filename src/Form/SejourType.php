@@ -15,7 +15,7 @@ class SejourType extends AbstractType
             ->add('nom')
             ->add('date_debut')
             ->add('date_fin')
-            ->add('n°_ministre')
+            ->add('num_ministre')
             ->add('cout')
             ->add('enfants')
             ->add('listeAffaire')

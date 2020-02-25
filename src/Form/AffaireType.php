@@ -12,7 +12,7 @@ class AffaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom_français')
+            ->add('nom_francais')
             ->add('nom_basque')
             ->add('listeAffaires')
             ->add('type_affaire')

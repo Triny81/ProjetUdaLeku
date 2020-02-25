@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nom_français</th>
+                <th>Nom_francais</th>
                 <th>Nom_basque</th>
                 <th>actions</th>
             </tr>
@@ -18,7 +18,7 @@
         {% for affaire in affaires %}
             <tr>
                 <td>{{ affaire.id }}</td>
-                <td>{{ affaire.nomFrançais }}</td>
+                <td>{{ affaire.nomFrancais }}</td>
                 <td>{{ affaire.nomBasque }}</td>
                 <td>
                     <a href="{{ path('affaire_modification', {'id': affaire.id}) }}">edit</a>

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Sejour index</h1>
 
-    {#<table class="table">
+    {<table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -24,7 +24,7 @@
                 <td>{{ sejour.nom }}</td>
                 <td>{{ sejour.dateDebut ? sejour.dateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ sejour.dateFin ? sejour.dateFin|date('Y-m-d') : '' }}</td>
-                <td>{{ sejour.n°Ministre }}</td>
+                <td>{{ sejour.numMinistre }}</td>
                 <td>{{ sejour.cout }}</td>
                 <td>
                     <a href="{{ path('sejour_consultation', {'id': sejour.id}) }}">show</a>
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('sejour_creation') }}">Create new</a>#}
+    <a href="{{ path('sejour_creation') }}">Create new</a>}
 {% endblock %}
