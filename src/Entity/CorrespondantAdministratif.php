@@ -19,7 +19,7 @@ class CorrespondantAdministratif extends ResponsableLegal
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $n°_secu;
+    private $num_secu;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
@@ -41,14 +41,14 @@ class CorrespondantAdministratif extends ResponsableLegal
         return $this->id;
     }
 
-    public function getN°Secu(): ?string
+    public function getNumSecu(): ?string
     {
-        return $this->n°_secu;
+        return $this->num_secu;
     }
 
-    public function setN°Secu(string $n°_secu): self
+    public function setNumSecu(string $num_secu): self
     {
-        $this->n°_secu = $n°_secu;
+        $this->num_secu = $num_secu;
 
         return $this;
     }

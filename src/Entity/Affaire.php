@@ -21,7 +21,7 @@ class Affaire
     /**
      * @ORM\Column(type="string", length=40)
      */
-    private $nom_français;
+    private $nom_francais;
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -48,14 +48,14 @@ class Affaire
         return $this->id;
     }
 
-    public function getNomFrançais(): ?string
+    public function getNomFrancais(): ?string
     {
-        return $this->nom_français;
+        return $this->nom_francais;
     }
 
-    public function setNomFrançais(string $nom_français): self
+    public function setNomFrancais(string $nom_francais): self
     {
-        $this->nom_français = $nom_français;
+        $this->nom_francais = $nom_francais;
 
         return $this;
     }

@@ -36,7 +36,7 @@ class Sejour
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $n°_ministre;
+    private $num_ministre;
 
     /**
      * @ORM\Column(type="integer")
@@ -99,14 +99,14 @@ class Sejour
         return $this;
     }
 
-    public function getN°Ministre(): ?string
+    public function getNumMinistre(): ?string
     {
-        return $this->n°_ministre;
+        return $this->num_ministre;
     }
 
-    public function setN°Ministre(string $n°_ministre): self
+    public function setNumMinistre(string $num_ministre): self
     {
-        $this->n°_ministre = $n°_ministre;
+        $this->num_ministre = $num_ministre;
 
         return $this;
     }
