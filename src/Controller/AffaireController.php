@@ -113,7 +113,7 @@ class AffaireController extends AbstractController
             $entityManager->persist($typeAffaire);
             $entityManager->flush();
 
-            return $this->redirectToRoute('type_affaire_index');
+            return $this->redirectToRoute('affaire_index');
         }
 
         return $this->render('type_affaire/new.html.twig', [

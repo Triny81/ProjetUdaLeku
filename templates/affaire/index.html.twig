@@ -3,34 +3,58 @@
 {% block title %}Affaire index{% endblock %}
 
 {% block body %}
-    <h1>Affaire index</h1>
+<h1>Affaire index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom_francais</th>
-                <th>Nom_basque</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom_francais</th>
+            <th>Nom_basque</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for affaire in affaires %}
-            <tr>
-                <td>{{ affaire.id }}</td>
-                <td>{{ affaire.nomFrancais }}</td>
-                <td>{{ affaire.nomBasque }}</td>
-                <td>
-                    <a href="{{ path('affaire_modification', {'id': affaire.id}) }}">edit</a>
-                </td>
-            </tr>
+        <tr>
+            <td>{{ affaire.id }}</td>
+            <td>{{ affaire.nomFrancais }}</td>
+            <td>{{ affaire.nomBasque }}</td>
+            <td>
+                <a href="{{ path('affaire_modification', {'id': affaire.id}) }}">edit</a>
+            </td>
+        </tr>
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreationAffaire">
+  Créer une affaire
+</button>
 
-    <a href="{{ path('affaire_creation') }}">Create new</a>
+<!-- Modal -->
+<div class="modal fade" id="modalCreationAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+     <div class="modal-body">
+        {{ include('affaire/_form.html.twig') }}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</div>
+</div>
+</div>
+
 {% endblock %}

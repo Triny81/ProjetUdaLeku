@@ -16,13 +16,4 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
-
-    /**
-     * @Route("/authentification", name="authentification")
-     */
-    public function affichageFormulaireAuthentification(){
-        return $this->render('base/index.html.twig', [
-            'controller_name' => 'BaseController',
-        ]);
-    }
 }
