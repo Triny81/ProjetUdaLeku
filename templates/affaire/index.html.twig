@@ -21,40 +21,64 @@
             <td>{{ affaire.nomFrancais }}</td>
             <td>{{ affaire.nomBasque }}</td>
             <td>
-                <a href="{{ path('affaire_modification', {'id': affaire.id}) }}">edit</a>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="4">no records found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalModificationAffaire">
+                    Modifier
+                </button>
+
+                <!-- Modal modification affaire -->
+                <div class="modal fade" id="modalModificationAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier une affaire</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                    {{ include('affaire/_form.html.twig') }}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-primary">Enregistrer !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
+{% else %}
+<tr>
+    <td colspan="4">Aucune affaire n'a été eregistré... Pourquoi pas en créer une maintenant ?</td>
+</tr>
+{% endfor %}
+</tbody>
 </table>
+
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreationAffaire">
   Créer une affaire
 </button>
 
-<!-- Modal -->
+<!-- Modal création affaire -->
 <div class="modal fade" id="modalCreationAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Créer une affaire</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+      </button>
     </div>
-     <div class="modal-body">
-        {{ include('affaire/_form.html.twig') }}
-    </div>
+  <div class="modal-body">
+    {{ include('affaire/_form.html.twig') }}
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary">Enregistrer !</button>
     </div>
 </div>
 </div>
 </div>
+
+
 
 {% endblock %}

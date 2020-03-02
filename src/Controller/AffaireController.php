@@ -25,10 +25,21 @@ class AffaireController extends AbstractController
     /**
      * @Route("/", name="affaire_index", methods={"GET"})
      */
-    public function index(AffaireRepository $affaireRepository): Response
+    public function index(AffaireRepository $affaireRepository, Request $request): Response
     {
+        $nouvelAffaire = new Affaire();
+        $form = $this->createForm(AffaireType::class, $nouvelAffaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($nouvelAffaire);
+            $entityManager->flush();
+        }
+
         return $this->render('affaire/index.html.twig', [
             'affaires' => $affaireRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -45,8 +56,6 @@ class AffaireController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($affaire);
             $entityManager->flush();
-
-            return $this->redirectToRoute('affaire_index');
         }
 
         return $this->render('affaire/new.html.twig', [
