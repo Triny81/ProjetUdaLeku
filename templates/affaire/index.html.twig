@@ -16,6 +16,8 @@
     </thead>
     <tbody>
         {% for affaire in affaires %}
+
+        {% set currentFormView = formEditViewTab[ loop.index0 ] %}
         <tr>
             <td>{{ affaire.id }}</td>
             <td>{{ affaire.nomFrancais }}</td>
@@ -36,11 +38,16 @@
                       </button>
                   </div>
                   <div class="modal-body">
-                    {{ include('affaire/_form.html.twig') }}
+
+                    {{ form_start(currentFormView) }}
+                    {{ form_row(currentFormView.nom_francais) }}
+                    {{ form_row(currentFormView.nom_basque) }}
+                    {{ form_row(currentFormView.type_affaire) }}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary">Enregistrer !</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer !</button>
                     </div>
+                    {{ form_end(currentFormView) }}
                 </div>
             </div>
         </div>
@@ -68,13 +75,19 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
       </button>
-    </div>
+  </div>
   <div class="modal-body">
-    {{ include('affaire/_form.html.twig') }}
+    {{ form_start(formCreate) }}
+    {{ form_row(formCreate.nom_francais) }}
+    {{ form_row(formCreate.nom_basque) }}
+    {{ form_row(formCreate.type_affaire) }}
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Enregistrer !</button>
+        <button type="submit" class="btn btn-primary">Enregistrer !</button>
     </div>
+    {{ form_end(formCreate) }}
+
+    
 </div>
 </div>
 </div>

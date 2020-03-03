@@ -27,19 +27,46 @@ class AffaireController extends AbstractController
      */
     public function index(AffaireRepository $affaireRepository, Request $request): Response
     {
-        $nouvelAffaire = new Affaire();
-        $form = $this->createForm(AffaireType::class, $nouvelAffaire);
-        $form->handleRequest($request);
+        //CrImplémentation du formulaire de création d'une affaire
+        $nouvelleAffaire = new Affaire();
+        $formCreate = $this->createForm(AffaireType::class, $nouvelleAffaire);
+        $formCreate->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /*if ($formCreate->isSubmitted() && $formCreate->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($nouvelAffaire);
+            $entityManager->persist($nouvelleAffaire);
             $entityManager->flush();
+
+            return $this->redirectToRoute('affaire_index');
+        }*/
+
+        //Implémentation d'un tableau de formulaires permettant la modification d'un affaire en particulier
+        $toutesLesAffaires = $affaireRepository->findAll();
+        $formEditViewTab = array();//Ce tableau servira à stocker les vues des formulaires edit générés
+        $formEditTab = array();//Ce tableau sert à stocker les formulaires pour tester s'ils sont submitted et valid
+
+        foreach ($toutesLesAffaires as $uneAffaire) {
+            $formEdit = $this->createForm(AffaireType::class, $uneAffaire);
+            $formEdit->handleRequest($request);
+
+            array_push($formEditTab, $formEdit);
+
+            /*if ($formEdit->isSubmitted() && $formEdit->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($uneAffaire);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('affaire_index');
+            }*/
+
+            $formEdit = $formEdit->createView();
+            array_push($formEditViewTab, $formEdit);
         }
 
         return $this->render('affaire/index.html.twig', [
-            'affaires' => $affaireRepository->findAll(),
-            'form' => $form->createView(),
+            'affaires' => $toutesLesAffaires,
+            'formCreate' => $formCreate->createView(),
+            'formEditViewTab' => $formEditViewTab,
         ]);
     }
 
@@ -58,10 +85,8 @@ class AffaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->render('affaire/new.html.twig', [
-            'affaire' => $affaire,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('affaire_index');
+        
     }
 
     /**
@@ -83,15 +108,10 @@ class AffaireController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('affaire_index');
+            $this->getDoctrine()->getManager()->flush();            
         }
 
-        return $this->render('affaire/edit.html.twig', [
-            'affaire' => $affaire,
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('affaire_index');
     }
 
     /**
