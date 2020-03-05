@@ -5,66 +5,50 @@
 {% block body %}
 <h1>Affaire index</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nom_francais</th>
-            <th>Nom_basque</th>
-            <th>actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for affaire in affaires %}
-
-        {% set currentFormView = formEditViewTab[ loop.index0 ] %}
-        <tr>
-            <td>{{ affaire.id }}</td>
-            <td>{{ affaire.nomFrancais }}</td>
-            <td>{{ affaire.nomBasque }}</td>
-            <td>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalModificationAffaire">
-                    Modifier
-                </button>
-
-                <!-- Modal modification affaire -->
-                <div class="modal fade" id="modalModificationAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier une affaire</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body">
-
-                    {{ form_start(currentFormView) }}
-                    {{ form_row(currentFormView.nom_francais) }}
-                    {{ form_row(currentFormView.nom_basque) }}
-                    {{ form_row(currentFormView.type_affaire) }}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer !</button>
-                    </div>
-                    {{ form_end(currentFormView) }}
-                </div>
-            </div>
-        </div>
-    </td>
-</tr>
-{% else %}
-<tr>
-    <td colspan="4">Aucune affaire n'a été eregistré... Pourquoi pas en créer une maintenant ?</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreationAffaire">
   Créer une affaire
 </button>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom français</th>
+            <th>Nom basque</th>
+            <th>Type de l'affaire</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for affaire in affaires %}
+         <td>{{ affaire.nomFrancais }}</td>
+        <td>{{ affaire.nomBasque }}</td>
+        <td>{% if affaire.typeAffaire.nom is null %}Aucun
+        {%else%} {{affaire.typeAffaire.nom}}
+        {%endif%}
+         </td>
+
+        <td>
+            <a type="button" href="{{path('affaire_modification',{'id':affaire.id})}}" class="btn btn-primary">
+                Modifier
+            </a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSuppressionAffaire">
+                Supprimer
+            </button>
+            {{ include('affaire/_delete_form.html.twig') }}
+            
+
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="4">Aucune affaire n'a été eregistré... Pourquoi pas en créer une maintenant ?</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
 
 <!-- Modal création affaire -->
 <div class="modal fade" id="modalCreationAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -74,23 +58,39 @@
         <h5 class="modal-title" id="exampleModalLongTitle">Créer une affaire</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+     {{ form_start(formCreate) }}
+         {{ form_row(formCreate.nom_francais) }}
+         {{ form_row(formCreate.nom_basque) }}
+         {{ form_row(formCreate.type_affaire) }}
+         <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+             <button type="submit" class="btn btn-primary">Enregistrer !</button>
+        </div>
+    {{ form_end(formCreate) }}
+    </div>
+    </div>
+</div>
+
+<!-- Modal suppression affaire -->
+<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
       </button>
   </div>
   <div class="modal-body">
-    {{ form_start(formCreate) }}
-    {{ form_row(formCreate.nom_francais) }}
-    {{ form_row(formCreate.nom_basque) }}
-    {{ form_row(formCreate.type_affaire) }}
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="submit" class="btn btn-primary">Enregistrer !</button>
-    </div>
-    {{ form_end(formCreate) }}
-
     
 </div>
 </div>
 </div>
+
+
 
 
 

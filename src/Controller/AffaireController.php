@@ -27,46 +27,24 @@ class AffaireController extends AbstractController
      */
     public function index(AffaireRepository $affaireRepository, Request $request): Response
     {
-        //CrImplémentation du formulaire de création d'une affaire
+        //Cette fonction index créé une affaire avant même que l'utilisateur ne l'ait demandé, c'est qui n'est pas optimisé
+    
+        //Implémentation du formulaire de création d'une affaire
         $nouvelleAffaire = new Affaire();
         $formCreate = $this->createForm(AffaireType::class, $nouvelleAffaire);
         $formCreate->handleRequest($request);
 
-        /*if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($nouvelleAffaire);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('affaire_index');
-        }*/
-
-        //Implémentation d'un tableau de formulaires permettant la modification d'un affaire en particulier
         $toutesLesAffaires = $affaireRepository->findAll();
-        $formEditViewTab = array();//Ce tableau servira à stocker les vues des formulaires edit générés
-        $formEditTab = array();//Ce tableau sert à stocker les formulaires pour tester s'ils sont submitted et valid
 
-        foreach ($toutesLesAffaires as $uneAffaire) {
-            $formEdit = $this->createForm(AffaireType::class, $uneAffaire);
-            $formEdit->handleRequest($request);
-
-            array_push($formEditTab, $formEdit);
-
-            /*if ($formEdit->isSubmitted() && $formEdit->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($uneAffaire);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('affaire_index');
-            }*/
-
-            $formEdit = $formEdit->createView();
-            array_push($formEditViewTab, $formEdit);
+        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($affaire);
+            $entityManager->flush();
         }
 
         return $this->render('affaire/index.html.twig', [
             'affaires' => $toutesLesAffaires,
             'formCreate' => $formCreate->createView(),
-            'formEditViewTab' => $formEditViewTab,
         ]);
     }
 
@@ -74,7 +52,8 @@ class AffaireController extends AbstractController
      * @Route("/", name="affaire_creation", methods={"GET","POST"})
      */
     public function newAffaire(Request $request): Response
-    {
+    {//TODO : Supprimer cette action;, ou enlever cette action déjà présente dans l'action métier de la route index.
+    //Elle a été mise deux fois pour des raisons de simplicités (pour afficher le formulaire lors du chargement de l'index)
         $affaire = new Affaire();
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
@@ -90,17 +69,7 @@ class AffaireController extends AbstractController
     }
 
     /**
-     * @Route("/", name="affaire_consultation", methods={"GET"})
-     */
-    public function showAffaire(Affaire $affaire): Response
-    {
-        return $this->render('affaire/show.html.twig', [
-            'affaire' => $affaire,
-        ]);
-    }
-
-    /**
-     * @Route("/", name="affaire_modification", methods={"GET","POST"})
+     * @Route("/modification/{id}", name="affaire_modification", methods={"GET","POST"})
      */
     public function editAffaire(Request $request, Affaire $affaire): Response
     {
@@ -108,10 +77,17 @@ class AffaireController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();            
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('affaire_index');            
         }
 
-        return $this->redirectToRoute('affaire_index');
+        return $this->render('affaire/edit.html.twig', [
+            'affaire' => $affaire,
+            'form' => $form->createView(),
+        ]);
+
+        
     }
 
     /**
