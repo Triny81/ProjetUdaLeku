@@ -6,7 +6,7 @@
 <h1>Affaire index</h1>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreationAffaire">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreationAffaire">
   Créer une affaire
 </button>
 
@@ -34,17 +34,37 @@
                 Modifier
             </a>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSuppressionAffaire">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
                 Supprimer
             </button>
-            {{ include('affaire/_delete_form.html.twig') }}
+
+<!-- Modal suppression affaire -->
+<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <h3><center>Êtes-vous sûr de vouloir supprimer l'affaire {{affaire.nomFrancais}} ?</center></h3>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>
+        {{ include('affaire/_delete_form.html.twig') }}
+    </div>
+</div>
+</div>
+
             
 
         </td>
     </tr>
     {% else %}
     <tr>
-        <td colspan="4">Aucune affaire n'a été eregistré... Pourquoi pas en créer une maintenant ?</td>
+        <td colspan="4"><center>Aucune affaire n'a été eregistré... Pourquoi pas en créer une maintenant ?</center></td>
     </tr>
     {% endfor %}
 </tbody>
@@ -72,22 +92,6 @@
     {{ form_end(formCreate) }}
     </div>
     </div>
-</div>
-
-<!-- Modal suppression affaire -->
-<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
-    
-</div>
-</div>
 </div>
 
 

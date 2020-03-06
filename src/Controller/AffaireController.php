@@ -91,7 +91,7 @@ class AffaireController extends AbstractController
     }
 
     /**
-     * @Route("/", name="affaire_suppression", methods={"DELETE"})
+     * @Route("/modification/{id}", name="affaire_suppression", methods={"DELETE"})
      */
     public function deleteAffaire(Request $request, Affaire $affaire): Response
     {

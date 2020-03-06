@@ -1,13 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Affaire{% endblock %}
+{% block title %}Modification d'affaire{% endblock %}
 
 {% block body %}
-    <h1>Edit Affaire</h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-10">
+			<h1>Modifier une affaire</h1>
+		</div>
+		<div class="col-md-2">
+			<a type="button" class="btn btn-small btn-primary" href="{{ path('affaire_index') }}">Retour</a>
+		</div>
+	</div>
+</div>
+    
 
     {{ include('affaire/_form.html.twig') }}
-    
-    <a href="{{ path('affaire_index') }}">back to list</a>
 
-    {{ include('affaire/_delete_form.html.twig') }}
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+            Supprimer
+     </button>
+
+    <!-- Modal suppression affaire -->
+<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <h3><center>Êtes-vous sûr de vouloir supprimer l'affaire {{affaire.nomFrancais}} ?</center></h3>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>{{ include('affaire/_delete_form.html.twig') }}
+    </div>
+</div>
+</div>
 {% endblock %}

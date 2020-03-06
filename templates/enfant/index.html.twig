@@ -35,6 +35,7 @@
                 <td>
                     <a href="{{ path('enfant_consultation', {'id': enfant.id}) }}">show</a>
                     <a href="{{ path('enfant_modification', {'id': enfant.id}) }}">edit</a>
+                    {{ include('enfant/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
