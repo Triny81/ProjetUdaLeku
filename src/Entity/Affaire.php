@@ -6,8 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AffaireRepository")
+ * @UniqueEntity(fields={"nom_francais"}, message="Cette affaire existe déjà !")
  */
 class Affaire
 {
@@ -20,11 +25,21 @@ class Affaire
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\Length(max = 40,
+     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
+     * @Assert\Type(type="string",
+     *              message = "On ne peux pas créer une affaire avec des chiffres !")
      */
     private $nom_francais;
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\Length(max = 40,
+     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
+     * @Assert\Type(type="string",
+     *              message = "On ne peux pas créer une affaire avec des chiffres !")
      */
     private $nom_basque;
 

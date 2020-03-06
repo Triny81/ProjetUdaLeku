@@ -63,7 +63,7 @@ class AffaireController extends AbstractController
             $entityManager->persist($affaire);
             $entityManager->flush();
         }
-
+        
         return $this->redirectToRoute('affaire_index');
         
     }
@@ -160,4 +160,6 @@ class AffaireController extends AbstractController
 
         return $this->redirectToRoute('type_affaire_index');
     }
+
+
 }
