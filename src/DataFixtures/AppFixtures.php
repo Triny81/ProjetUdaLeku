@@ -61,11 +61,13 @@ class AppFixtures extends Fixture
 		$affaire = new affaire();
 		$affaire -> setNomFrancais("T-shirt");
 		$affaire -> setNomBasque("Tix-sharix");
+		$affaire -> setTypeAffaire($typeAffaire);
 		$manager->persist($affaire);
 
 		$affaire = new affaire();
 		$affaire -> setNomFrancais("Baskets");
 		$affaire -> setNomBasque("Basktaxa");
+		$affaire -> setTypeAffaire($typeAffaire);
 		$manager->persist($affaire);
 
 		//TypeAffaire
@@ -77,6 +79,7 @@ class AppFixtures extends Fixture
 		$affaire = new affaire();
 		$affaire -> setNomFrancais("Serviette");
 		$affaire -> setNomBasque("Servetxin");
+		$affaire -> setTypeAffaire($typeAffaire);
 		$manager->persist($affaire);
 		
 		//TypeAffaire
