@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
 		$etablissement2 -> setVille("Bayonne");
 		$manager->persist($etablissement2);
 
-		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES
+		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES/RESP LAGAUX
           for ($i = 0; $i < 5; $i++)
           {
 
@@ -89,6 +89,16 @@ class AppFixtures extends Fixture
 			$responsableLegal -> setTelTrav($faker -> phoneNumber);
 			$manager->persist($responsableLegal);
 
+			// ResponsableLegal 2
+			$responsableLegal2 = new ResponsableLegal();
+			$responsableLegal2 -> setNom($faker -> lastName);
+			$responsableLegal2 -> setPrenom($faker -> firstNameMale);
+			$responsableLegal2 -> setEmail($faker -> email);
+			$responsableLegal2 -> setTelDom($faker -> phoneNumber);
+			$responsableLegal2 -> setTelPort($faker -> phoneNumber);
+			$responsableLegal2 -> setTelTrav($faker -> phoneNumber);
+			$manager->persist($responsableLegal2);
+
 			// Enfant  
             $enfant = new Enfant();
 			$enfant -> setNom($faker -> lastName);
@@ -98,6 +108,7 @@ class AppFixtures extends Fixture
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
 			$enfant -> addResponsableLegal($responsableLegal);
+			$enfant -> addResponsableLegal($responsableLegal2);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
 

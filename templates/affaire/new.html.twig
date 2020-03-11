@@ -3,7 +3,16 @@
 {% block title %}New Affaire{% endblock %}
 
 {% block body %}
-    <h1>Create new affaire</h1>
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-10">
+			<h1>Inscription d'un enfant</h1>
+		</div>
+		<div class="col-md-2">
+			<a type="button" class="btn btn-small btn-primary" href="{{ path('affaire_index') }}">Retour</a>
+		</div>
+	</div>
+</div>
 
     {{ include('affaire/_form.html.twig') }}
 

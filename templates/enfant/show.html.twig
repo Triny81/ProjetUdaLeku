@@ -3,6 +3,9 @@
 {% block title %}Enfant{% endblock %}
 
 {% block body %}
+<a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
+    Inscire un nouvel enfant
+</a>
     <div class="container-fluid">
     <div class="row">
         <div class="col-md-10">
@@ -52,12 +55,20 @@
                 <td>{{ enfant.codePostal }}</td>
             </tr>
             <tr>
-                <th>Etablissement</th>
-                <td>{{ enfant.responsable_legal.nom|capitalize }} {{ enfant.responsable_legal.prenom }}</td>
+                <th>Responsables légaux</th>
+                <td>
+                 {% for responsable in responsablesLegaux %}
+                    {{ responsable.nom|upper }} {{ responsable.prenom }} </br>
+                {% endfor %}
+                </td>
             </tr>
             <tr>
-                <th>Code Postal</th>
+                <th>Centre</th>
                 <td>{{ enfant.centre.ville }}</td>
+            </tr>
+            <tr>
+                <th>Établissement</th>
+                <td>{{ enfant.etablissement.nom }}</td>
             </tr>
         </tbody>
     </table>

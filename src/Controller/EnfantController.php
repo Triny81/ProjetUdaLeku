@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Enfant;
 use App\Form\EnfantType;
 use App\Repository\EnfantRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,8 +54,13 @@ class EnfantController extends AbstractController
      */
     public function show(Enfant $enfant): Response
     {
+        $repEnfant = $this->getDoctrine()->getRepository(Enfant::class);
+
+        $respLegaux = $enfant->getResponsableLegal();
+
         return $this->render('enfant/show.html.twig', [
             'enfant' => $enfant,
+            'responsablesLegaux' => $respLegaux,
         ]);
     }
 
