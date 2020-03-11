@@ -1,4 +1,11 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.date_naiss) }}
+    {{ form_row(form.remarque) }}
+    {{ form_row(form.adresse_1) }}
+    {{ form_row(form.adresse_2) }}
+    {{ form_row(form.ville) }}
+    {{ form_row(form.code_postal) }}
+    <button type="submit" class="btn btn-primary">Enregistrer !</button>
 {{ form_end(form) }}

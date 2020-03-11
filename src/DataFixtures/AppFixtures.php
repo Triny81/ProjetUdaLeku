@@ -22,8 +22,45 @@ class AppFixtures extends Fixture
         // Création d'un générateur de données Faker
           $faker = \Faker\Factory::create('fr_FR');
 
-          for ($i = 0; $i <= 10; $i++)
+
+		// Centre
+		$centre1 = new Centre();
+		$centre1 -> setVille("Bayonne");
+		$manager->persist($centre1);
+		
+		$centre2 = new Centre();
+		$centre2 -> setVille("Ustaritz");
+		$manager->persist($centre2);
+		
+		$centre3 = new Centre();
+		$centre3 -> setVille("Biarritz");
+		$manager->persist($centre3);
+		
+		// Etablissement
+		$etablissement1 = new Etablissement();
+		$etablissement1 -> setNom("Jean Cavailles");
+		$etablissement1 -> setVille("Bayonne");
+		$manager->persist($etablissement1);
+		
+		$etablissement2 = new Etablissement();
+		$etablissement2 -> setNom("Jules Ferry");
+		$etablissement2 -> setVille("Bayonne");
+		$manager->persist($etablissement2);
+
+		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES
+          for ($i = 0; $i < 5; $i++)
           {
+
+			// ResponsableLegal
+			$responsableLegal = new ResponsableLegal();
+			$responsableLegal -> setNom($faker -> lastName);
+			$responsableLegal -> setPrenom($faker -> firstNameMale);
+			$responsableLegal -> setEmail($faker -> email);
+			$responsableLegal -> setTelDom($faker -> phoneNumber);
+			$responsableLegal -> setTelPort($faker -> phoneNumber);
+			$responsableLegal -> setTelTrav($faker -> phoneNumber);
+			$manager->persist($responsableLegal);
+
 			// Enfant  
             $enfant = new Enfant();
 			$enfant -> setNom($faker -> lastName);
@@ -32,6 +69,15 @@ class AppFixtures extends Fixture
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
+			$enfant -> addResponsableLegal($responsableLegal);
+			$enfant -> setEtablissement($etablissement1);
+			$enfant -> setCentre($centre1);
+			
+			$manager->persist($enfant);
+          }
+
+          for ($i = 0; $i < 5; $i++)
+          {
 			
 			// ResponsableLegal
 			$responsableLegal = new ResponsableLegal();
@@ -41,9 +87,22 @@ class AppFixtures extends Fixture
 			$responsableLegal -> setTelDom($faker -> phoneNumber);
 			$responsableLegal -> setTelPort($faker -> phoneNumber);
 			$responsableLegal -> setTelTrav($faker -> phoneNumber);
-			
-			$manager->persist($enfant);
 			$manager->persist($responsableLegal);
+
+			// Enfant  
+            $enfant = new Enfant();
+			$enfant -> setNom($faker -> lastName);
+			$enfant -> setPrenom($faker -> firstNameMale);
+			$enfant -> setDateNaiss($faker -> dateTimeBetween($startDate = '-15 years', $endDate = '-10 years', $timezone = null));
+			$enfant -> setAdresse1($faker -> address);
+			$enfant -> setVille($faker -> city);
+			$enfant -> setCodePostal("64100");
+			$enfant -> addResponsableLegal($responsableLegal);
+			$enfant -> setEtablissement($etablissement2);
+			$enfant -> setCentre($centre3);
+
+			$manager->persist($enfant);
+
           }
 
 		 // TypeAffaire
@@ -86,30 +145,6 @@ class AppFixtures extends Fixture
 		$typeAffaire = new typeAffaire();
 		$typeAffaire -> setNom("Autre");
 		$manager->persist($typeAffaire);
-		
-		// Centre
-		$centre = new Centre();
-		$centre -> setVille("Bayonne");
-		$manager->persist($centre);
-		
-		$centre = new Centre();
-		$centre -> setVille("Ustaritz");
-		$manager->persist($centre);
-		
-		$centre = new Centre();
-		$centre -> setVille("Biarritz");
-		$manager->persist($centre);
-		
-		// Etablissement
-		$etablissement = new Etablissement();
-		$etablissement -> setNom("Jean Cavailles");
-		$etablissement -> setVille("Bayonne");
-		$manager->persist($etablissement);
-		
-		$etablissement = new Etablissement();
-		$etablissement -> setNom("Jules Ferry");
-		$etablissement -> setVille("Bayonne");
-		$manager->persist($etablissement);
 		
 		// ListeAffaire
 		$listeAffaire = new ListeAffaire();

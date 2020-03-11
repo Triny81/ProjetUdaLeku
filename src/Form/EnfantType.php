@@ -20,10 +20,10 @@ class EnfantType extends AbstractType
             ->add('adresse_2')
             ->add('ville')
             ->add('code_postal')
-            ->add('responsable_legal')
-            ->add('etablissement')
-            ->add('centre')
-            ->add('sejour')
+            //->add('responsable_legal')
+            //->add('etablissement')
+            //->add('centre')
+            //->add('sejour')
         ;
     }
 
