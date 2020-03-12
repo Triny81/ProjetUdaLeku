@@ -8,29 +8,93 @@
 </head>
 <body>
   {% block menu %}
-  <nav class="navbar navbar-light bg-light">
+  <header>
+    <style language = "css">
+    #leMenu {
+      float:left;
+    }
+
+    #image {
+      margin-left: 95px;
+    }
+
+    leMenu.vertical-menu {
+      width: 200px; /* Set a width if you like */
+    }
+
+    .vertical-menu a {
+      background-color: #f8f9fa; /* Grey background color */
+      color: black; /* Black text color */
+      display: block; /* Make the links appear below each other */
+      padding: 12px; /* Add some padding */
+      text-decoration: none; /* Remove underline from links */
+    }
+
+    leMenu.vertical-menu a:hover {
+      background-color: #ccc; /* Dark grey background on mouse-over */
+    }
+
+    leMenu.vertical-menu a.active {
+      background-color: #4CAF50; /* Add a green color to the "active/current" link */
+      color: white;
+    }
+
+    #titreMenu{
+      font-size: 35px;
+      text-decoration: underline;
+      color : #ed2e3d;
+      font-weight: bold;
+    }
+
+    #gestionSejours{
+      font-size: 15px;
+      color : #00ac79;
+      font-weight: bold;
+    }
+
+    #gestionAffaires{
+      font-size: 15px;
+      color : #00ac79;
+      font-weight: bold;
+    }
+
+    #listeAffaires{
+      font-size: 15px;
+      color : #00ac79;
+      font-weight: bold;
+    }
+    
+    #gestionEnfants{
+      font-size: 15px;
+      color : #00ac79;
+      font-weight: bold;
+    }
+
+    </style>
+
+
+  <center>
+  <nav class="navbar navbar-light bg-light"  id="barre">
     <a class="navbar-brand" href="/">
-      <div class="logo">
-        <a href="/gestionSejours"><img src="https://udaleku.eus/lib/css/irudik/logoa-lauki.png" height="170" width="170" class="img-fluid"></a>
+      <div id="logo">
+        <a href="/gestionSejours"><img src="https://udaleku.eus/lib/css/irudik/logoa-lauki.png" height="170" width="170" class="img-fluid" id="image"></a>
       </div>
     </a>
     <a href="/login" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Connexion</a>
   </nav>
+</center>
+</header>
 
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link active" href="/gestionSejours">Gestion des séjours</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/gestionListesAffaires">Les listes d'affaires</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/gestionAffaires">Gestion des affaires</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/gestionEnfants">Gestion des enfants</a>
-    </li>
-  </ul>
+ <div  id = "leMenu">
+   <div class="vertical-menu">
+   <a href="#" class="inactive" id = "titreMenu" >Menu</a>
+   <a href="/gestionSejours" id = "gestionSejours">Gestion des séjours</a>
+   <a href="#" id = "listeAffaires" >Liste d'affaires</a>
+   <a href="/gestionAffaires" id = "gestionAffaires" >Gestion des affaires</a>
+   <a href="/gestionEnfants" id = "gestionEnfants">Gestion des enfants</a>
+ </div>
+</div>
+
   {% endblock %}
   {% block body %}  {% endblock %}
   {% block javascripts %}
