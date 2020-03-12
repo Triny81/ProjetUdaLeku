@@ -3,8 +3,133 @@
 {% block title %}Sejour index{% endblock %}
 
 {% block body %}
-    <h1>Sejour index</h1>
+    <h1> Gestion d'un séjour </h1>
+	
+	<a class="btn btn-primary" href="#" role="button"> Créer </a>
+	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
+	
+	<div class="btn-group" role="group">
+		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		  Options
+		</button>
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		  <a class="dropdown-item" href="#"> Modifier </a>
+		  <a class="dropdown-item" href="#"> Supprimer </a>
+		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
+		</div>
+	</div>
+	
+	<a class="btn btn-primary" href="#" role="button"> Valider </a>
+	<a class="btn btn-primary" href="#" role="button"> Annuler </a>
+	<hr>
+	
+	<div class="modal-body row">
+	  <div class="col-md-6">
+		
+		{# Partie concernant le séjour #}
+			
+				<fieldset>
+					<legend> Aucun </legend>
+					Séjour <input type="text">
+					
+					<div class="container">
+					  <div class="row">
+						<div class="col"> Date de début <input type= text> </div>
+						<div class="col"> Date de fin  <input type= text> </div>
+						<div class="w-100"></div>
+						<div class="col"> N°Ministre <input type= text> </div>
+						<div class="col"> Coût <input type= text> </div>
+					  </div>
+					</div>	
+				</fieldset>
+				
+				</br></br>
+				
+				Liste d'affaire pour ce séjour : 
+				<select class=form-control-5>
+					{% for sejour in sejours %}
+						<option value=un> {{sejour.nom}} </option>
+					{% endfor %}
+				</select>
+				<a class="btn btn-primary" href="#" role="button"> Modifier </a>
+				
+				<table class="table">
+					<thead>
+						<tr>
+							<th> Quantité </th>
+							<th> Français </th>
+							<th> Euskara </th>
+							<th> Type </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th> 1 </th>
+							<th> Serviette </th>
+							<th> Serviette en basque </th>
+							<th> Toilette </th>
+						</tr>
+						<tr>
+							<th> 1 </th>
+							<th> Serviette </th>
+							<th> Serviette en basque </th>
+							<th> Toilette </th>
+						</tr>
+						<tr>
+							<th> 1 </th>
+							<th> Serviette </th>
+							<th> Serviette en basque </th>
+							<th> Toilette </th>
+						</tr>
+					</tbody>
+				</table>
+		
+	  </div>
+	  <div class="col-md-6">
+		
+		{# Partie concernant les enfants #}
+			
+			Liste des enfants inscrits à ce séjour <a class="btn btn-primary" href="#" role="button"> Ajouter </a>
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Nom </th>
+						<th> Prénom </th>
+						<th> Centre </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th> NGUYEN </th>
+						<th> Romain </th>
+						<th> Bayonne </th>
+					</tr>
+					<tr>
+						<th> BALDASSINI </th>
+						<th> Franck </th>
+						<th> Biarritz </th>
+					</tr>
+					<tr>
+						<th> LEREMBOURE </th>
+						<th> Julen </th>
+						<th> Uztaritz </th>
+					</tr>
+					<tr>
+						<th> MAUPETIT </th>
+						<th> Julien </th>
+						<th> Biarritz </th>
+					</tr>
+				</tbody>
+			</table>
+		 
+	  </div>
+	</div>
+			
+	
 
+	
+
+{#
     {<table class="table">
         <thead>
             <tr>
@@ -37,7 +162,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
 
-    <a href="{{ path('sejour_creation') }}">Create new</a>}
+    <a href="{{ path('sejour_creation') }}">Create new</a>
 {% endblock %}
