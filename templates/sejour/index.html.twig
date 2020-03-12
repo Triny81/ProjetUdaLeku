@@ -47,9 +47,9 @@
 				
 				Liste d'affaire pour ce séjour : 
 				<select class=form-control-5>
-				 <option value=un> Été </option>
-				 <option value=deux> Hiver </option>
-				 <option value=trois> Équitation </option>
+					{% for sejour in sejours %}
+						<option value=un> {{sejour.nom}} </option>
+					{% endfor %}
 				</select>
 				<a class="btn btn-primary" href="#" role="button"> Modifier </a>
 				
