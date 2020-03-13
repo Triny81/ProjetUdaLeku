@@ -3,6 +3,14 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+
+<style language = "css">
+#laSecurite {
+  width:15%;
+}
+</style>
+<center>
+<div id = "laSecurite">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -39,4 +47,6 @@
         Sign in
     </button>
 </form>
+</div>
+</center>
 {% endblock %}

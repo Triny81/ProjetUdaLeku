@@ -22,7 +22,6 @@ class AppFixtures extends Fixture
         // Création d'un générateur de données Faker
           $faker = \Faker\Factory::create('fr_FR');
 
-
 		// Centre
 		$centre1 = new Centre();
 		$centre1 -> setVille("Bayonne");
