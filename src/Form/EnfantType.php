@@ -13,6 +13,9 @@ use App\Entity\ResponsableLegal;
 use App\Entity\Centre;
 use App\Entity\Sejour;
 
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
+
 
 class EnfantType extends AbstractType
 {
@@ -27,12 +30,13 @@ class EnfantType extends AbstractType
             ->add('adresse_2')
             ->add('ville')
             ->add('code_postal')
-            ->add('responsable_legal',EntityType::class, ['class'=>ResponsableLegal::class,
-                                                    'choice_label' => function ($responsable_legal) {
+            ->add('responsable_legal',CollectionType::class, ['entry_type'=>ResponsableLegalType::class,
+                                                                'entry_options' => ['label' => false]],)
+                                                    /*'choice_label' => function ($responsable_legal) {
                                                              return $responsable_legal->getNom()." ".$responsable_legal->getPrenom();
                                                      },
                                                     'expanded'=>false,
-                                                    'multiple'=>false,])
+                                                    'multiple'=>false,])*/
             ->add('etablissement',EntityType::class, ['class'=>Etablissement::class,
                                                     'choice_label'=>'nom',
                                                     'expanded'=>false,

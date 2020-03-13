@@ -80,14 +80,18 @@ class AppFixtures extends Fixture
           {
 			
 			// ResponsableLegal
-			$responsableLegal = new ResponsableLegal();
-			$responsableLegal -> setNom($faker -> lastName);
-			$responsableLegal -> setPrenom($faker -> firstNameMale);
-			$responsableLegal -> setEmail($faker -> email);
-			$responsableLegal -> setTelDom($faker -> phoneNumber);
-			$responsableLegal -> setTelPort($faker -> phoneNumber);
-			$responsableLegal -> setTelTrav($faker -> phoneNumber);
-			$manager->persist($responsableLegal);
+			$correspondantAdmin = new CorrespondantAdministratif();
+			$correspondantAdmin -> setNom($faker -> lastName);
+			$correspondantAdmin -> setPrenom($faker -> firstNameMale);
+			$correspondantAdmin -> setEmail($faker -> email);
+			$correspondantAdmin -> setTelDom($faker -> phoneNumber);
+			$correspondantAdmin -> setTelPort($faker -> phoneNumber);
+			$correspondantAdmin -> setTelTrav($faker -> phoneNumber);
+			$correspondantAdmin -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
+			$correspondantAdmin -> setAideCaf("Une quelconque aide de la CAF");
+			$correspondantAdmin -> setAideMsa("Une quelconque aide de la MSA");
+			$correspondantAdmin -> setAideAutres("Aucunes autres aides");
+			$manager->persist($correspondantAdmin);
 
 			// ResponsableLegal 2
 			$responsableLegal2 = new ResponsableLegal();
@@ -107,7 +111,7 @@ class AppFixtures extends Fixture
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
-			$enfant -> addResponsableLegal($responsableLegal);
+			$enfant -> addResponsableLegal($correspondantAdmin);
 			$enfant -> addResponsableLegal($responsableLegal2);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);

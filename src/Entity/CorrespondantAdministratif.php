@@ -9,12 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CorrespondantAdministratif extends ResponsableLegal
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+
 
     /**
      * @ORM\Column(type="string", length=20)

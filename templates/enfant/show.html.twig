@@ -55,13 +55,19 @@
                 <td>{{ enfant.codePostal }}</td>
             </tr>
             <tr>
-                <th>Responsables légaux</th>
+                <th>Correspondant administratif</th>
                 <td>
-                 {% for responsable in responsablesLegaux %}
-                    {{ responsable.nom|upper }} {{ responsable.prenom }} </br>
-                {% endfor %}
+                    {{ responsablesLegaux[0].nom|upper }} {{ responsablesLegaux[0].prenom }} </br>
                 </td>
             </tr>
+            {% if responsablesLegaux[1] is defined %}
+            <tr>
+                <th>Responsable légal</th>
+                <td>
+                    {{ responsablesLegaux[1].nom|upper }} {{ responsablesLegaux[1].prenom }} </br>
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <th>Centre</th>
                 <td>{{ enfant.centre.ville }}</td>

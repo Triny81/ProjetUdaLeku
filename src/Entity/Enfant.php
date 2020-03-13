@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\FormTypeInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -77,6 +79,8 @@ class Enfant
      * @ORM\ManyToMany(targetEntity="App\Entity\Sejour", inversedBy="enfants")
      */
     private $sejour;
+
+
 
     public function __construct()
     {
