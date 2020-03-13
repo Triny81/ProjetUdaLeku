@@ -6,6 +6,7 @@ use App\Entity\Sejour;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SejourType extends AbstractType
 {
@@ -17,8 +18,10 @@ class SejourType extends AbstractType
             ->add('date_fin')
             ->add('num_ministre')
             ->add('cout')
-            ->add('enfants')
-            ->add('listeAffaire')
+            ->add('enfants', CollectionType::class,	['entry_type' => Enfant::class,
+													'entry_options' => ['nom' => false],])
+            ->add('listeAffaire', CollectionType::class, ['entry_type' => ListeAffaire::class,
+														 'entry_options' => ['nom' => false], ])
         ;
     }
 
