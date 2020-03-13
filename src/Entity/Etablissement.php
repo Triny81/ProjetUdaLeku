@@ -33,6 +33,8 @@ class Etablissement
      */
     private $enfants;
 
+
+
     public function __construct()
     {
         $this->enfants = new ArrayCollection();
@@ -97,4 +99,6 @@ class Etablissement
 
         return $this;
     }
+
+    
 }

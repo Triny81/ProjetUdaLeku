@@ -5,10 +5,15 @@ namespace App\Controller;
 use App\Entity\Enfant;
 use App\Form\EnfantType;
 use App\Repository\EnfantRepository;
+use Symfony\Component\Form\FormTypeInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use App\Entity\CorrespondantAdministratif;
+use App\Entity\ResponsableLegal;
 
 /**
  * @Route("/gestionEnfants")
@@ -31,10 +36,16 @@ class EnfantController extends AbstractController
     public function new(Request $request): Response
     {
         $enfant = new Enfant();
+        $correspondantAdmin = new CorrespondantAdministratif();
+        $enfant->getResponsableLegal()->add($correspondantAdmin);
+        $repondableLegal = new ResponsableLegal();
+        $enfant->getResponsableLegal()->add($correspondantAdmin);
+
         $form = $this->createForm(EnfantType::class, $enfant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enfant);
             $entityManager->flush();
@@ -53,8 +64,13 @@ class EnfantController extends AbstractController
      */
     public function show(Enfant $enfant): Response
     {
+        $repEnfant = $this->getDoctrine()->getRepository(Enfant::class);
+
+        $respLegaux = $enfant->getResponsableLegal();
+
         return $this->render('enfant/show.html.twig', [
             'enfant' => $enfant,
+            'responsablesLegaux' => $respLegaux,
         ]);
     }
 

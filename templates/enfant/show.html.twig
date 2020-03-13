@@ -3,8 +3,19 @@
 {% block title %}Enfant{% endblock %}
 
 {% block body %}
-    <h1>Enfant</h1>
-
+<a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
+    Inscire un nouvel enfant
+</a>
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Consultation de la fiche d'un enfant</h1>
+        </div>
+        <div class="col-md-2">
+            <a type="button" class="btn btn-small btn-primary" href="{{ path('enfant_index') }}">Retour</a>
+        </div>
+    </div>
+</div>
     <table class="table">
         <tbody>
             <tr>
@@ -20,7 +31,7 @@
                 <td>{{ enfant.prenom }}</td>
             </tr>
             <tr>
-                <th>Date_naiss</th>
+                <th>Date de naissance</th>
                 <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
@@ -28,11 +39,11 @@
                 <td>{{ enfant.remarque }}</td>
             </tr>
             <tr>
-                <th>Adresse_1</th>
+                <th>Adresse 1</th>
                 <td>{{ enfant.adresse1 }}</td>
             </tr>
             <tr>
-                <th>Adresse_2</th>
+                <th>Adresse 2</th>
                 <td>{{ enfant.adresse2 }}</td>
             </tr>
             <tr>
@@ -40,15 +51,56 @@
                 <td>{{ enfant.ville }}</td>
             </tr>
             <tr>
-                <th>Code_postal</th>
+                <th>Code Postal</th>
                 <td>{{ enfant.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Correspondant administratif</th>
+                <td>
+                    {{ responsablesLegaux[0].nom|upper }} {{ responsablesLegaux[0].prenom }} </br>
+                </td>
+            </tr>
+            {% if responsablesLegaux[1] is defined %}
+            <tr>
+                <th>Responsable légal</th>
+                <td>
+                    {{ responsablesLegaux[1].nom|upper }} {{ responsablesLegaux[1].prenom }} </br>
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Centre</th>
+                <td>{{ enfant.centre.ville }}</td>
+            </tr>
+            <tr>
+                <th>Établissement</th>
+                <td>{{ enfant.etablissement.nom }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('enfant_index') }}">back to list</a>
+    <a type="button" href="{{path('enfant_modification',{'id':enfant.id})}}" class="btn btn-primary">
+         Modifier
+     </a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">
+            Supprimer
+     </button>
 
-    <a href="{{ path('enfant_modification', {'id': enfant.id}) }}">edit</a>
-
-    {{ include('enfant/_delete_form.html.twig') }}
+    <!-- Modal suppression enfant -->
+<div class="modal fade" id="modalSuppressionEnfant" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Désinscrire un enfant</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+    <h3><center>Êtes-vous sûr de vouloir désinscrire {{enfant.prenom}} {{enfant.nom}} ?</center></h3>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas désinscrire</button>{{ include('enfant/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

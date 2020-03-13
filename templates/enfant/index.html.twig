@@ -1,50 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Enfant index{% endblock %}
+{% block title %}Gestionnaires d'inscription des enfants{% endblock %}
 
 {% block body %}
-    <h1>Enfant index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Date_naiss</th>
-                <th>Remarque</th>
-                <th>Adresse_1</th>
-                <th>Adresse_2</th>
-                <th>Ville</th>
-                <th>Code_postal</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<h1>Gestion des inscriptions des enfants</h1>
+<a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
+    Inscire un nouvel enfant
+</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Date de naissance</th>
+            <th>Centre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
         {% for enfant in enfants %}
-            <tr>
-                <td>{{ enfant.id }}</td>
-                <td>{{ enfant.nom }}</td>
-                <td>{{ enfant.prenom }}</td>
-                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
-                <td>{{ enfant.remarque }}</td>
-                <td>{{ enfant.adresse1 }}</td>
-                <td>{{ enfant.adresse2 }}</td>
-                <td>{{ enfant.ville }}</td>
-                <td>{{ enfant.codePostal }}</td>
-                <td>
-                    <a href="{{ path('enfant_consultation', {'id': enfant.id}) }}">show</a>
-                    <a href="{{ path('enfant_modification', {'id': enfant.id}) }}">edit</a>
-                    {{ include('enfant/_delete_form.html.twig') }}
-                </td>
-            </tr>
+        <tr>
+            <td>{{ enfant.nom }}</td>
+            <td>{{ enfant.prenom }}</td>
+            <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
+            <td>{{ enfant.centre.ville }}</td>
+            <td>
+                <a type="button" href="{{path('enfant_consultation',{'id':enfant.id})}}" class="btn btn-primary">
+                    Consulter
+                </a>
+            </td>
+        </tr>
         {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
+        <tr>
+            <td colspan="10">Aucun enfant n'a été encore inscrit... Pourquoi pas en inscrire un maintenant ?</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <a href="{{ path('enfant_creation') }}">Create new</a>
+
 {% endblock %}
