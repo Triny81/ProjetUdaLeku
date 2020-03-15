@@ -81,7 +81,7 @@ class Enfant
     private $sejour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="fk_enfants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $correspondant_administratif;
@@ -282,4 +282,5 @@ class Enfant
 
         return $this;
     }
+
 }

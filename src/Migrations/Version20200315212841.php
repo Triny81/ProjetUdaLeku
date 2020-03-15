@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200310155713 extends AbstractMigration
+final class Version20200315212841 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -26,7 +26,7 @@ final class Version20200310155713 extends AbstractMigration
         $this->addSql('CREATE TABLE centre (id INT AUTO_INCREMENT NOT NULL, ville VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE correspondant_administratif (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(70) NOT NULL, prenom VARCHAR(50) NOT NULL, email VARCHAR(255) NOT NULL, tel_dom VARCHAR(10) DEFAULT NULL, tel_port VARCHAR(10) NOT NULL, tel_trav VARCHAR(10) DEFAULT NULL, num_secu VARCHAR(20) NOT NULL, aide_caf VARCHAR(30) DEFAULT NULL, aide_msa VARCHAR(30) DEFAULT NULL, aide_autres VARCHAR(40) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE responsable_legal (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(70) NOT NULL, prenom VARCHAR(50) NOT NULL, email VARCHAR(255) NOT NULL, tel_dom VARCHAR(10) DEFAULT NULL, tel_port VARCHAR(10) NOT NULL, tel_trav VARCHAR(10) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE enfant (id INT AUTO_INCREMENT NOT NULL, etablissement_id INT DEFAULT NULL, centre_id INT DEFAULT NULL, nom VARCHAR(40) NOT NULL, prenom VARCHAR(40) NOT NULL, date_naiss DATE NOT NULL, remarque LONGTEXT DEFAULT NULL, adresse_1 VARCHAR(255) NOT NULL, adresse_2 VARCHAR(255) DEFAULT NULL, ville VARCHAR(50) NOT NULL, code_postal VARCHAR(6) NOT NULL, INDEX IDX_34B70CA2FF631228 (etablissement_id), INDEX IDX_34B70CA2463CD7C3 (centre_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE enfant (id INT AUTO_INCREMENT NOT NULL, etablissement_id INT DEFAULT NULL, centre_id INT DEFAULT NULL, correspondant_administratif_id INT NOT NULL, nom VARCHAR(40) NOT NULL, prenom VARCHAR(40) NOT NULL, date_naiss DATE NOT NULL, remarque LONGTEXT DEFAULT NULL, adresse_1 VARCHAR(255) NOT NULL, adresse_2 VARCHAR(255) DEFAULT NULL, ville VARCHAR(50) NOT NULL, code_postal VARCHAR(6) NOT NULL, INDEX IDX_34B70CA2FF631228 (etablissement_id), INDEX IDX_34B70CA2463CD7C3 (centre_id), INDEX IDX_34B70CA25D493FF4 (correspondant_administratif_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE enfant_responsable_legal (enfant_id INT NOT NULL, responsable_legal_id INT NOT NULL, INDEX IDX_3B709A61450D2529 (enfant_id), INDEX IDX_3B709A6146135043 (responsable_legal_id), PRIMARY KEY(enfant_id, responsable_legal_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE enfant_sejour (enfant_id INT NOT NULL, sejour_id INT NOT NULL, INDEX IDX_159E7E65450D2529 (enfant_id), INDEX IDX_159E7E6584CF0CF (sejour_id), PRIMARY KEY(enfant_id, sejour_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE etablissement (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(60) NOT NULL, ville VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -38,6 +38,7 @@ final class Version20200310155713 extends AbstractMigration
         $this->addSql('ALTER TABLE affaire ADD CONSTRAINT FK_9C3F18EFED813170 FOREIGN KEY (type_affaire_id) REFERENCES type_affaire (id)');
         $this->addSql('ALTER TABLE enfant ADD CONSTRAINT FK_34B70CA2FF631228 FOREIGN KEY (etablissement_id) REFERENCES etablissement (id)');
         $this->addSql('ALTER TABLE enfant ADD CONSTRAINT FK_34B70CA2463CD7C3 FOREIGN KEY (centre_id) REFERENCES centre (id)');
+        $this->addSql('ALTER TABLE enfant ADD CONSTRAINT FK_34B70CA25D493FF4 FOREIGN KEY (correspondant_administratif_id) REFERENCES correspondant_administratif (id)');
         $this->addSql('ALTER TABLE enfant_responsable_legal ADD CONSTRAINT FK_3B709A61450D2529 FOREIGN KEY (enfant_id) REFERENCES enfant (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE enfant_responsable_legal ADD CONSTRAINT FK_3B709A6146135043 FOREIGN KEY (responsable_legal_id) REFERENCES responsable_legal (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE enfant_sejour ADD CONSTRAINT FK_159E7E65450D2529 FOREIGN KEY (enfant_id) REFERENCES enfant (id) ON DELETE CASCADE');
@@ -54,6 +55,7 @@ final class Version20200310155713 extends AbstractMigration
 
         $this->addSql('ALTER TABLE liste_affaire_affaire DROP FOREIGN KEY FK_CA81ADF3F082E755');
         $this->addSql('ALTER TABLE enfant DROP FOREIGN KEY FK_34B70CA2463CD7C3');
+        $this->addSql('ALTER TABLE enfant DROP FOREIGN KEY FK_34B70CA25D493FF4');
         $this->addSql('ALTER TABLE enfant_responsable_legal DROP FOREIGN KEY FK_3B709A6146135043');
         $this->addSql('ALTER TABLE enfant_responsable_legal DROP FOREIGN KEY FK_3B709A61450D2529');
         $this->addSql('ALTER TABLE enfant_sejour DROP FOREIGN KEY FK_159E7E65450D2529');

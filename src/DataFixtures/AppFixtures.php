@@ -49,6 +49,19 @@ class AppFixtures extends Fixture
 		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES/RESP LAGAUX
           for ($i = 0; $i < 5; $i++)
           {
+			// Admin
+			$correspondantAdmin = new CorrespondantAdministratif();
+			$correspondantAdmin -> setNom($faker -> lastName);
+			$correspondantAdmin -> setPrenom($faker -> firstNameMale);
+			$correspondantAdmin -> setEmail($faker -> email);
+			$correspondantAdmin -> setTelDom($faker -> phoneNumber);
+			$correspondantAdmin -> setTelPort($faker -> phoneNumber);
+			$correspondantAdmin -> setTelTrav($faker -> phoneNumber);
+			$correspondantAdmin -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
+			$correspondantAdmin -> setAideCaf("Une quelconque aide de la CAF");
+			$correspondantAdmin -> setAideMsa("Une quelconque aide de la MSA");
+			$correspondantAdmin -> setAideAutres("Aucunes autres aides");
+			$manager->persist($correspondantAdmin);
 
 			// ResponsableLegal
 			$responsableLegal = new ResponsableLegal();
@@ -111,8 +124,8 @@ class AppFixtures extends Fixture
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
-			$enfant -> addResponsableLegal($correspondantAdmin);
 			$enfant -> addResponsableLegal($responsableLegal2);
+			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
 
