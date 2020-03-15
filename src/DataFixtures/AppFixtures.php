@@ -69,6 +69,7 @@ class AppFixtures extends Fixture
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
 			$enfant -> addResponsableLegal($responsableLegal);
+			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement1);
 			$enfant -> setCentre($centre1);
 			

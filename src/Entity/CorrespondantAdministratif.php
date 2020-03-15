@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,17 @@ class CorrespondantAdministratif extends ResponsableLegal
      * @ORM\Column(type="string", length=40, nullable=true)
      */
     private $aide_autres;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="correspondant_administratif")
+     */
+    private $enfants;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->enfants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -80,6 +93,37 @@ class CorrespondantAdministratif extends ResponsableLegal
     public function setAideAutres(?string $aide_autres): self
     {
         $this->aide_autres = $aide_autres;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enfant[]
+     */
+    public function getEnfants(): Collection
+    {
+        return $this->enfants;
+    }
+
+    public function addEnfant(Enfant $enfant): self
+    {
+        if (!$this->enfants->contains($enfant)) {
+            $this->enfants[] = $enfant;
+            $enfant->setCorrespondantAdministratif($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnfant(Enfant $enfant): self
+    {
+        if ($this->enfants->contains($enfant)) {
+            $this->enfants->removeElement($enfant);
+            // set the owning side to null (unless already changed)
+            if ($enfant->getCorrespondantAdministratif() === $this) {
+                $enfant->setCorrespondantAdministratif(null);
+            }
+        }
 
         return $this;
     }

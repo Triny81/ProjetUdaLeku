@@ -80,6 +80,12 @@ class Enfant
      */
     private $sejour;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $correspondant_administratif;
+
 
 
     public function __construct()
@@ -261,6 +267,18 @@ class Enfant
         if ($this->sejour->contains($sejour)) {
             $this->sejour->removeElement($sejour);
         }
+
+        return $this;
+    }
+
+    public function getCorrespondantAdministratif(): ?CorrespondantAdministratif
+    {
+        return $this->correspondant_administratif;
+    }
+
+    public function setCorrespondantAdministratif(?CorrespondantAdministratif $correspondant_administratif): self
+    {
+        $this->correspondant_administratif = $correspondant_administratif;
 
         return $this;
     }
