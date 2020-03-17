@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="correspondant_administratif_id", type="string")
  * @ORM\DiscriminatorMap({"responsable_legal" = "ResponsableLegal", "correspondant_administratif" = "CorrespondantAdministratif"})
  */
+
 class ResponsableLegal
 {
     /**

@@ -106,7 +106,7 @@ class CorrespondantAdministratif extends ResponsableLegal
     {
         return $this->enfants;
     }
-
+    
     public function addEnfant(Enfant $enfant): self
     {
         if (!$this->enfants->contains($enfant)) {
