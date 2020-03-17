@@ -4,17 +4,11 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Form\FormTypeInterface;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResponsableLegalRepository")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="correspondant_administratif_id", type="string")
- * @ORM\DiscriminatorMap({"responsable_legal" = "ResponsableLegal", "correspondant_administratif" = "CorrespondantAdministratif"})
  */
-
 class ResponsableLegal
 {
     /**
@@ -22,37 +16,37 @@ class ResponsableLegal
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
-
-    /**
-     * @ORM\Column(type="string", length=70)
-     */
-    protected $nom;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    protected $prenom;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $email;
+    private $nom;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    protected $tel_dom;
+    private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=255)
      */
-    protected $tel_port;
+    private $email;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $tel_trav;
+    private $tel_dom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tel_port;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tel_trav;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
@@ -153,7 +147,7 @@ class ResponsableLegal
     {
         if (!$this->enfants->contains($enfant)) {
             $this->enfants[] = $enfant;
-            $enfant->addResponsableLegal($this);
+            $enfant->setResponsableLegal($this);
         }
 
         return $this;
@@ -163,7 +157,10 @@ class ResponsableLegal
     {
         if ($this->enfants->contains($enfant)) {
             $this->enfants->removeElement($enfant);
-            $enfant->removeResponsableLegal($this);
+            // set the owning side to null (unless already changed)
+            if ($enfant->getResponsableLegal() === $this) {
+                $enfant->setResponsableLegal(null);
+            }
         }
 
         return $this;

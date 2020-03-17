@@ -19,12 +19,12 @@ class Etablissement
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      */
     private $ville;
 
@@ -32,8 +32,6 @@ class Etablissement
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="etablissement")
      */
     private $enfants;
-
-
 
     public function __construct()
     {
@@ -99,6 +97,4 @@ class Etablissement
 
         return $this;
     }
-
-    
 }

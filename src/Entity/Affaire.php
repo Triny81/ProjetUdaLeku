@@ -44,18 +44,19 @@ class Affaire
     private $nom_basque;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ListeAffaire", mappedBy="affaire")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ListeAffaire", inversedBy="affaire")
      */
     private $listeAffaires;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeAffaire", inversedBy="affaires")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $type_affaire;
 
     public function __construct()
     {
-        $this->listeAffaires = new ArrayCollection();
+        $this->listeAffaire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,34 +88,6 @@ class Affaire
         return $this;
     }
 
-    /**
-     * @return Collection|ListeAffaire[]
-     */
-    public function getListeAffaires(): Collection
-    {
-        return $this->listeAffaires;
-    }
-
-    public function addListeAffaire(ListeAffaire $listeAffaire): self
-    {
-        if (!$this->listeAffaires->contains($listeAffaire)) {
-            $this->listeAffaires[] = $listeAffaire;
-            $listeAffaire->addAffaire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListeAffaire(ListeAffaire $listeAffaire): self
-    {
-        if ($this->listeAffaires->contains($listeAffaire)) {
-            $this->listeAffaires->removeElement($listeAffaire);
-            $listeAffaire->removeAffaire($this);
-        }
-
-        return $this;
-    }
-
     public function getTypeAffaire(): ?TypeAffaire
     {
         return $this->type_affaire;
@@ -123,6 +96,32 @@ class Affaire
     public function setTypeAffaire(?TypeAffaire $type_affaire): self
     {
         $this->type_affaire = $type_affaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ListeAffaire[]
+     */
+    public function getListeAffaire(): Collection
+    {
+        return $this->listeAffaire;
+    }
+
+    public function addListeAffaire(ListeAffaire $listeAffaire): self
+    {
+        if (!$this->listeAffaire->contains($listeAffaire)) {
+            $this->listeAffaire[] = $listeAffaire;
+        }
+
+        return $this;
+    }
+
+    public function removeListeAffaire(ListeAffaire $listeAffaire): self
+    {
+        if ($this->listeAffaire->contains($listeAffaire)) {
+            $this->listeAffaire->removeElement($listeAffaire);
+        }
 
         return $this;
     }

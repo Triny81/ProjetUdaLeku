@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Form\FormTypeInterface;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,19 +19,19 @@ class Enfant
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $date_naiss;
+    private $dateNaiss;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -51,19 +49,14 @@ class Enfant
     private $adresse_2;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="string", length=10)
      */
     private $code_postal;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
-     */
-    private $responsable_legal;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", inversedBy="enfants")
@@ -81,12 +74,15 @@ class Enfant
     private $sejour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="fk_enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
+     */
+    private $responsable_legal;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $correspondant_administratif;
-
-
 
     public function __construct()
     {
@@ -124,12 +120,12 @@ class Enfant
 
     public function getDateNaiss(): ?\DateTimeInterface
     {
-        return $this->date_naiss;
+        return $this->dateNaiss;
     }
 
-    public function setDateNaiss(\DateTimeInterface $date_naiss): self
+    public function setDateNaiss(\DateTimeInterface $dateNaiss): self
     {
-        $this->date_naiss = $date_naiss;
+        $this->dateNaiss = $dateNaiss;
 
         return $this;
     }
@@ -194,19 +190,6 @@ class Enfant
         return $this;
     }
 
-  
-    public function getResponsableLegal(): ?ResponsableLegal
-    {
-        return $this->responsable_legal;
-    }
-
-    public function setResponsableLegal(?ResponsableLegal $responsable_legal): self
-    {
-		$this->correspondant_administratif = $responsable_legal;
-		
-        return $this;
-    }
-
     public function getEtablissement(): ?Etablissement
     {
         return $this->etablissement;
@@ -257,6 +240,18 @@ class Enfant
         return $this;
     }
 
+    public function getResponsableLegal(): ?ResponsableLegal
+    {
+        return $this->responsable_legal;
+    }
+
+    public function setResponsableLegal(?ResponsableLegal $responsable_legal): self
+    {
+        $this->responsable_legal = $responsable_legal;
+
+        return $this;
+    }
+
     public function getCorrespondantAdministratif(): ?CorrespondantAdministratif
     {
         return $this->correspondant_administratif;
@@ -268,5 +263,4 @@ class Enfant
 
         return $this;
     }
-
 }
