@@ -61,7 +61,7 @@ class Enfant
     private $code_postal;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
      */
     private $responsable_legal;
 
@@ -81,7 +81,7 @@ class Enfant
     private $sejour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="fk_enfants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $correspondant_administratif;
@@ -90,7 +90,6 @@ class Enfant
 
     public function __construct()
     {
-        $this->responsable_legal = new ArrayCollection();
         $this->sejour = new ArrayCollection();
     }
 
@@ -195,29 +194,16 @@ class Enfant
         return $this;
     }
 
-    /**
-     * @return Collection|ResponsableLegal[]
-     */
-    public function getResponsableLegal(): Collection
+  
+    public function getResponsableLegal(): ?ResponsableLegal
     {
         return $this->responsable_legal;
     }
 
-    public function addResponsableLegal(ResponsableLegal $responsableLegal): self
+    public function setResponsableLegal(?ResponsableLegal $responsable_legal): self
     {
-        if (!$this->responsable_legal->contains($responsableLegal)) {
-            $this->responsable_legal[] = $responsableLegal;
-        }
-
-        return $this;
-    }
-
-    public function removeResponsableLegal(ResponsableLegal $responsableLegal): self
-    {
-        if ($this->responsable_legal->contains($responsableLegal)) {
-            $this->responsable_legal->removeElement($responsableLegal);
-        }
-
+		$this->correspondant_administratif = $responsable_legal;
+		
         return $this;
     }
 
@@ -282,4 +268,5 @@ class Enfant
 
         return $this;
     }
+
 }
