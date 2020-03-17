@@ -22,7 +22,6 @@ class CorrespondantAdministratifType extends AbstractType
             ->add('aide_caf')
             ->add('aide_msa')
             ->add('aide_autres')
-            ->add('enfants')
         ;
     }
 

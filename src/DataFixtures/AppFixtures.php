@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Création d'un générateur de données Faker
-          $faker = \Faker\Factory::create('fr_FR');
+         $faker = \Faker\Factory::create('fr_FR');
 
 		// Centre
 		$centre1 = new Centre();
@@ -69,7 +69,6 @@ class AppFixtures extends Fixture
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
 			$enfant -> addResponsableLegal($responsableLegal);
-			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement1);
 			$enfant -> setCentre($centre1);
 			
@@ -141,6 +140,12 @@ class AppFixtures extends Fixture
 		$affaire = new affaire();
 		$affaire -> setNomFrancais("Baskets");
 		$affaire -> setNomBasque("Basktaxa");
+		$affaire -> setTypeAffaire($typeAffaire);
+		$manager->persist($affaire);
+
+		$affaire = new affaire();
+		$affaire -> setNomFrancais("Une affaire sans type...");
+		$affaire -> setNomBasque("Affix sin tyx");
 		$affaire -> setTypeAffaire($typeAffaire);
 		$manager->persist($affaire);
 
