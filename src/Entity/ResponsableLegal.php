@@ -10,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResponsableLegalRepository")
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="correspondant_administratif_id", type="string")
- * @ORM\DiscriminatorMap({"responsable_legal" = "ResponsableLegal", "correspondant_administratif" = "CorrespondantAdministratif"})
  */
 
 class ResponsableLegal
@@ -22,40 +19,40 @@ class ResponsableLegal
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=70)
      */
-    protected $nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    protected $prenom;
+    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $email;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $tel_dom;
+    private $tel_dom;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    protected $tel_port;
+    private $tel_port;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $tel_trav;
+    private $tel_trav;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
      */
     private $enfants;
 
