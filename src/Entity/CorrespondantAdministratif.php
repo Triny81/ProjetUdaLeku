@@ -11,12 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CorrespondantAdministratif extends ResponsableLegal
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+  
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -41,7 +36,7 @@ class CorrespondantAdministratif extends ResponsableLegal
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="correspondant_administratif")
      */
-    private $enfants;
+    private $fk_enfants;
 
     public function __construct()
     {
@@ -130,5 +125,10 @@ class CorrespondantAdministratif extends ResponsableLegal
         }
 
         return $this;
+    }
+	
+	public function __toString(): string
+    {
+        return parent::getNom();
     }
 }

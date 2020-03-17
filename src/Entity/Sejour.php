@@ -44,7 +44,7 @@ class Sejour
     private $cout;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ListeAffaire", inversedBy="sejours")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ListeAffaire", inversedBy="sejour")
      */
     private $listeAffaire;
 

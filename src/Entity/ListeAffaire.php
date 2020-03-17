@@ -34,7 +34,7 @@ class ListeAffaire
     private $sejour;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="App\Entity\Affaire", mappedBy="listeAffaires")
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Affaire", inversedBy="listeAffaires")
  	 */
     private $affaire;
 

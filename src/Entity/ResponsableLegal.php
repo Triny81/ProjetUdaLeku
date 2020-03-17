@@ -4,10 +4,15 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\FormTypeInterface;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResponsableLegalRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="correspondant_administratif_id", type="string")
+ * @ORM\DiscriminatorMap({"responsable_legal" = "ResponsableLegal", "correspondant_administratif" = "CorrespondantAdministratif"})
  */
 class ResponsableLegal
 {
@@ -16,37 +21,37 @@ class ResponsableLegal
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    protected $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $prenom;
+    protected $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tel_dom;
+    protected $tel_dom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $tel_port;
+    protected $tel_port;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tel_trav;
+    protected $tel_trav;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
