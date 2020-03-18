@@ -19,12 +19,12 @@ class ListeAffaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom_francais;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom_basque;
 
@@ -32,16 +32,16 @@ class ListeAffaire
      * @ORM\OneToMany(targetEntity="App\Entity\Sejour", mappedBy="listeAffaire")
      */
     private $sejour;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Affaire", inversedBy="listeAffaires")
-     */
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Affaire", inversedBy="listeAffaires")
+ 	 */
     private $affaire;
 
     public function __construct()
     {
-        $this->sejour = new ArrayCollection();
         $this->affaire = new ArrayCollection();
+        $this->sejour = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,6 +74,34 @@ class ListeAffaire
     }
 
     /**
+     * @return Collection|Affaire[]
+     */
+    public function getAffaire(): Collection
+    {
+        return $this->affaire;
+    }
+
+    public function addAffaire(Affaire $affaire): self
+    {
+        if (!$this->affaire->contains($affaire)) {
+            $this->affaire[] = $affaire;
+            $affaire->addListeAffaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffaire(Affaire $affaire): self
+    {
+        if ($this->affaire->contains($affaire)) {
+            $this->affaire->removeElement($affaire);
+            $affaire->removeListeAffaire($this);
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection|Sejour[]
      */
     public function getSejour(): Collection
@@ -99,32 +127,6 @@ class ListeAffaire
             if ($sejour->getListeAffaire() === $this) {
                 $sejour->setListeAffaire(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Affaire[]
-     */
-    public function getAffaire(): Collection
-    {
-        return $this->affaire;
-    }
-
-    public function addAffaire(Affaire $affaire): self
-    {
-        if (!$this->affaire->contains($affaire)) {
-            $this->affaire[] = $affaire;
-        }
-
-        return $this;
-    }
-
-    public function removeAffaire(Affaire $affaire): self
-    {
-        if ($this->affaire->contains($affaire)) {
-            $this->affaire->removeElement($affaire);
         }
 
         return $this;

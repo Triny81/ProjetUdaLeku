@@ -44,14 +44,14 @@ class Sejour
     private $cout;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="sejour")
-     */
-    private $enfants;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ListeAffaire", inversedBy="sejour")
      */
     private $listeAffaire;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="sejour")
+     */
+    private $enfants;
 
     public function __construct()
     {
@@ -123,6 +123,18 @@ class Sejour
         return $this;
     }
 
+    public function getListeAffaire(): ?ListeAffaire
+    {
+        return $this->listeAffaire;
+    }
+
+    public function setListeAffaire(?ListeAffaire $listeAffaire): self
+    {
+        $this->listeAffaire = $listeAffaire;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Enfant[]
      */
@@ -147,18 +159,6 @@ class Sejour
             $this->enfants->removeElement($enfant);
             $enfant->removeSejour($this);
         }
-
-        return $this;
-    }
-
-    public function getListeAffaire(): ?ListeAffaire
-    {
-        return $this->listeAffaire;
-    }
-
-    public function setListeAffaire(?ListeAffaire $listeAffaire): self
-    {
-        $this->listeAffaire = $listeAffaire;
 
         return $this;
     }

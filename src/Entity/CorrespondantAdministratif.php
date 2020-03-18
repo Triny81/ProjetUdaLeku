@@ -12,34 +12,32 @@ use Doctrine\ORM\Mapping as ORM;
 class CorrespondantAdministratif extends ResponsableLegal
 {	
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255)
      */
     private $num_secu;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $aide_caf;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $aide_msa;
 
     /**
-     * @ORM\Column(type="string", length=40, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $aide_autres;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="correspondant_administratif", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="correspondant_administratif")
      */
     private $fk_enfants;
 
-
     public function __construct()
     {
-        parent::__construct();
         $this->enfants = new ArrayCollection();
     }
 
@@ -65,7 +63,7 @@ class CorrespondantAdministratif extends ResponsableLegal
         return $this->aide_caf;
     }
 
-    public function setAideCaf(?string $aide_caf): self
+    public function setAideCaf(string $aide_caf): self
     {
         $this->aide_caf = $aide_caf;
 
@@ -77,7 +75,7 @@ class CorrespondantAdministratif extends ResponsableLegal
         return $this->aide_msa;
     }
 
-    public function setAideMsa(?string $aide_msa): self
+    public function setAideMsa(string $aide_msa): self
     {
         $this->aide_msa = $aide_msa;
 
@@ -89,7 +87,7 @@ class CorrespondantAdministratif extends ResponsableLegal
         return $this->aide_autres;
     }
 
-    public function setAideAutres(?string $aide_autres): self
+    public function setAideAutres(string $aide_autres): self
     {
         $this->aide_autres = $aide_autres;
 
@@ -103,7 +101,7 @@ class CorrespondantAdministratif extends ResponsableLegal
     {
         return $this->enfants;
     }
-    
+
     public function addEnfant(Enfant $enfant): self
     {
         if (!$this->enfants->contains($enfant)) {

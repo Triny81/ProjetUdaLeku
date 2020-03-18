@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResponsableLegalRepository")
  */
-
 class ResponsableLegal
 {
     /**
@@ -22,12 +21,12 @@ class ResponsableLegal
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
@@ -37,17 +36,17 @@ class ResponsableLegal
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel_dom;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=255)
      */
     private $tel_port;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel_trav;
 
@@ -150,7 +149,7 @@ class ResponsableLegal
     {
         if (!$this->enfants->contains($enfant)) {
             $this->enfants[] = $enfant;
-            $enfant->addResponsableLegal($this);
+            $enfant->setResponsableLegal($this);
         }
 
         return $this;
@@ -160,7 +159,10 @@ class ResponsableLegal
     {
         if ($this->enfants->contains($enfant)) {
             $this->enfants->removeElement($enfant);
-            $enfant->removeResponsableLegal($this);
+            // set the owning side to null (unless already changed)
+            if ($enfant->getResponsableLegal() === $this) {
+                $enfant->setResponsableLegal(null);
+            }
         }
 
         return $this;
