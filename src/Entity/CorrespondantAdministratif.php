@@ -10,7 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\CorrespondantAdministratifRepository")
  */
 class CorrespondantAdministratif extends ResponsableLegal
+<<<<<<< HEAD
 {	
+=======
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+>>>>>>> parent of 6914955... La BD remarche pour moi, go tester
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -34,7 +45,7 @@ class CorrespondantAdministratif extends ResponsableLegal
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="correspondant_administratif")
      */
-    private $fk_enfants;
+    private $enfants;
 
     public function __construct()
     {
@@ -124,5 +135,8 @@ class CorrespondantAdministratif extends ResponsableLegal
 
         return $this;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 6914955... La BD remarche pour moi, go tester
 }
