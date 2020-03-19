@@ -67,10 +67,11 @@ class EnfantController extends AbstractController
         $repEnfant = $this->getDoctrine()->getRepository(Enfant::class);
 
         $respLegaux = $enfant->getResponsableLegal();
+		
+		$corrAdmin = $enfant->getCorrespondantAdministratif();
 
         return $this->render('enfant/show.html.twig', [
             'enfant' => $enfant,
-            'responsablesLegaux' => $respLegaux,
         ]);
     }
 

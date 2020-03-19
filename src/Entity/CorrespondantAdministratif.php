@@ -9,8 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CorrespondantAdministratifRepository")
  */
-class CorrespondantAdministratif extends ResponsableLegal
-{	
+class CorrespondantAdministratif
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -35,6 +42,11 @@ class CorrespondantAdministratif extends ResponsableLegal
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="correspondant_administratif")
      */
     private $fk_enfants;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="correspondantAdministratif", cascade={"persist", "remove"})
+     */
+    private $responsableLegal;
 
     public function __construct()
     {
@@ -125,4 +137,15 @@ class CorrespondantAdministratif extends ResponsableLegal
         return $this;
     }
 
+    public function getResponsableLegal(): ?ResponsableLegal
+    {
+        return $this->responsableLegal;
+    }
+
+    public function setResponsableLegal(?ResponsableLegal $responsableLegal): self
+    {
+        $this->responsableLegal = $responsableLegal;
+
+        return $this;
+    }
 }

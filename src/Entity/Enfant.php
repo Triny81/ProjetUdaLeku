@@ -88,7 +88,6 @@ class Enfant
 
     public function __construct()
     {
-        $this->responsable_legal = new ArrayCollection();
         $this->sejour = new ArrayCollection();
     }
 
