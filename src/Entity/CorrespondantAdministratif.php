@@ -136,9 +136,7 @@ class CorrespondantAdministratif
 
         return $this;
     }
-<<<<<<< HEAD
 
-<<<<<<< HEAD
     public function getResponsableLegal(): ?ResponsableLegal
     {
         return $this->responsableLegal;
@@ -150,8 +148,4 @@ class CorrespondantAdministratif
 
         return $this;
     }
-=======
-=======
->>>>>>> parent of 6914955... La BD remarche pour moi, go tester
->>>>>>> ca375fb5b9738250af33e21a7634ac644b999f27
 }
