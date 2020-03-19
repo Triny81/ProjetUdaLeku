@@ -44,12 +44,13 @@ class Affaire
     private $nom_basque;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ListeAffaire", mappedBy="affaire")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ListeAffaire", inversedBy="affaire")
      */
     private $listeAffaires;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeAffaire", inversedBy="affaires")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $type_affaire;
 
