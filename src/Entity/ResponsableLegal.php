@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Form\FormTypeInterface;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,6 +55,11 @@ class ResponsableLegal
      * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
      */
     private $enfants;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CorrespondantAdministratif", mappedBy="responsableLegal", cascade={"persist", "remove"})
+     */
+    private $correspondantAdministratif;
 
     public function __construct()
     {
@@ -166,6 +169,24 @@ class ResponsableLegal
             if ($enfant->getResponsableLegal() === $this) {
                 $enfant->setResponsableLegal(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getCorrespondantAdministratif(): ?CorrespondantAdministratif
+    {
+        return $this->correspondantAdministratif;
+    }
+
+    public function setCorrespondantAdministratif(?CorrespondantAdministratif $correspondantAdministratif): self
+    {
+        $this->correspondantAdministratif = $correspondantAdministratif;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newResponsableLegal = null === $correspondantAdministratif ? null : $this;
+        if ($correspondantAdministratif->getResponsableLegal() !== $newResponsableLegal) {
+            $correspondantAdministratif->setResponsableLegal($newResponsableLegal);
         }
 
         return $this;

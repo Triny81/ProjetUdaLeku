@@ -143,24 +143,10 @@ class AppFixtures extends Fixture
 		$manager->persist($cirque);
 		$manager->persist($equitation);
 
-		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES/RESP LAGAUX
+		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES/NOMBRE DE RESP LEGAUX
           for ($i = 0; $i < 5; $i++)
           {
-			// Admin
-			$correspondantAdmin = new CorrespondantAdministratif();
-			$correspondantAdmin -> setNom($faker -> lastName);
-			$correspondantAdmin -> setPrenom($faker -> firstNameMale);
-			$correspondantAdmin -> setEmail($faker -> email);
-			$correspondantAdmin -> setTelDom($faker -> phoneNumber);
-			$correspondantAdmin -> setTelPort($faker -> phoneNumber);
-			$correspondantAdmin -> setTelTrav($faker -> phoneNumber);
-			$correspondantAdmin -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
-			$correspondantAdmin -> setAideCaf("Une quelconque aide de la CAF");
-			$correspondantAdmin -> setAideMsa("Une quelconque aide de la MSA");
-			$correspondantAdmin -> setAideAutres("Aucunes autres aides");
-			$manager->persist($correspondantAdmin);
-
-			// ResponsableLegal
+          	// ResponsableLegal
 			$responsableLegal = new ResponsableLegal();
 			$responsableLegal -> setNom($faker -> lastName);
 			$responsableLegal -> setPrenom($faker -> firstNameMale);
@@ -169,6 +155,25 @@ class AppFixtures extends Fixture
 			$responsableLegal -> setTelPort($faker -> phoneNumber);
 			$responsableLegal -> setTelTrav($faker -> phoneNumber);
 			$manager->persist($responsableLegal);
+
+			// Responsable Legal, qui sera correspondant admin (tout le monde est correspondant légal !)
+			$responsableLegalCorresp = new ResponsableLegal();
+			$responsableLegalCorresp -> setNom($faker -> lastName);
+			$responsableLegalCorresp -> setPrenom($faker -> firstNameMale);
+			$responsableLegalCorresp -> setEmail($faker -> email);
+			$responsableLegalCorresp -> setTelDom($faker -> phoneNumber);
+			$responsableLegalCorresp -> setTelPort($faker -> phoneNumber);
+			$responsableLegalCorresp -> setTelTrav($faker -> phoneNumber);
+			$manager->persist($responsableLegalCorresp);
+
+			// Admin
+			$correspondantAdmin = new CorrespondantAdministratif();
+			$correspondantAdmin -> setResponsableLegal($responsableLegalCorresp);
+			$correspondantAdmin -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
+			$correspondantAdmin -> setAideCaf("Une quelconque aide de la CAF");
+			$correspondantAdmin -> setAideMsa("Une quelconque aide de la MSA");
+			$correspondantAdmin -> setAideAutres("Aucunes autres aides");
+			$manager->persist($correspondantAdmin);
 
 			// Enfant  
             $enfant = new Enfant();
@@ -188,30 +193,24 @@ class AppFixtures extends Fixture
 
           for ($i = 0; $i < 5; $i++)
           {
-			
-			// ResponsableLegal
+			// Responsable Legal, qui sera correspondant admin
+			$responsableLegalCorresp = new ResponsableLegal();
+			$responsableLegalCorresp -> setNom($faker -> lastName);
+			$responsableLegalCorresp -> setPrenom($faker -> firstNameMale);
+			$responsableLegalCorresp -> setEmail($faker -> email);
+			$responsableLegalCorresp -> setTelDom($faker -> phoneNumber);
+			$responsableLegalCorresp -> setTelPort($faker -> phoneNumber);
+			$responsableLegalCorresp -> setTelTrav($faker -> phoneNumber);
+			$manager->persist($responsableLegalCorresp);
+
+			// Admin
 			$correspondantAdmin = new CorrespondantAdministratif();
-			$correspondantAdmin -> setNom($faker -> lastName);
-			$correspondantAdmin -> setPrenom($faker -> firstNameMale);
-			$correspondantAdmin -> setEmail($faker -> email);
-			$correspondantAdmin -> setTelDom($faker -> phoneNumber);
-			$correspondantAdmin -> setTelPort($faker -> phoneNumber);
-			$correspondantAdmin -> setTelTrav($faker -> phoneNumber);
+			$correspondantAdmin -> setResponsableLegal($responsableLegalCorresp);
 			$correspondantAdmin -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
 			$correspondantAdmin -> setAideCaf("Une quelconque aide de la CAF");
 			$correspondantAdmin -> setAideMsa("Une quelconque aide de la MSA");
 			$correspondantAdmin -> setAideAutres("Aucunes autres aides");
 			$manager->persist($correspondantAdmin);
-
-			// ResponsableLegal 2
-			$responsableLegal2 = new ResponsableLegal();
-			$responsableLegal2 -> setNom($faker -> lastName);
-			$responsableLegal2 -> setPrenom($faker -> firstNameMale);
-			$responsableLegal2 -> setEmail($faker -> email);
-			$responsableLegal2 -> setTelDom($faker -> phoneNumber);
-			$responsableLegal2 -> setTelPort($faker -> phoneNumber);
-			$responsableLegal2 -> setTelTrav($faker -> phoneNumber);
-			$manager->persist($responsableLegal2);
 
 			// Enfant  
             $enfant = new Enfant();
@@ -221,7 +220,10 @@ class AppFixtures extends Fixture
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
+<<<<<<< HEAD
 			$enfant -> setResponsableLegal($responsableLegal2);
+=======
+>>>>>>> 44df11fb43ec6cbb64dfe9445e7d7d9caa45702e
 			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
@@ -229,6 +231,117 @@ class AppFixtures extends Fixture
 			$manager->persist($enfant);
 
           }
+<<<<<<< HEAD
+=======
+
+         //Imaginons Jean-René le correspondant administratif de Mahmoud qui soit aussi le responsable d'Abdoul !
+
+          // Responsable Legal JEAN-RENÉ, qui sera correspondant admin (tout le monde est correspondant légal !)
+			$jeanReneRespLegal = new ResponsableLegal();
+			$jeanReneRespLegal -> setNom("Le corresp/responsable");
+			$jeanReneRespLegal -> setPrenom("Jean-René");
+			$jeanReneRespLegal -> setEmail($faker -> email);
+			$jeanReneRespLegal -> setTelDom($faker -> phoneNumber);
+			$jeanReneRespLegal -> setTelPort($faker -> phoneNumber);
+			$jeanReneRespLegal -> setTelTrav($faker -> phoneNumber);
+			$manager->persist($jeanReneRespLegal);
+
+			// Admin JEAN-RENÉ
+			$jeanReneCorrespondantAdmin = new CorrespondantAdministratif();
+			$jeanReneCorrespondantAdmin -> setResponsableLegal($jeanReneRespLegal);
+			$jeanReneCorrespondantAdmin -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
+			$jeanReneCorrespondantAdmin -> setAideCaf("Une quelconque aide de la CAF");
+			$jeanReneCorrespondantAdmin -> setAideMsa("Une quelconque aide de la MSA");
+			$jeanReneCorrespondantAdmin -> setAideAutres("Aucunes autres aides");
+			$manager->persist($jeanReneCorrespondantAdmin);
+
+			// Il lui faut un autre correspondant à Abdoul !
+			$responsableLegalCorrespAbdoul = new ResponsableLegal();
+			$responsableLegalCorrespAbdoul -> setNom("LUC");
+			$responsableLegalCorrespAbdoul -> setPrenom("Le corresp d'abdoul");
+			$responsableLegalCorrespAbdoul -> setEmail($faker -> email);
+			$responsableLegalCorrespAbdoul -> setTelDom($faker -> phoneNumber);
+			$responsableLegalCorrespAbdoul -> setTelPort($faker -> phoneNumber);
+			$responsableLegalCorrespAbdoul -> setTelTrav($faker -> phoneNumber);
+			$manager->persist($responsableLegalCorrespAbdoul);
+
+			// Admin d'Abdoul
+			$correspondantAdminAbdoul = new CorrespondantAdministratif();
+			$correspondantAdminAbdoul -> setResponsableLegal($responsableLegalCorrespAbdoul);
+			$correspondantAdminAbdoul -> setNumSecu($faker -> numberBetween($min = 100000000000000, $max = 999999999999999));
+			$correspondantAdminAbdoul -> setAideCaf("Une quelconque aide de la CAF");
+			$correspondantAdminAbdoul -> setAideMsa("Une quelconque aide de la MSA");
+			$correspondantAdminAbdoul -> setAideAutres("Aucunes autres aides");
+			$manager->persist($correspondantAdminAbdoul);
+
+          // Enfant  abdoul (jean-rené resp)
+            $abdoul = new Enfant();
+			$abdoul -> setNom($faker -> lastName);
+			$abdoul -> setPrenom("Abdoul");
+			$abdoul -> setDateNaiss($faker -> dateTimeBetween($startDate = '-15 years', $endDate = '-10 years', $timezone = null));
+			$abdoul -> setAdresse1($faker -> address);
+			$abdoul -> setVille($faker -> city);
+			$abdoul -> setCodePostal("64100");
+			$abdoul -> setCorrespondantAdministratif($correspondantAdminAbdoul);
+			$abdoul -> setResponsableLegal($jeanReneRespLegal);
+			$abdoul -> setEtablissement($etablissement2);
+			$abdoul -> setCentre($centre3);
+			$manager->persist($abdoul);
+
+			//Enfant mahmoud (jean-rené corresp. admin)
+			$mahmoud = new Enfant();
+			$mahmoud -> setNom($faker -> lastName);
+			$mahmoud -> setPrenom("Mahmoud");
+			$mahmoud -> setDateNaiss($faker -> dateTimeBetween($startDate = '-15 years', $endDate = '-10 years', $timezone = null));
+			$mahmoud -> setAdresse1($faker -> address);
+			$mahmoud -> setVille($faker -> city);
+			$mahmoud -> setCodePostal("64100");
+			$mahmoud -> setCorrespondantAdministratif($jeanReneCorrespondantAdmin);
+			$mahmoud -> setEtablissement($etablissement2);
+			$mahmoud -> setCentre($centre3);
+			$manager->persist($mahmoud);
+
+		 // TypeAffaire
+		$typeAffaire = new typeAffaire();
+		$typeAffaire -> setNom("Vêtement");
+		$manager->persist($typeAffaire);
+
+		// Moultes Affaires
+		$affaire = new affaire();
+		$affaire -> setNomFrancais("Lunette");
+		$affaire -> setNomBasque("Lunettax");
+		$affaire -> setTypeAffaire($typeAffaire);
+		$manager -> persist($affaire);
+
+		$affaire = new affaire();
+		$affaire -> setNomFrancais("T-shirt");
+		$affaire -> setNomBasque("Tix-sharix");
+		$affaire -> setTypeAffaire($typeAffaire);
+		$manager->persist($affaire);
+
+		$affaire = new affaire();
+		$affaire -> setNomFrancais("Baskets");
+		$affaire -> setNomBasque("Basktaxa");
+		$affaire -> setTypeAffaire($typeAffaire);
+		$manager->persist($affaire);
+
+		//TypeAffaire
+		$typeAffaire = new typeAffaire();
+		$typeAffaire -> setNom("Toilette");
+		$manager->persist($typeAffaire);
+
+		// Affaire
+		$affaire = new affaire();
+		$affaire -> setNomFrancais("Serviette");
+		$affaire -> setNomBasque("Servetxin");
+		$affaire -> setTypeAffaire($typeAffaire);
+		$manager->persist($affaire);
+		
+		//TypeAffaire
+		$typeAffaire = new typeAffaire();
+		$typeAffaire -> setNom("Autre");
+		$manager->persist($typeAffaire);
+>>>>>>> 44df11fb43ec6cbb64dfe9445e7d7d9caa45702e
 		
 		
         $manager->flush();

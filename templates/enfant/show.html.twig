@@ -57,14 +57,14 @@
             <tr>
                 <th>Correspondant administratif</th>
                 <td>
-                     {{ enfant.correspondantAdministratif }}
+                     {{ enfant.correspondantAdministratif.responsableLegal.nom|upper }} {{ enfant.correspondantAdministratif.responsableLegal.prenom}}
                 </td>
             </tr>
-            {% if responsablesLegaux[1] is defined %}
+            {% if enfant.responsableLegal is not null %}
             <tr>
                 <th>Responsable légal</th>
                 <td>
-                    {{ responsablesLegaux[1].nom|upper }} {{ responsablesLegaux[1].prenom }} </br>
+                    {{ enfant.responsableLegal.nom|upper }} {{ enfant.responsableLegal.prenom }} </br>
                 </td>
             </tr>
             {% endif %}
