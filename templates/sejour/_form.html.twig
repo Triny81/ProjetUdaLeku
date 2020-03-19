@@ -1,4 +1,79 @@
+
 {{ form_start(form) }}
+
+<div class="modal-body row">
+	<div class="col-md-6">
+		
+	{# Partie concernant le séjour #}
+		<fieldset>
+			<legend> {{ sejour.nom }} </legend>
+			{{ form_row(form.nom) }}
+			
+			<div class="container">
+			  <div class="row">
+				<div class="col"> {{ form_row(form.date_debut) }} </div>
+				<div class="col"> {{ form_row(form.date_fin) }} </div>
+				<div class="w-100"></div>
+				<div class="col"> {{ form_row(form.num_ministre) }} </div>
+				<div class="col"> {{ form_row(form.cout) }} </div>
+			  </div>
+			</div>	
+		</fieldset>
+
+		</br></br>
+		
+		
+		<select class=form-control-5 disabled>
+				<option value=un> {{sejour.listeAffaire}} </option>
+		</select>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th> Quantité </th>
+					<th> Français </th>
+					<th> Euskara </th>
+					<th> Type </th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for affaire in sejour.listeAffaire  %}
+				<tr>
+					<th> affaire.quantite </th>
+					<th> affaire.nomFrancais </th>
+					<th> affaire.nomBasque </th>
+					<th> affaire.type </th>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	  <div class="col-md-6">
+		
+		{# Partie concernant les enfants #}
+			
+			<a class="btn btn-primary" href="#" role="button"> Ajouter </a>
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Nom </th>
+						<th> Prénom </th>
+						<th> Centre </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for enfant in sejour.enfants  %}
+						<tr>
+							<th> enfant.nom </th>
+							<th> enfant.prenom </th>
+							<th> enfant.centre </th>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		 
+	  </div>
+	</div>
 
     {{ form_widget(form) }}
 	

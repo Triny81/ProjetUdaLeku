@@ -45,6 +45,103 @@ class AppFixtures extends Fixture
 		$etablissement2 -> setNom("Jules Ferry");
 		$etablissement2 -> setVille("Bayonne");
 		$manager->persist($etablissement2);
+		
+		// TypeAffaire
+		$vetement = new typeAffaire();
+		$vetement -> setNom("Vêtement");
+		$manager->persist($vetement);
+		
+		$toilette = new typeAffaire();
+		$toilette -> setNom("Toilette");
+		$manager->persist($toilette);
+		
+		$autres = new typeAffaire();
+		$autres -> setNom("Autre");
+		$manager->persist($autres);
+
+		// Moultes Affaires
+		
+		$tshirt = new affaire();
+		$tshirt -> setNomFrancais("T-shirt");
+		$tshirt -> setNomBasque("Tix-sharix");
+		$tshirt -> setTypeAffaire($vetement);
+		$manager->persist($tshirt);
+
+		$baskets = new affaire();
+		$baskets -> setNomFrancais("Baskets");
+		$baskets -> setNomBasque("Basktaxa");
+		$baskets -> setTypeAffaire($vetement);
+		$manager->persist($baskets);
+		
+		$serviette = new affaire();
+		$serviette -> setNomFrancais("Serviette");
+		$serviette -> setNomBasque("Servetxin");
+		$serviette -> setTypeAffaire($toilette);
+		$manager->persist($serviette);
+		
+		$brosseADent = new affaire();
+		$brosseADent -> setNomFrancais("Brosse à dent");
+		$brosseADent -> setNomBasque("Brosse à dentxin");
+		$brosseADent -> setTypeAffaire($toilette);
+		$manager -> persist($brosseADent);
+		
+		$lunette = new affaire();
+		$lunette -> setNomFrancais("Lunette");
+		$lunette -> setNomBasque("Lunettax");
+		$lunette -> setTypeAffaire($autres);
+		$manager -> persist($lunette);
+		
+		$plancheSurf = new affaire();
+		$plancheSurf -> setNomFrancais("Planche de surf");
+		$plancheSurf -> setNomBasque("Planche de surfxin");
+		$plancheSurf -> setTypeAffaire($autres);
+		$manager -> persist($plancheSurf);
+		
+	
+		// ListeAffaire
+		$listeEte = new ListeAffaire();
+		$listeEte -> setNomFrancais("Été");
+		$listeEte -> setNomBasque("???");
+		
+		$listeHiver = new ListeAffaire();
+		$listeHiver -> setNomFrancais("Hiver");
+		$listeHiver -> setNomBasque("???");
+
+		
+		// Et si on mettait des affaires dans les listes d'affaires ?
+		$listeEte -> addAffaire($tshirt);
+		$listeEte -> addAffaire($serviette);
+		$listeEte -> addAffaire($plancheSurf);
+		$manager->persist($listeEte);
+		
+		$listeHiver -> addAffaire($baskets);
+		$listeHiver -> addAffaire($lunette);
+		$listeHiver -> addAffaire($brosseADent);
+		$manager->persist($listeHiver);
+		
+		// Sejour
+		$cirque = new Sejour();
+		$cirque -> setNom("Cirque");
+		$cirque -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
+		$cirque -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
+		$cirque -> setNumMinistre("123456AX");
+		$cirque -> setCout(350);
+
+					
+		$equitation = new Sejour();
+		$equitation -> setNom("Equitation");
+		$equitation -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
+		$equitation -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
+		$equitation -> setNumMinistre("123456AX");
+		$equitation -> setCout(350);
+
+		
+		// Et si on associait les listes aux séjours ?
+		$equitation -> setListeAffaire($listeEte);
+		$cirque -> setListeAffaire($listeHiver);
+		
+		$manager->persist($cirque);
+		$manager->persist($equitation);
 
 		//DOUBLE BOUCLE, JUSTE POUR VARIER LES ETABLISSEMENT/CENTRES/RESP LAGAUX
           for ($i = 0; $i < 5; $i++)
@@ -81,7 +178,7 @@ class AppFixtures extends Fixture
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
-			$enfant -> addResponsableLegal($responsableLegal);
+			$enfant -> setResponsableLegal($responsableLegal);
 			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement1);
 			$enfant -> setCentre($centre1);
@@ -124,7 +221,7 @@ class AppFixtures extends Fixture
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
 			$enfant -> setCodePostal("64100");
-			$enfant -> addResponsableLegal($responsableLegal2);
+			$enfant -> setResponsableLegal($responsableLegal2);
 			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
@@ -132,77 +229,8 @@ class AppFixtures extends Fixture
 			$manager->persist($enfant);
 
           }
-
-		 // TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Vêtement");
-		$manager->persist($typeAffaire);
-
-		// Moultes Affaires
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Lunette");
-		$affaire -> setNomBasque("Lunettax");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager -> persist($affaire);
-
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("T-shirt");
-		$affaire -> setNomBasque("Tix-sharix");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Baskets");
-		$affaire -> setNomBasque("Basktaxa");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-
-		//TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Toilette");
-		$manager->persist($typeAffaire);
-
-		// Affaire
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Serviette");
-		$affaire -> setNomBasque("Servetxin");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
 		
-		//TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Autre");
-		$manager->persist($typeAffaire);
 		
-		// ListeAffaire
-		$listeAffaire = new ListeAffaire();
-		$listeAffaire -> setNomFrancais("Été");
-		$listeAffaire -> setNomBasque("???");
-		$manager->persist($listeAffaire);
-		
-		$listeAffaire = new ListeAffaire();
-		$listeAffaire -> setNomFrancais("Hiver");
-		$listeAffaire -> setNomBasque("???");
-		$manager->persist($listeAffaire);
-		
-		// Séjour
-		$sejour = new Sejour();
-		$sejour -> setNom("Cirque");
-		$sejour -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejour -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejour -> setNumMinistre("123456AX");
-		$sejour -> setCout(350);
-		$manager->persist($sejour);
-		
-		$sejour = new Sejour();
-		$sejour -> setNom("Equitation");
-		$sejour -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejour -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejour -> setNumMinistre("123456AX");
-		$sejour -> setCout(350);
-		$manager->persist($sejour);
-		
-
         $manager->flush();
     }
 }

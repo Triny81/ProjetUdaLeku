@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\CorrespondantAdministratifRepository")
  */
 class CorrespondantAdministratif extends ResponsableLegal
-{	
+{
+  
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -124,5 +126,9 @@ class CorrespondantAdministratif extends ResponsableLegal
 
         return $this;
     }
-
+	
+	public function __toString(): string
+    {
+        return parent::getNom();
+    }
 }
