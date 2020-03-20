@@ -9,11 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CorrespondantAdministratifRepository")
  */
-<<<<<<< HEAD
-class CorrespondantAdministratif extends ResponsableLegal
-{
-  
-=======
+
 class CorrespondantAdministratif
 {
     /**
@@ -22,7 +18,6 @@ class CorrespondantAdministratif
      * @ORM\Column(type="integer")
      */
     private $id;
->>>>>>> 44df11fb43ec6cbb64dfe9445e7d7d9caa45702e
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -142,12 +137,10 @@ class CorrespondantAdministratif
 
         return $this;
     }
-<<<<<<< HEAD
 	
 	public function __toString(): string
     {
         return parent::getNom();
-=======
 
     public function getResponsableLegal(): ?ResponsableLegal
     {
@@ -159,6 +152,6 @@ class CorrespondantAdministratif
         $this->responsableLegal = $responsableLegal;
 
         return $this;
->>>>>>> 44df11fb43ec6cbb64dfe9445e7d7d9caa45702e
     }
+	
 }

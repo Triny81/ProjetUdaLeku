@@ -219,11 +219,8 @@ class AppFixtures extends Fixture
 			$enfant -> setDateNaiss($faker -> dateTimeBetween($startDate = '-15 years', $endDate = '-10 years', $timezone = null));
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
-			$enfant -> setCodePostal("64100");
-<<<<<<< HEAD
-			$enfant -> setResponsableLegal($responsableLegal2);
-=======
->>>>>>> 44df11fb43ec6cbb64dfe9445e7d7d9caa45702e
+			$enfant -> setCodePostal("64100");			$enfant -> setResponsableLegal($responsableLegal2);
+
 			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
@@ -231,8 +228,6 @@ class AppFixtures extends Fixture
 			$manager->persist($enfant);
 
           }
-<<<<<<< HEAD
-=======
 
          //Imaginons Jean-René le correspondant administratif de Mahmoud qui soit aussi le responsable d'Abdoul !
 
@@ -341,7 +336,6 @@ class AppFixtures extends Fixture
 		$typeAffaire = new typeAffaire();
 		$typeAffaire -> setNom("Autre");
 		$manager->persist($typeAffaire);
->>>>>>> 44df11fb43ec6cbb64dfe9445e7d7d9caa45702e
 		
 		
         $manager->flush();
