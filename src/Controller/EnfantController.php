@@ -86,7 +86,7 @@ class EnfantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('enfant_index');
+            return $this->redirectToRoute('enfant_modification');
         }
 
         return $this->render('enfant/edit.html.twig', [

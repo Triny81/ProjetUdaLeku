@@ -19,10 +19,6 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ enfant.id }}</td>
-            </tr>
-            <tr>
                 <th>Nom</th>
                 <td>{{ enfant.nom }}</td>
             </tr>
@@ -32,18 +28,22 @@
             </tr>
             <tr>
                 <th>Date de naissance</th>
-                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
+                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('d/m/Y') : '' }}</td>
             </tr>
             <tr>
-                <th>Remarque</th>
-                <td>{{ enfant.remarque }}</td>
+                <th>Établissement scolaire</th>
+                <td>{{ enfant.etablissement.nom }}</td>
             </tr>
             <tr>
-                <th>Adresse 1</th>
+                <th>Centre</th>
+                <td>{{ enfant.centre.ville }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
                 <td>{{ enfant.adresse1 }}</td>
             </tr>
             <tr>
-                <th>Adresse 2</th>
+                <th>Complément</th>
                 <td>{{ enfant.adresse2 }}</td>
             </tr>
             <tr>
@@ -53,6 +53,10 @@
             <tr>
                 <th>Code Postal</th>
                 <td>{{ enfant.codePostal }}</td>
+            </tr>            
+            <tr>
+                <th>Remarque</th>
+                <td>{{ enfant.remarque }}</td>
             </tr>
             <tr>
                 <th>Correspondant administratif</th>
@@ -68,14 +72,15 @@
                 </td>
             </tr>
             {% endif %}
+            {% if enfant.sejour is not null %}
             <tr>
-                <th>Centre</th>
-                <td>{{ enfant.centre.ville }}</td>
+                <th>Séjours</th>
+                <td>{% for sejour in enfant.sejour %}
+                        {{ sejour }} </br>
+                    {% endfor %}
+                </td>
             </tr>
-            <tr>
-                <th>Établissement</th>
-                <td>{{ enfant.etablissement.nom }}</td>
-            </tr>
+            {% endif %}
         </tbody>
     </table>
 

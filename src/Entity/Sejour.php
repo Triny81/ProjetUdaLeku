@@ -162,4 +162,8 @@ class Sejour
 
         return $this;
     }
+
+    public function __toString(){
+        return $this->getNom()." (du ".$this->getDateDebut()->format("d/m/Y")." au ".$this->getDateFin()->format("d/m/Y").")";
+    }
 }
