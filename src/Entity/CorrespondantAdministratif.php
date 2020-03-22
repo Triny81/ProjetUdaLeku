@@ -137,10 +137,6 @@ class CorrespondantAdministratif
 
         return $this;
     }
-	
-	public function __toString(): string
-    {
-        return parent::getNom();
 
     public function getResponsableLegal(): ?ResponsableLegal
     {

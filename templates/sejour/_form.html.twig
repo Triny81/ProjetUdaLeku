@@ -22,9 +22,11 @@
 
 		</br></br>
 		
-		
-		<select class=form-control-5 disabled>
-				<option value=un> {{sejour.listeAffaire}} </option>
+		Liste d'affaire pour ce séjour :
+		<select class=form-control-5>
+
+				<option value=un> Ete </option>
+
 		</select>
 		
 		<table class="table">
@@ -39,10 +41,10 @@
 			<tbody>
 				{% for affaire in sejour.listeAffaire  %}
 				<tr>
-					<th> affaire.quantite </th>
-					<th> affaire.nomFrancais </th>
-					<th> affaire.nomBasque </th>
-					<th> affaire.type </th>
+					<td> affaire.quantite </td>
+					<td> affaire.nomFrancais </td>
+					<td> affaire.nomBasque </td>
+					<td> affaire.type </td>
 				</tr>
 			{% endfor %}
 			</tbody>
@@ -64,9 +66,9 @@
 				<tbody>
 					{% for enfant in sejour.enfants  %}
 						<tr>
-							<th> enfant.nom </th>
-							<th> enfant.prenom </th>
-							<th> enfant.centre </th>
+							<td> {{ enfant.nom }} </td>
+							<td> {{ enfant.prenom }} </td>
+							<td> {{ enfant.centre.ville }} </td>
 						</tr>
 					{% endfor %}
 				</tbody>

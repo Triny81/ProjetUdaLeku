@@ -26,14 +26,12 @@
 	<div class="modal-body row">
 	  <div class="col-md-6">
 		
-		{# Partie concernant le séjour #}
-			
-				<fieldset disabled>
-					<legend> {{ sejour.nom }} </legend>
-					
-					<div class="container">
-					  <div class="row">
-					  
+		{# Partie concernant le séjour #}		
+			<fieldset disabled>
+				<legend> {{ sejour.nom }} </legend>
+				
+				<div class="container">
+					<div class="row">				  
 						<div class="col-sm-3"> Sejour </div>
 						<div class="col-sm-9"> <input type="text" placeholder=" {{sejour.nom}} "> </div>
 							  
@@ -50,44 +48,43 @@
 						<div class="col"> <input type= text placeholder=" {{sejour.numMinistre}} "> </div>
 						<div class="col"> Coût </div>
 						<div class="col"> <input type= text placeholder=" {{sejour.cout}} "> </div>
-					  </div>
-					</div>	
-				</fieldset>
-				
-				</br></br>
-				
-				Liste d'affaire pour ce séjour : 
-				<select class=form-control-5>
-						<option value=un> {{sejour.listeAffaire.nomFrancais}} </option>
-				</select>
-				<a class="btn btn-primary" href="#" role="button"> Modifier </a>
-				
-				<table class="table">
-					<thead>
-						<tr>
-							<th> Quantité </th>
-							<th> Français </th>
-							<th> Euskara </th>
-							<th> Type </th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for affaire in sejour.listeAffaire  %}
-							<tr>
-								<th> {{ affaire.quantite[affaire] }} </th>
-								<th> {{ affaire.nomFrancais[affaire] }} </th>
-								<th> {{ affaire.nomBasque[affaire] }} </th>
-								<th> {{ affaire.type[affaire] }} </th>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-		
-	  </div>
-	  <div class="col-md-6">
-		
-		{# Partie concernant les enfants #}
+					</div>
+				</div>	
+			</fieldset>
 			
+			</br></br>
+			
+			Liste d'affaire pour ce séjour : 
+			<select class=form-control-5>
+					<option value=un> {{sejour.listeAffaire.nomFrancais}} </option>
+			</select>
+			<a class="btn btn-primary" href="#" role="button"> Modifier </a>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Quantité </th>
+						<th> Français </th>
+						<th> Euskara </th>
+						<th> Type </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for affaire in sejour.listeAffaire.affaire  %}
+						<tr>
+							<td> {{ affaire.id }} </td>
+							<td> {{ affaire.nomFrancais }} </td>
+							<td> {{ affaire.nomBasque }} </td>
+							<td> {{ affaire.typeAffaire.nom }} </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		
+	</div>
+	<div class="col-md-6">
+		
+		{# Partie concernant les enfants #}			
 			Liste des enfants inscrits à ce séjour <a class="btn btn-primary" href="#" role="button"> Ajouter </a>
 			<table class="table">
 				<thead>
@@ -100,9 +97,9 @@
 				<tbody>
 					{% for enfant in sejour.enfants  %}
 						<tr>
-							<th> enfant.nom </th>
-							<th> enfant.prenom </th>
-							<th> enfant.centre </th>
+							<td> {{ enfant.nom }} </td>
+							<td> {{ enfant.prenom }} </td>
+							<td> {{ enfant.centre.ville }} </td>
 						</tr>
 					{% endfor %}
 				</tbody>

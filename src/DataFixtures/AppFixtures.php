@@ -46,6 +46,17 @@ class AppFixtures extends Fixture
 		$etablissement2 -> setVille("Bayonne");
 		$manager->persist($etablissement2);
 		
+		// ListeAffaire
+		$listeEte = new ListeAffaire();
+		$listeEte -> setNomFrancais("Été");
+		$listeEte -> setNomBasque("???");
+		$manager -> persist($listeEte);
+		
+		$listeHiver = new ListeAffaire();
+		$listeHiver -> setNomFrancais("Hiver");
+		$listeHiver -> setNomBasque("???");
+		$manager -> persist($listeHiver);
+						
 		// TypeAffaire
 		$vetement = new typeAffaire();
 		$vetement -> setNom("Vêtement");
@@ -55,22 +66,24 @@ class AppFixtures extends Fixture
 		$toilette -> setNom("Toilette");
 		$manager->persist($toilette);
 		
-		$autres = new typeAffaire();
-		$autres -> setNom("Autre");
-		$manager->persist($autres);
-
+		$autre = new typeAffaire();
+		$autre -> setNom("Autre");
+		$manager->persist($autre);
+	
 		// Moultes Affaires
 		
 		$tshirt = new affaire();
 		$tshirt -> setNomFrancais("T-shirt");
 		$tshirt -> setNomBasque("Tix-sharix");
 		$tshirt -> setTypeAffaire($vetement);
+		$tshirt -> addListeAffaire($listeEte);
 		$manager->persist($tshirt);
 
 		$baskets = new affaire();
 		$baskets -> setNomFrancais("Baskets");
 		$baskets -> setNomBasque("Basktaxa");
 		$baskets -> setTypeAffaire($vetement);
+		$baskets -> addListeAffaire($listeEte);
 		$manager->persist($baskets);
 		
 		$serviette = new affaire();
@@ -88,36 +101,17 @@ class AppFixtures extends Fixture
 		$lunette = new affaire();
 		$lunette -> setNomFrancais("Lunette");
 		$lunette -> setNomBasque("Lunettax");
-		$lunette -> setTypeAffaire($autres);
+		$lunette -> setTypeAffaire($autre);
 		$manager -> persist($lunette);
 		
 		$plancheSurf = new affaire();
 		$plancheSurf -> setNomFrancais("Planche de surf");
 		$plancheSurf -> setNomBasque("Planche de surfxin");
-		$plancheSurf -> setTypeAffaire($autres);
+		$plancheSurf -> setTypeAffaire($autre);
 		$manager -> persist($plancheSurf);
 		
 	
-		// ListeAffaire
-		$listeEte = new ListeAffaire();
-		$listeEte -> setNomFrancais("Été");
-		$listeEte -> setNomBasque("???");
 		
-		$listeHiver = new ListeAffaire();
-		$listeHiver -> setNomFrancais("Hiver");
-		$listeHiver -> setNomBasque("???");
-
-		
-		// Et si on mettait des affaires dans les listes d'affaires ?
-		$listeEte -> addAffaire($tshirt);
-		$listeEte -> addAffaire($serviette);
-		$listeEte -> addAffaire($plancheSurf);
-		$manager->persist($listeEte);
-		
-		$listeHiver -> addAffaire($baskets);
-		$listeHiver -> addAffaire($lunette);
-		$listeHiver -> addAffaire($brosseADent);
-		$manager->persist($listeHiver);
 		
 		// Sejour
 		$cirque = new Sejour();
@@ -187,6 +181,7 @@ class AppFixtures extends Fixture
 			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement1);
 			$enfant -> setCentre($centre1);
+			$enfant -> addSejour($cirque);
 			
 			$manager->persist($enfant);
           }
@@ -219,11 +214,12 @@ class AppFixtures extends Fixture
 			$enfant -> setDateNaiss($faker -> dateTimeBetween($startDate = '-15 years', $endDate = '-10 years', $timezone = null));
 			$enfant -> setAdresse1($faker -> address);
 			$enfant -> setVille($faker -> city);
-			$enfant -> setCodePostal("64100");			$enfant -> setResponsableLegal($responsableLegal2);
+			$enfant -> setCodePostal("64100");			
 
 			$enfant -> setCorrespondantAdministratif($correspondantAdmin);
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
+			$enfant -> addSejour($equitation);
 
 			$manager->persist($enfant);
 
@@ -295,49 +291,7 @@ class AppFixtures extends Fixture
 			$mahmoud -> setEtablissement($etablissement2);
 			$mahmoud -> setCentre($centre3);
 			$manager->persist($mahmoud);
-
-		 // TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Vêtement");
-		$manager->persist($typeAffaire);
-
-		// Moultes Affaires
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Lunette");
-		$affaire -> setNomBasque("Lunettax");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager -> persist($affaire);
-
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("T-shirt");
-		$affaire -> setNomBasque("Tix-sharix");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Baskets");
-		$affaire -> setNomBasque("Basktaxa");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-
-		//TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Toilette");
-		$manager->persist($typeAffaire);
-
-		// Affaire
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Serviette");
-		$affaire -> setNomBasque("Servetxin");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-		
-		//TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Autre");
-		$manager->persist($typeAffaire);
-		
-		
+				
         $manager->flush();
     }
 }
