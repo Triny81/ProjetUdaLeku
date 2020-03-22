@@ -1,8 +1,39 @@
 {{ form_start(form) }}
     {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.date_naiss) }}
-    {{ form_row(form.remarque) }}
+    <div>
+        Prénom
+        {{ form_errors(form.prenom) }}
+        {{ form_widget(form.prenom) }}
+    </div>
+    <br>
+    <div>
+        Date de naissance
+        {{ form_errors(form.date_naiss) }}
+        {{ form_widget(form.date_naiss) }}
+    </div>
+    <br>
+    <div>
+        
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            Établissement
+            {{ form_errors(form.etablissement) }}
+            {{ form_widget(form.etablissement) }}
+        </div>
+        <div class="col-md-6">
+            Renseignez votre établissement s'il n'existe pas déjà
+            {{form_widget(form.new_etablissement)}}
+        </div>
+    </div>
+    <br>
+    {{ form_row(form.centre) }}
+    <div>
+        Remarques
+        {{ form_errors(form.remarque) }}
+        {{ form_widget(form.remarque) }}
+    </div>
+    <br>
     <div>
         Adresse
         {{ form_errors(form.adresse_1) }}
@@ -15,14 +46,20 @@
         {{ form_widget(form.adresse_2) }}
     </div>
     <br>
-    {{ form_row(form.adresse_1) }}
-    {{ form_row(form.adresse_2) }}
     {{ form_row(form.ville) }}
     {{ form_row(form.code_postal) }}
     {{ form_row(form.correspondant_administratif) }}
-    {{ form_row(form.responsable_legal) }}
-    {{ form_row(form.etablissement) }}
-    {{ form_row(form.centre) }}
-    {{ form_row(form.sejour) }}
+    <div>
+        Deuxième responsable légal (falcultatif)
+        {{ form_errors(form.responsable_legal) }}
+        {{ form_widget(form.responsable_legal) }}
+    </div>
+    <br>
+    <div>
+        Séjours
+        {{ form_errors(form.sejour) }}
+        {{ form_widget(form.sejour) }}
+    </div>
+    <br>
     <button type="submit" class="btn btn-primary">Enregistrer !</button>
 {{ form_end(form) }}

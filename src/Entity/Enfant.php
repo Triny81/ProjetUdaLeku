@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EnfantRepository")
  */
@@ -59,7 +61,7 @@ class Enfant
     private $code_postal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", inversedBy="enfants", cascade={"persist"})
      */
     private $etablissement;
 
@@ -83,6 +85,11 @@ class Enfant
      * @ORM\JoinColumn(nullable=false)
      */
     private $correspondant_administratif;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_etablissement;
 
     public function __construct()
     {
@@ -260,6 +267,18 @@ class Enfant
     public function setCorrespondantAdministratif(?CorrespondantAdministratif $correspondant_administratif): self
     {
         $this->correspondant_administratif = $correspondant_administratif;
+
+        return $this;
+    }
+
+    public function getNewEtablissement(): ?Etablissement
+    {
+        return $this->new_etablissement;
+    }
+
+    public function setNewEtablissement(?Etablissement $new_etablissement): self
+    {
+        $this->new_etablissement = $new_etablissement;
 
         return $this;
     }

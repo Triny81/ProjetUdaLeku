@@ -29,7 +29,7 @@ class Etablissement
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="etablissement")
+     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="etablissement", cascade={"persist"})
      */
     private $enfants;
 

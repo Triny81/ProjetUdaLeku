@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\CorrespondantAdministratif;
 use App\Entity\ResponsableLegal;
+use App\Entity\Etablissement;
 
 /**
  * @Route("/gestionEnfants")
@@ -80,13 +81,29 @@ class EnfantController extends AbstractController
      */
     public function edit(Request $request, Enfant $enfant): Response
     {
+        $manager=$this->getDoctrine()->getManager();
+
         $form = $this->createForm(EnfantType::class, $enfant);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('enfant_modification');
+            //Récupération des formulaires de saisie d'un éventuel nouvel établissement
+            $donnees_newEtablissement = $form->getData()->getNewEtablissement();
+
+            if($donnees_newEtablissement != null){
+                $new_etablissement = new Etablissement();
+                $new_etablissement->setNom($donnees_newEtablissement->getNom());
+                $new_etablissement->setVille($donnees_newEtablissement->getVille());
+
+                $manager->persist($new_etablissement);
+                $enfant->setEtablissement($new_etablissement);
+            }
+
+            $manager->flush();
+
+            return $this->redirectToRoute('enfant_index');
         }
 
         return $this->render('enfant/edit.html.twig', [

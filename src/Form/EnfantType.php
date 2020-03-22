@@ -14,6 +14,8 @@ use App\Entity\CorrespondantAdministratif;
 use App\Entity\Centre;
 use App\Entity\Sejour;
 
+use App\Form\EtablissementType;
+
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
@@ -28,7 +30,8 @@ class EnfantType extends AbstractType
             ->add('prenom')
             ->add('date_naiss', DateType::class, [
                 'empty_data' => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
-                'years'=> range(date('Y')-20, date('Y'))])
+                'years'=> range(date('Y')-20, date('Y')),
+                'format' => 'dd MM yyyy'])
             ->add('remarque')
             ->add('adresse_1')
             ->add('adresse_2')
@@ -53,7 +56,11 @@ class EnfantType extends AbstractType
             ->add('etablissement',EntityType::class, ['class'=>Etablissement::class,
                                                     'choice_label'=>'nom',
                                                     'expanded'=>false,
-                                                    'multiple'=>false,])
+                                                    'multiple'=>false,
+                                                    'required'=>false,
+                                                    'placeholder'=>'Aucun',])
+            ->add('new_etablissement',EtablissementType::class,['required'=>false,
+                                                            ])
             ->add('centre',EntityType::class, ['class'=>Centre::class,
                                                     'choice_label'=>'ville',
                                                     'expanded'=>false,

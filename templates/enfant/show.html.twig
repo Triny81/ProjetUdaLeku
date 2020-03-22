@@ -23,7 +23,7 @@
                 <td>{{ enfant.nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <td>{{ enfant.prenom }}</td>
             </tr>
             <tr>
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th>Établissement scolaire</th>
-                <td>{{ enfant.etablissement.nom }}</td>
+                <td>{{ enfant.etablissement ? enfant.etablissement.nom : 'Aucun' }}</td>
             </tr>
             <tr>
                 <th>Centre</th>
@@ -43,7 +43,7 @@
                 <td>{{ enfant.adresse1 }}</td>
             </tr>
             <tr>
-                <th>Complément</th>
+                <th>Complément d'adresse</th>
                 <td>{{ enfant.adresse2 }}</td>
             </tr>
             <tr>
@@ -55,7 +55,7 @@
                 <td>{{ enfant.codePostal }}</td>
             </tr>            
             <tr>
-                <th>Remarque</th>
+                <th>Remarques</th>
                 <td>{{ enfant.remarque }}</td>
             </tr>
             <tr>
@@ -64,14 +64,14 @@
                      {{ enfant.correspondantAdministratif.responsableLegal.nom|upper }} {{ enfant.correspondantAdministratif.responsableLegal.prenom}}
                 </td>
             </tr>
-            {% if enfant.responsableLegal is not null %}
             <tr>
-                <th>Responsable légal</th>
+                <th>Deuxième responsable légal</th>
                 <td>
-                    {{ enfant.responsableLegal.nom|upper }} {{ enfant.responsableLegal.prenom }} </br>
+                    {% if enfant.responsableLegal is not null %} 
+                        {{enfant.responsableLegal.nom|upper}} {{enfant.responsableLegal.prenom}}
+                    {% endif %} 
                 </td>
             </tr>
-            {% endif %}
             {% if enfant.sejour is not null %}
             <tr>
                 <th>Séjours</th>
@@ -88,7 +88,7 @@
          Modifier
      </a>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">
-            Supprimer
+            Désinscrire
      </button>
 
     <!-- Modal suppression enfant -->
