@@ -6,8 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResponsableLegalRepository")
+ * @UniqueEntity(fields={"nom","prenom"}, message="Ce responsable a déjà été enregistré !")
  */
 class ResponsableLegal
 {
@@ -20,16 +25,19 @@ class ResponsableLegal
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $email;
 
@@ -40,6 +48,7 @@ class ResponsableLegal
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $tel_port;
 
