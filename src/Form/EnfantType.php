@@ -15,6 +15,8 @@ use App\Entity\Centre;
 use App\Entity\Sejour;
 
 use App\Form\EtablissementType;
+use App\Form\ResponsableLegalType;
+use App\Form\CorrespondantAdministratifType;
 
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -53,6 +55,8 @@ class EnfantType extends AbstractType
                                                     'multiple'=>false,
                                                     'required'=>false,
                                                     'placeholder'=>'Aucun(e)'],)
+            ->add('new_responsableLegal',ResponsableLegalType::class,['required'=>false,
+                                                            ])
             ->add('etablissement',EntityType::class, ['class'=>Etablissement::class,
                                                     'choice_label'=>'nom',
                                                     'expanded'=>false,

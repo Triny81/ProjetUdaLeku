@@ -22,8 +22,17 @@
             {{ form_widget(form.etablissement) }}
         </div>
         <div class="col-md-6">
-            Renseignez votre établissement s'il n'existe pas déjà
-            {{form_widget(form.new_etablissement)}}
+            Renseignez votre établissement ici s'il n'existe pas déjà
+            <div>
+                Nom
+                {{ form_errors(form.new_etablissement.nom) }}
+                {{ form_widget(form.new_etablissement.nom) }}
+            </div>
+            <div>
+                Ville
+                {{ form_errors(form.new_etablissement.ville) }}
+                {{ form_widget(form.new_etablissement.ville) }}
+            </div>
         </div>
     </div>
     <br>
@@ -50,9 +59,47 @@
     {{ form_row(form.code_postal) }}
     {{ form_row(form.correspondant_administratif) }}
     <div>
-        Deuxième responsable légal (falcultatif)
-        {{ form_errors(form.responsable_legal) }}
-        {{ form_widget(form.responsable_legal) }}
+        
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            Deuxième responsable légal (falcultatif)
+            {{ form_errors(form.responsable_legal) }}
+            {{ form_widget(form.responsable_legal) }}
+        </div>
+        <div class="col-md-6">
+            Renseignez le responsable ici s'il n'existe pas déjà
+            <div>
+                Nom
+                {{ form_errors(form.new_responsableLegal.nom) }}
+                {{ form_widget(form.new_responsableLegal.nom) }}
+            </div>
+            <div>
+                Prénom
+                {{ form_errors(form.new_responsableLegal.prenom) }}
+                {{ form_widget(form.new_responsableLegal.prenom) }}
+            </div>
+            <div>
+                Email
+                {{ form_errors(form.new_responsableLegal.email) }}
+                {{ form_widget(form.new_responsableLegal.email) }}
+            </div>
+            <div>
+                Téléphone (domicile)
+                {{ form_errors(form.new_responsableLegal.tel_dom) }}
+                {{ form_widget(form.new_responsableLegal.tel_dom) }}
+            </div>
+            <div>
+                Téléphone (portable)
+                {{ form_errors(form.new_responsableLegal.tel_port) }}
+                {{ form_widget(form.new_responsableLegal.tel_port) }}
+            </div>
+            <div>
+                Téléphone (professionnel)
+                {{ form_errors(form.new_responsableLegal.tel_trav) }}
+                {{ form_widget(form.new_responsableLegal.tel_trav) }}
+            </div>
+        </div>
     </div>
     <br>
     <div>

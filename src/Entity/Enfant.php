@@ -76,12 +76,12 @@ class Enfant
     private $sejour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants", cascade={"persist"})
      */
     private $responsable_legal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $correspondant_administratif;
@@ -90,6 +90,16 @@ class Enfant
      * @Assert\Valid
      */
     private $new_etablissement;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_correspondantAdministratif;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_responsableLegal;
 
     public function __construct()
     {
@@ -279,6 +289,30 @@ class Enfant
     public function setNewEtablissement(?Etablissement $new_etablissement): self
     {
         $this->new_etablissement = $new_etablissement;
+
+        return $this;
+    }
+
+    public function getNewCorrespondantAdministratif(): ?CorrespondantAdministratif
+    {
+        return $this->new_correspondantAdministratif;
+    }
+
+    public function setNewCorrespondantAdministratif(?CorrespondantAdministratif $new_correspondantAdministratif): self
+    {
+        $this->new_correspondantAdministratif = $new_correspondantAdministratif;
+
+        return $this;
+    }
+
+    public function getNewResponsableLegal(): ?ResponsableLegal
+    {
+        return $this->new_responsableLegal;
+    }
+
+    public function setNewResponsableLegal(?ResponsableLegal $new_responsableLegal): self
+    {
+        $this->new_responsableLegal = $new_responsableLegal;
 
         return $this;
     }
