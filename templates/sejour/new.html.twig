@@ -3,7 +3,7 @@
 {% block title %} Nouveau séjour {% endblock %}
 
 {% block body %}
-    <h1>Create new Sejour</h1>
+    <h1> Création d'un séjour </h1>
 
     {# {{ include('sejour/_form.html.twig') }} #}
 	
@@ -31,11 +31,6 @@
 			</br></br>
 			
 			{{ form_row(form.listeAffaire) }}
-			<select class=form-control-5>
-				{% for liste in listeAffaire %}
-					<option value={{ liste.id }}> {{ liste.nomFrancais }} </option>
-				{% endfor %}
-			</select>
 			
 			<table class="table">
 				<thead>
@@ -47,14 +42,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for affaire in sejour.listeAffaire.affaire  %}
+					{# {% for affaire in sejour.listeAffaire.affaire  %} #}
 						<tr>
-							<td> {{ affaire.id }} </td>
-							<td> {{ affaire.nomFrancais }} </td>
-							<td> {{ affaire.nomBasque }} </td>
-							<td> {{ affaire.typeAffaire.nom }} </td>
+							<td> Quantité </td>
+							<td> Nom français </td>
+							<td> Nom basque </td>
+							<td> Nom Affaire </td>
 						</tr>
-					{% endfor %}
+					{# {% endfor %} #}
 				</tbody>
 			</table>
 		</div>

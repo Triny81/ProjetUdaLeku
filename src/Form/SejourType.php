@@ -9,7 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Entity\Enfant;
+use App\Form\ListeAffaireType;
 use App\Entity\ListeAffaire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SejourType extends AbstractType
 {
@@ -21,10 +23,12 @@ class SejourType extends AbstractType
             ->add('date_fin')
             ->add('num_ministre')
             ->add('cout')
-            ->add('enfants', CollectionType::class,	['entry_type' => Enfant::class,
-													'entry_options' => ['nom' => false],])
-            ->add('listeAffaire', CollectionType::class, ['entry_type' => ListeAffaire::class,
-														 'entry_options' => ['nom' => false], ])
+            /*->add('enfants', CollectionType::class,	['entry_type' => EnfantType::class,
+													])*/
+            ->add('listeAffaire',EntityType::class, ['class'=>ListeAffaire::class,
+													  'choice_label' => 'nomFrancais',
+                                                      'expanded'=>false,
+                                                      'multiple'=>false,])
         ;
     }
 

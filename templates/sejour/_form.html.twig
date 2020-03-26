@@ -22,13 +22,7 @@
 
 		</br></br>
 		
-		Liste d'affaire pour ce séjour :
-		<select class=form-control-5>
-
-				<option value=un> Ete </option>
-
-		</select>
-		
+		{{ form_row (form.listeAffaire) }}		
 		<table class="table">
 			<thead>
 				<tr>
@@ -40,13 +34,13 @@
 			</thead>
 			<tbody>
 				{% for affaire in sejour.listeAffaire  %}
-				<tr>
-					<td> affaire.quantite </td>
-					<td> affaire.nomFrancais </td>
-					<td> affaire.nomBasque </td>
-					<td> affaire.type </td>
-				</tr>
-			{% endfor %}
+					<tr>
+						<td> {{ affaire.quantite }} </td>
+						<td> {{ affaire.nomFrancais }} </td>
+						<td> {{ affaire.nomBasque}} </td>
+						<td> {{ affaire.type }} </td>
+					</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 	</div>

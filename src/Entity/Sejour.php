@@ -40,6 +40,7 @@ class Sejour
 
     /**
      * @ORM\Column(type="integer")
+	 * 
      */
     private $cout;
 
