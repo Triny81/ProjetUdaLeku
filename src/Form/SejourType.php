@@ -8,6 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
+use App\Entity\Enfant;
+use App\Entity\ListeAffaire;
+
 class SejourType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

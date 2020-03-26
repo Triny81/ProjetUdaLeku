@@ -5,6 +5,15 @@ namespace App\Controller;
 use App\Entity\Sejour;
 use App\Form\SejourType;
 use App\Repository\SejourRepository;
+
+use App\Entity\Enfant;
+use App\Form\EnfantType;
+use App\Repository\EnfantRepository;
+
+use App\Entity\ListeAffaire;
+use App\Form\ListeAffaireType;
+use App\Repository\ListeAffaireRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +37,7 @@ class SejourController extends AbstractController
     /**
      * @Route("/creation", name="sejour_creation", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ListeAffaireRepository $listeAffaireRepository): Response
     {
         $sejour = new Sejour();
         $form = $this->createForm(SejourType::class, $sejour);
@@ -44,6 +53,7 @@ class SejourController extends AbstractController
 
         return $this->render('sejour/new.html.twig', [
             'sejour' => $sejour,
+			'listeAffaire' => $listeAffaireRepository -> findAll(),
             'form' => $form->createView(),
         ]);
     }

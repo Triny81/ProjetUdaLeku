@@ -6,6 +6,90 @@
     <h1>Create new Sejour</h1>
 
     {# {{ include('sejour/_form.html.twig') }} #}
+	
+	{{ form_start(form) }}
+
+	<div class="modal-body row">
+		<div class="col-md-6">
+			
+		{# Partie concernant le séjour #}
+			<fieldset>
+				<legend> {{ sejour.nom }} </legend>
+				{{ form_row(form.nom) }}
+				
+				<div class="container">
+				  <div class="row">
+					<div class="col"> {{ form_row(form.date_debut) }} </div>
+					<div class="col"> {{ form_row(form.date_fin) }} </div>
+					<div class="w-100"></div>
+					<div class="col"> {{ form_row(form.num_ministre) }} </div>
+					<div class="col"> {{ form_row(form.cout) }} </div>
+				  </div>
+				</div>	
+			</fieldset>
+
+			</br></br>
+			
+			{{ form_row(form.listeAffaire) }}
+			<select class=form-control-5>
+				{% for liste in listeAffaire %}
+					<option value={{ liste.id }}> {{ liste.nomFrancais }} </option>
+				{% endfor %}
+			</select>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Quantité </th>
+						<th> Français </th>
+						<th> Euskara </th>
+						<th> Type </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for affaire in sejour.listeAffaire.affaire  %}
+						<tr>
+							<td> {{ affaire.id }} </td>
+							<td> {{ affaire.nomFrancais }} </td>
+							<td> {{ affaire.nomBasque }} </td>
+							<td> {{ affaire.typeAffaire.nom }} </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		  <div class="col-md-6">
+			
+			{# Partie concernant les enfants #}
+				
+				<a class="btn btn-primary" href="#" role="button"> Ajouter </a>
+				<table class="table">
+					<thead>
+						<tr>
+							<th> Nom </th>
+							<th> Prénom </th>
+							<th> Centre </th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for enfant in sejour.enfants  %}
+							<tr>
+								<td> {{ enfant.nom }} </td>
+								<td> {{ enfant.prenom }} </td>
+								<td> {{ enfant.centre.ville }} </td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			 
+		  </div>
+		</div>
+
+		{{ form_widget(form) }}
+		
+		<button class="btn">{{ button_label|default('Save') }}</button>
+		
+	{{ form_end(form) }}
 
     <a href="{{ path('sejour_index') }}">back to list</a>
 {% endblock %}

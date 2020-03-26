@@ -26,57 +26,65 @@
 	<div class="modal-body row">
 	  <div class="col-md-6">
 		
-		{# Partie concernant le séjour #}
-			
-				<fieldset disabled>
-					<legend> {{ sejour.nom }} </legend>
-					Séjour <input type="text" placeholder=" {{sejour.nom}} ">
-					
-					<div class="container">
-					  <div class="row">
-						<div class="col"> Date de début <input type= text placeholder=" {{ sejour.dateDebut ? sejour.dateDebut|date('Y-m-d') : '' }} "> </div>
-						<div class="col"> Date de fin  <input type= text placeholder=" {{ sejour.dateFin ? sejour.dateFin|date('Y-m-d') : '' }} "> </div>
+		{# Partie concernant le séjour #}		
+			<fieldset disabled>
+				<legend> {{ sejour.nom }} </legend>
+				
+				<div class="container">
+					<div class="row">				  
+						<div class="col-sm-3"> Sejour </div>
+						<div class="col-sm-9"> <input type="text" placeholder=" {{sejour.nom}} "> </div>
+							  
 						<div class="w-100"></div>
-						<div class="col"> N°Ministre <input type= text placeholder=" {{sejour.numMinistre}} "> </div>
-						<div class="col"> Coût <input type= text placeholder=" {{sejour.cout}} "> </div>
-					  </div>
-					</div>	
-				</fieldset>
-				
-				</br></br>
-				
-				Liste d'affaire pour ce séjour : 
-				<select class=form-control-5 disabled>
-						<option value=un> {{sejour.listeAffaire}} </option>
-				</select>
-				<a class="btn btn-primary" href="#" role="button"> Modifier </a>
-				
-				<table class="table">
-					<thead>
+					  
+						<div class="col"> Date de début </div>
+						<div class="col"> <input type= text placeholder=" {{ sejour.dateDebut ? sejour.dateDebut|date('Y-m-d') : '' }} "> </div>
+						<div class="col"> Date de fin </div>
+						<div class="col"> <input type= text placeholder=" {{ sejour.dateFin ? sejour.dateFin|date('Y-m-d') : '' }} "> </div>
+						
+						<div class="w-100"></div>
+						
+						<div class="col"> N°Ministre </div>
+						<div class="col"> <input type= text placeholder=" {{sejour.numMinistre}} "> </div>
+						<div class="col"> Coût </div>
+						<div class="col"> <input type= text placeholder=" {{sejour.cout}} "> </div>
+					</div>
+				</div>	
+			</fieldset>
+			
+			</br></br>
+			
+			Liste d'affaire pour ce séjour : 
+			<select class=form-control-5>
+					<option value=un> {{sejour.listeAffaire.nomFrancais}} </option>
+			</select>
+			<a class="btn btn-primary" href="#" role="button"> Modifier </a>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Quantité </th>
+						<th> Français </th>
+						<th> Euskara </th>
+						<th> Type </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for affaire in sejour.listeAffaire.affaire  %}
 						<tr>
-							<th> Quantité </th>
-							<th> Français </th>
-							<th> Euskara </th>
-							<th> Type </th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for affaire in sejour.listeAffaire  %}
-						<tr>
-							<th> affaire.quantite </th>
-							<th> affaire.nomFrancais </th>
-							<th> affaire.nomBasque </th>
-							<th> affaire.type </th>
+							<td> {{ affaire.id }} </td>
+							<td> {{ affaire.nomFrancais }} </td>
+							<td> {{ affaire.nomBasque }} </td>
+							<td> {{ affaire.typeAffaire.nom }} </td>
 						</tr>
 					{% endfor %}
-					</tbody>
-				</table>
+				</tbody>
+			</table>
 		
-	  </div>
-	  <div class="col-md-6">
+	</div>
+	<div class="col-md-6">
 		
-		{# Partie concernant les enfants #}
-			
+		{# Partie concernant les enfants #}			
 			Liste des enfants inscrits à ce séjour <a class="btn btn-primary" href="#" role="button"> Ajouter </a>
 			<table class="table">
 				<thead>
@@ -89,9 +97,9 @@
 				<tbody>
 					{% for enfant in sejour.enfants  %}
 						<tr>
-							<th> enfant.nom </th>
-							<th> enfant.prenom </th>
-							<th> enfant.centre </th>
+							<td> {{ enfant.nom }} </td>
+							<td> {{ enfant.prenom }} </td>
+							<td> {{ enfant.centre.ville }} </td>
 						</tr>
 					{% endfor %}
 				</tbody>

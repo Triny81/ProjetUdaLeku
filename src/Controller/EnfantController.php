@@ -100,6 +100,8 @@ class EnfantController extends AbstractController
 
         return $this->render('enfant/show.html.twig', [
             'enfant' => $enfant,
+            'responsablesLegaux' => $respLegaux,
+			'correspondantAdministratif' => $corrAdmin,
         ]);
     }
 
