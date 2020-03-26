@@ -6,8 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EnfantRepository")
+ * @UniqueEntity(fields={"nom","prenom","dateNaiss"}, message="Cet enfant est déjà enregistré !")
  */
 class Enfant
 {
@@ -20,16 +25,19 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $dateNaiss;
 
@@ -40,6 +48,7 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $adresse_1;
 
@@ -50,16 +59,18 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      */
     private $code_postal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etablissement", inversedBy="enfants", cascade={"persist"})
      */
     private $etablissement;
 
@@ -74,15 +85,37 @@ class Enfant
     private $sejour;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants", cascade={"persist"})
      */
     private $responsable_legal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants")
+     * @Assert\IsFalse(message="Une personne ne peut avoir deux rôles à la fois !")
+     */
+    public function isCorrespAsSameAsResp(){
+        return $this->getResponsableLegal() === $this->getCorrespondantAdministratif()->getResponsableLegal();
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $correspondant_administratif;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_etablissement;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_correspondantAdministratif;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_responsableLegal;
 
     public function __construct()
     {
@@ -260,6 +293,42 @@ class Enfant
     public function setCorrespondantAdministratif(?CorrespondantAdministratif $correspondant_administratif): self
     {
         $this->correspondant_administratif = $correspondant_administratif;
+
+        return $this;
+    }
+
+    public function getNewEtablissement(): ?Etablissement
+    {
+        return $this->new_etablissement;
+    }
+
+    public function setNewEtablissement(?Etablissement $new_etablissement): self
+    {
+        $this->new_etablissement = $new_etablissement;
+
+        return $this;
+    }
+
+    public function getNewCorrespondantAdministratif(): ?CorrespondantAdministratif
+    {
+        return $this->new_correspondantAdministratif;
+    }
+
+    public function setNewCorrespondantAdministratif(?CorrespondantAdministratif $new_correspondantAdministratif): self
+    {
+        $this->new_correspondantAdministratif = $new_correspondantAdministratif;
+
+        return $this;
+    }
+
+    public function getNewResponsableLegal(): ?ResponsableLegal
+    {
+        return $this->new_responsableLegal;
+    }
+
+    public function setNewResponsableLegal(?ResponsableLegal $new_responsableLegal): self
+    {
+        $this->new_responsableLegal = $new_responsableLegal;
 
         return $this;
     }

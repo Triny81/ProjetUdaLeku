@@ -3,7 +3,17 @@
 {% block title %}New Enfant{% endblock %}
 
 {% block body %}
-    <h1>Inscription d'un enfant</h1>
-
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-10">
+			<h1>Inscription d'un enfant</h1>
+		</div>
+		<div class="col-md-2">
+			<a type="button" class="btn btn-small btn-primary" href="{{ path('enfant_index') }}">Retour</a>
+		</div>
+	</div>
+</div>
+    
     {{ include('enfant/_form.html.twig') }}
+    
 {% endblock %}

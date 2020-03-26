@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\CorrespondantAdministratif;
 use App\Entity\ResponsableLegal;
+use App\Entity\Etablissement;
 
 /**
  * @Route("/gestionEnfants")
@@ -36,19 +37,46 @@ class EnfantController extends AbstractController
     public function new(Request $request): Response
     {
         $enfant = new Enfant();
-        $correspondantAdmin = new CorrespondantAdministratif();
-        $enfant->getResponsableLegal()->add($correspondantAdmin);
-        $repondableLegal = new ResponsableLegal();
-        $enfant->getResponsableLegal()->add($correspondantAdmin);
 
         $form = $this->createForm(EnfantType::class, $enfant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($enfant);
-            $entityManager->flush();
+            $manager = $this->getDoctrine()->getManager();
+
+            //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
+            $donnees_newEtablissement = $form->getData()->getNewEtablissement();
+            $donnees_newRespLegal = $form->getData()->getNewResponsableLegal();
+
+            //Enregistrement de l'éventuel nouvel établissement
+            if($donnees_newEtablissement != null){
+                $new_etablissement = new Etablissement();
+
+                $new_etablissement->setNom($donnees_newEtablissement->getNom());
+                $new_etablissement->setVille($donnees_newEtablissement->getVille());
+
+                $manager->persist($new_etablissement);
+                $enfant->setEtablissement($new_etablissement);
+            }
+
+            //Enregistrement de l'éventuel nouveau établissement
+            if($donnees_newRespLegal != null){
+                $new_respLegal = new ResponsableLegal();
+
+                $new_respLegal->setNom($donnees_newRespLegal->getNom());
+                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
+                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
+                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
+                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
+                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
+
+                $manager->persist($new_respLegal);
+                $enfant->setResponsableLegal($new_respLegal);
+            }
+
+            $manager->persist($enfant);
+            $manager->flush();
 
             return $this->redirectToRoute('enfant_index');
         }
@@ -82,11 +110,47 @@ class EnfantController extends AbstractController
      */
     public function edit(Request $request, Enfant $enfant): Response
     {
-        $form = $this->createForm(EnfantType::class, $enfant);
+        $manager=$this->getDoctrine()->getManager();
+
+        $form = $this->createForm(EnfantType::class, $enfant, [
+                'entity_manager' => $manager
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+
+            //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
+            $donnees_newEtablissement = $form->getData()->getNewEtablissement();
+            $donnees_newRespLegal = $form->getData()->getNewResponsableLegal();
+
+            if($donnees_newEtablissement != null){
+                $new_etablissement = new Etablissement();
+                $new_etablissement->setNom($donnees_newEtablissement->getNom());
+                $new_etablissement->setVille($donnees_newEtablissement->getVille());
+
+                $manager->persist($new_etablissement);
+                $enfant->setEtablissement($new_etablissement);
+            }
+
+            //Enregistrement de l'éventuel nouveau établissement
+            if($donnees_newRespLegal != null){
+                $new_respLegal = new ResponsableLegal();
+
+                $new_respLegal->setNom($donnees_newRespLegal->getNom());
+                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
+                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
+                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
+                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
+                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
+
+                $manager->persist($new_respLegal);
+                $enfant->setResponsableLegal($new_respLegal);
+            }
+
+            
+
+            $manager->flush();
 
             return $this->redirectToRoute('enfant_index');
         }

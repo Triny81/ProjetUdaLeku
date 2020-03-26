@@ -22,7 +22,7 @@
         <tr>
             <td>{{ enfant.nom }}</td>
             <td>{{ enfant.prenom }}</td>
-            <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
+            <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('d/m/Y') : '' }}</td>
             <td>{{ enfant.centre.ville }}</td>
             <td>
                 <a type="button" href="{{path('enfant_consultation',{'id':enfant.id})}}" class="btn btn-primary">
@@ -35,11 +35,7 @@
             <td colspan="10">Aucun enfant n'a été encore inscrit... Pourquoi pas en inscrire un maintenant ?</td>
         </tr>
         {% endfor %}
-        <ul class="nav nav-tabs">
- <li role="presentation" class="active"><a href="#">Programme de formation</a></li>
- <li role="presentation"><a href="#">Public</a></li>
- <li role="presentation"><a href="#">Objectifs</a></li>
-</ul>
+        
     </tbody>
 </table>
 

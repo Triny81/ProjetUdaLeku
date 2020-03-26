@@ -2,28 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\CorrespondantAdministratif;
+use App\Entity\Etablissement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CorrespondantAdministratifType extends AbstractType
+class EtablissementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('num_secu')
-            ->add('aide_caf')
-            ->add('aide_msa')
-            ->add('aide_autres')
-            ->add('responsableLegal')
+            ->add('nom')
+            ->add('ville')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => CorrespondantAdministratif::class,
+            'data_class' => Etablissement::class,
         ]);
     }
 }
