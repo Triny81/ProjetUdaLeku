@@ -110,7 +110,9 @@ class EnfantController extends AbstractController
     {
         $manager=$this->getDoctrine()->getManager();
 
-        $form = $this->createForm(EnfantType::class, $enfant);
+        $form = $this->createForm(EnfantType::class, $enfant, [
+                'entity_manager' => $manager
+        ]);
 
         $form->handleRequest($request);
 
@@ -143,6 +145,8 @@ class EnfantController extends AbstractController
                 $manager->persist($new_respLegal);
                 $enfant->setResponsableLegal($new_respLegal);
             }
+
+            
 
             $manager->flush();
 

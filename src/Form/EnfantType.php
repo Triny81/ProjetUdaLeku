@@ -27,6 +27,9 @@ class EnfantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var \Doctrine\ORM\EntityManager $entityManager */
+        $entityManager = $options['entity_manager'];
+
         $builder
             ->add('nom')
             ->add('prenom')
@@ -54,7 +57,12 @@ class EnfantType extends AbstractType
                                                     'expanded'=>false,
                                                     'multiple'=>false,
                                                     'required'=>false,
-                                                    'placeholder'=>'Aucun(e)'],)
+                                                    'placeholder'=>'Aucun(e)',
+                                                    /*'query_builder' => function (EntityRepository $entityRepo ) {
+                                                            return $entityRepo->createQueryBuilder('resp')
+                                                                    ->orderBy('resp.nom', 'DESC');
+                                                        }*/
+                                                    ],)
             ->add('new_responsableLegal',ResponsableLegalType::class,['required'=>false,
                                                             ])
             ->add('etablissement',EntityType::class, ['class'=>Etablissement::class,
@@ -82,6 +90,7 @@ class EnfantType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Enfant::class,
-        ]);
+        ])
+        ->setRequired('entity_manager');
     }
 }
