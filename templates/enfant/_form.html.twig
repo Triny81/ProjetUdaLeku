@@ -12,31 +12,31 @@
         <div class="col-md-6">
             {{ form_row(form.nom) }}
             <div>
-                Prénom
+                {{ form_label(form.prenom,"Prénom")}}
                 {{ form_errors(form.prenom) }}
                 {{ form_widget(form.prenom) }}
             </div>
             <br>
             <div>
-                Date de naissance
+                {{ form_label(form.date_naiss,"Date de naissance")}}
                 {{ form_errors(form.date_naiss) }}
                 {{ form_widget(form.date_naiss) }}
             </div>
             <div>
-                     Remarques
-     {{ form_errors(form.remarque) }}
-     {{ form_widget(form.remarque) }}
+                {{ form_label(form.remarque,"Remarques")}}
+                {{ form_errors(form.remarque) }}
+                {{ form_widget(form.remarque) }}
             </div>
         </div>
         <div class="col-md-6">
             <div>
-                Adresse
+                {{ form_label(form.adresse_1,"Adresse")}}
                 {{ form_errors(form.adresse_1) }}
                 {{ form_widget(form.adresse_1) }}
             </div>
             <br>
-            <div>
-                Complément d'adresse (falcultatif)
+            <div>                
+                {{ form_label(form.adresse_2,"Complément d'adresse (falcultatif)")}}
                 {{ form_errors(form.adresse_2) }}
                 {{ form_widget(form.adresse_2) }}
             </div>
@@ -81,40 +81,44 @@
   <div class="row">
     <div class="col-md-6">
         {{ form_row(form.correspondant_administratif) }}
+        Renseignez le correspondant administratif ici s'il n'existe pas déjà
+        <div>
+            {{ form_row(form.new_correspondantAdministratif)}}
+        </div>
     </div>
     <div class="col-md-6">
-        Deuxième responsable légal (falcultatif)
+        {{ form_label(form.responsable_legal,"Deuxième responsable légal (falcultatif)") }}
         {{ form_errors(form.responsable_legal) }}
         {{ form_widget(form.responsable_legal) }}
         <br>
         Renseignez le responsable ici s'il n'existe pas déjà
         <div>
-            Nom
+            {{ form_label(form.new_responsableLegal.nom)}}
             {{ form_errors(form.new_responsableLegal.nom) }}
             {{ form_widget(form.new_responsableLegal.nom) }}
         </div>
         <div>
-            Prénom
+            {{ form_label(form.new_responsableLegal.prenom,"Prénom")}}
             {{ form_errors(form.new_responsableLegal.prenom) }}
             {{ form_widget(form.new_responsableLegal.prenom) }}
         </div>
         <div>
-            Email
+            {{ form_label(form.new_responsableLegal.email,"Email")}}Email
             {{ form_errors(form.new_responsableLegal.email) }}
             {{ form_widget(form.new_responsableLegal.email) }}
         </div>
         <div>
-            Téléphone (domicile)
+            {{ form_label(form.new_responsableLegal.tel_dom,"Téléphone (domicile)")}}Téléphone (domicile)
             {{ form_errors(form.new_responsableLegal.tel_dom) }}
             {{ form_widget(form.new_responsableLegal.tel_dom) }}
         </div>
         <div>
-            Téléphone (portable)
+            {{ form_label(form.new_responsableLegal.tel_port,"Téléphone (portable)")}}Téléphone (portable)
             {{ form_errors(form.new_responsableLegal.tel_port) }}
             {{ form_widget(form.new_responsableLegal.tel_port) }}
         </div>
         <div>
-            Téléphone (professionnel)
+            {{ form_label(form.new_responsableLegal.tel_trav,"Téléphone (professionnel)")}}
             {{ form_errors(form.new_responsableLegal.tel_trav) }}
             {{ form_widget(form.new_responsableLegal.tel_trav) }}
         </div>
@@ -124,7 +128,7 @@
 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
   <div>
     <center>
-            Séjours
+    {{ form_label(form.sejour,"Séjours") }}
     {{ form_errors(form.sejour) }}
     {{ form_widget(form.sejour) }}
     </center>

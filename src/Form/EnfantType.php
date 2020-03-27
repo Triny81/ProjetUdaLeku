@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Doctrine\ORM\EntityRepository;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Etablissement;
 use App\Entity\ResponsableLegal;
@@ -27,8 +29,6 @@ class EnfantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Doctrine\ORM\EntityManager $entityManager */
-        $entityManager = $options['entity_manager'];
 
         $builder
             ->add('nom')
@@ -49,6 +49,8 @@ class EnfantType extends AbstractType
                                                      },
                                                     'expanded'=>false,
                                                     'multiple'=>false,])
+            ->add('new_correspondantAdministratif',CorrespondantAdministratifType::class,['required'=>false,
+                                                            ])
             ->add('responsable_legal',EntityType::class,
                                                     ['class'=>ResponsableLegal::class,
                                                     'choice_label' => function ($responsable_legal) {
@@ -58,10 +60,10 @@ class EnfantType extends AbstractType
                                                     'multiple'=>false,
                                                     'required'=>false,
                                                     'placeholder'=>'Aucun(e)',
-                                                    /*'query_builder' => function (EntityRepository $entityRepo ) {
-                                                            return $entityRepo->createQueryBuilder('resp')
-                                                                    ->orderBy('resp.nom', 'DESC');
-                                                        }*/
+                                                    'query_builder' => function (EntityRepository $entityRepo ) {
+                                                            return $entityRepo->createQueryBuilder('e')        
+                                                                    ->orderBy('e.nom', 'ASC');
+                                                        }
                                                     ],)
             ->add('new_responsableLegal',ResponsableLegalType::class,['required'=>false,
                                                             ])

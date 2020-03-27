@@ -75,6 +75,29 @@ class EnfantController extends AbstractController
                 $enfant->setResponsableLegal($new_respLegal);
             }
 
+            //Enregistrement de l'éventuel correspondant administratif
+            if($donnees_newCorrespAdmin != null){
+                $new_correspAdmin = new CorrespondantAdministratif();
+                $new_respLegal = new ResponsableLegal();
+
+                $new_respLegal->setNom($donnees_newRespLegal->getNom());
+                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
+                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
+                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
+                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
+                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
+                $manager->persist($new_respLegal);
+
+                $new_correspAdmin->setResponsableLegal($new_respLegal);
+                $new_correspAdmin->setNumSecu($donnees_newCorrespAdmin->getNulSecu());
+                $new_correspAdmin->setAideCaf($donnees_newCorrespAdmin->getAideCaf());
+                $new_correspAdmin->setAideMsa($donnees_newCorrespAdmin->getAideMsa());
+                $new_correspAdmin->setAideAutres($donnees_newCorrespAdmin->getAideAutres());
+                $manager->persist($new_correspAdmin);
+
+                $enfant->setCorrespondantAdministratif($new_correspAdmin);
+            }
+
             $manager->persist($enfant);
             $manager->flush();
 
@@ -123,6 +146,7 @@ class EnfantController extends AbstractController
             //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
             $donnees_newEtablissement = $form->getData()->getNewEtablissement();
             $donnees_newRespLegal = $form->getData()->getNewResponsableLegal();
+            $donnees_newCorrespAdmin = $form->getData()->getNewCorrespondantAdministratif();
 
             if($donnees_newEtablissement != null){
                 $new_etablissement = new Etablissement();
@@ -148,7 +172,28 @@ class EnfantController extends AbstractController
                 $enfant->setResponsableLegal($new_respLegal);
             }
 
-            
+            //Enregistrement de l'éventuel correspondant administratif
+            if($donnees_newCorrespAdmin != null){
+                $new_correspAdmin = new CorrespondantAdministratif();
+                $new_respLegal = new ResponsableLegal();
+
+                $new_respLegal->setNom($donnees_newRespLegal->getNom());
+                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
+                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
+                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
+                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
+                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
+                $manager->persist($new_respLegal);
+
+                $new_correspAdmin->setResponsableLegal($new_respLegal);
+                $new_correspAdmin->setNumSecu($donnees_newCorrespAdmin->getNumSecu());
+                $new_correspAdmin->setAideCaf($donnees_newCorrespAdmin->getAideCaf());
+                $new_correspAdmin->setAideMsa($donnees_newCorrespAdmin->getAideMsa());
+                $new_correspAdmin->setAideAutres($donnees_newCorrespAdmin->getAideAutres());
+                $manager->persist($new_correspAdmin);
+
+                $enfant->setCorrespondantAdministratif($new_correspAdmin);
+            }
 
             $manager->flush();
 
