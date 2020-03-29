@@ -96,6 +96,8 @@ class Enfant
         return $this->getResponsableLegal() === $this->getCorrespondantAdministratif()->getResponsableLegal();
     }
 
+
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)

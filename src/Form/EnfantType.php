@@ -92,7 +92,6 @@ class EnfantType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Enfant::class,
-        ])
-        ->setRequired('entity_manager');
+        ]);
     }
 }

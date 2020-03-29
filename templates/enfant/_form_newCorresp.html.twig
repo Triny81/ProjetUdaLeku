@@ -1,0 +1,60 @@
+<div>
+	{{ form_label(form.new_correspondantAdministratif.responsable_legal)}}
+	{{ form_errors(form.new_correspondantAdministratif.responsable_legal)}}
+	{{ form_widget(form.new_correspondantAdministratif.responsable_legal)}}
+</div>
+<div>
+	<h6>Un nouveau responsable ? Enregistrez-le !</h6>
+	<div>
+		{{ form_label(form.new_correspondantAdministratif.new_responsableLegal.nom)}}
+		{{ form_errors(form.new_correspondantAdministratif.new_responsableLegal.nom) }}
+		{{ form_widget(form.new_correspondantAdministratif.new_responsableLegal.nom) }}
+	</div>
+	<div>
+		{{ form_label(form.new_correspondantAdministratif.new_responsableLegal.prenom,"Prénom")}}
+		{{ form_errors(form.new_correspondantAdministratif.new_responsableLegal.prenom) }}
+		{{ form_widget(form.new_correspondantAdministratif.new_responsableLegal.prenom) }}
+	</div>
+	<div>
+		{{ form_label(form.new_correspondantAdministratif.new_responsableLegal.email,"Email")}}Email
+		{{ form_errors(form.new_correspondantAdministratif.new_responsableLegal.email) }}
+		{{ form_widget(form.new_correspondantAdministratif.new_responsableLegal.email) }}
+	</div>
+	<div>
+		{{ form_label(form.new_correspondantAdministratif.new_responsableLegal.tel_dom,"Téléphone (domicile)")}}
+		{{ form_errors(form.new_correspondantAdministratif.new_responsableLegal.tel_dom) }}
+		{{ form_widget(form.new_correspondantAdministratif.new_responsableLegal.tel_dom) }}
+	</div>
+	<div>
+		{{ form_label(form.new_correspondantAdministratif.new_responsableLegal.tel_port,"Téléphone (portable)")}}
+		{{ form_errors(form.new_correspondantAdministratif.new_responsableLegal.tel_port) }}
+		{{ form_widget(form.new_correspondantAdministratif.new_responsableLegal.tel_port) }}
+	</div>
+	<div>
+		{{ form_label(form.new_correspondantAdministratif.new_responsableLegal.tel_trav,"Téléphone (professionnel)")}}
+		{{ form_errors(form.new_correspondantAdministratif.new_responsableLegal.tel_trav) }}
+		{{ form_widget(form.new_correspondantAdministratif.new_responsableLegal.tel_trav) }}
+	</div>
+</div>
+<br>
+<br>
+<div>
+	{{ form_label(form.new_correspondantAdministratif.num_secu, "Numéro sécurité sociale")}}
+	{{ form_errors(form.new_correspondantAdministratif.num_secu)}}
+	{{ form_widget(form.new_correspondantAdministratif.num_secu)}}
+</div>
+<div>
+	{{ form_label(form.new_correspondantAdministratif.aide_caf, "Aide CAF")}}
+	{{ form_errors(form.new_correspondantAdministratif.aide_caf)}}
+	{{ form_widget(form.new_correspondantAdministratif.aide_caf)}}
+</div>
+<div>
+	{{ form_label(form.new_correspondantAdministratif.aide_msa, "Aide MSA")}}
+	{{ form_errors(form.new_correspondantAdministratif.aide_msa)}}
+	{{ form_widget(form.new_correspondantAdministratif.aide_msa)}}
+</div>
+<div>
+	{{ form_label(form.new_correspondantAdministratif.aide_autres, "Autres aides")}}
+	{{ form_errors(form.new_correspondantAdministratif.aide_autres)}}
+	{{ form_widget(form.new_correspondantAdministratif.aide_autres)}}
+</div>

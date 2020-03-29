@@ -48,19 +48,19 @@
     <div class="row">
         <div class="col-md-6">
             <div>
-        Établissement
+        {{ form_label(form.etablissement,"Établissement")}}
         {{ form_errors(form.etablissement) }}
         {{ form_widget(form.etablissement) }}
     </div>
     <div>
-        Renseignez votre établissement ici s'il n'existe pas déjà
+        <h5>Renseignez votre établissement ici s'il n'existe pas déjà</h5>
         <div>
-            Nom
+            {{ form_label(form.new_etablissement.nom,"Nom")}}
             {{ form_errors(form.new_etablissement.nom) }}
             {{ form_widget(form.new_etablissement.nom) }}
         </div>
         <div>
-            Ville
+            {{ form_label(form.new_etablissement.ville,"Ville")}}
             {{ form_errors(form.new_etablissement.ville) }}
             {{ form_widget(form.new_etablissement.ville) }}
         </div>
@@ -74,16 +74,12 @@
 </div>
 
 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-  <div>
-
-  </div>
   <div class="row">
     <div class="col-md-6">
         {{ form_row(form.correspondant_administratif) }}
-        Renseignez le correspondant administratif ici s'il n'existe pas déjà
+        <h5>Renseignez le correspondant administratif ici s'il n'existe pas déjà</h5>
         <div>
-            {{ form_row(form.new_correspondantAdministratif)}}
+            {{ include('enfant/_form_newCorresp.html.twig') }}
         </div>
     </div>
     <div class="col-md-6">
@@ -91,37 +87,8 @@
         {{ form_errors(form.responsable_legal) }}
         {{ form_widget(form.responsable_legal) }}
         <br>
-        Renseignez le responsable ici s'il n'existe pas déjà
-        <div>
-            {{ form_label(form.new_responsableLegal.nom)}}
-            {{ form_errors(form.new_responsableLegal.nom) }}
-            {{ form_widget(form.new_responsableLegal.nom) }}
-        </div>
-        <div>
-            {{ form_label(form.new_responsableLegal.prenom,"Prénom")}}
-            {{ form_errors(form.new_responsableLegal.prenom) }}
-            {{ form_widget(form.new_responsableLegal.prenom) }}
-        </div>
-        <div>
-            {{ form_label(form.new_responsableLegal.email,"Email")}}Email
-            {{ form_errors(form.new_responsableLegal.email) }}
-            {{ form_widget(form.new_responsableLegal.email) }}
-        </div>
-        <div>
-            {{ form_label(form.new_responsableLegal.tel_dom,"Téléphone (domicile)")}}Téléphone (domicile)
-            {{ form_errors(form.new_responsableLegal.tel_dom) }}
-            {{ form_widget(form.new_responsableLegal.tel_dom) }}
-        </div>
-        <div>
-            {{ form_label(form.new_responsableLegal.tel_port,"Téléphone (portable)")}}Téléphone (portable)
-            {{ form_errors(form.new_responsableLegal.tel_port) }}
-            {{ form_widget(form.new_responsableLegal.tel_port) }}
-        </div>
-        <div>
-            {{ form_label(form.new_responsableLegal.tel_trav,"Téléphone (professionnel)")}}
-            {{ form_errors(form.new_responsableLegal.tel_trav) }}
-            {{ form_widget(form.new_responsableLegal.tel_trav) }}
-        </div>
+        <h5>Renseignez le responsable ici s'il n'existe pas déjà</h5>
+        {{ include('enfant/_form_newResp.html.twig') }}
     </div>
 </div>
 </div>

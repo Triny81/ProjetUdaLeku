@@ -24,11 +24,14 @@ class CorrespondantAdministratifType extends AbstractType
                                                      },
                                                     'expanded'=>false,
                                                     'multiple'=>false,
+                                                    'required'=>false,
                                                     'query_builder' => function (EntityRepository $entityRepo ) {
                                                             return $entityRepo->createQueryBuilder('e')        
                                                                     ->orderBy('e.nom', 'ASC');
                                                         }
                                                     ],)
+            ->add('new_responsableLegal',ResponsableLegalType::class,['required'=>false,
+                                                            ])
             ->add('num_secu')
             ->add('aide_caf')
             ->add('aide_msa')

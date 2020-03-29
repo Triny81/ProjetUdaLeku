@@ -48,54 +48,20 @@ class EnfantController extends AbstractController
             //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
             $donnees_newEtablissement = $form->getData()->getNewEtablissement();
             $donnees_newRespLegal = $form->getData()->getNewResponsableLegal();
+            $donnees_newCorrespAdmin = $form->getData()->getNewCorrespondantAdministratif();
 
-            //Enregistrement de l'éventuel nouvel établissement
             if($donnees_newEtablissement != null){
-                $new_etablissement = new Etablissement();
-
-                $new_etablissement->setNom($donnees_newEtablissement->getNom());
-                $new_etablissement->setVille($donnees_newEtablissement->getVille());
-
-                $manager->persist($new_etablissement);
-                $enfant->setEtablissement($new_etablissement);
+                $this->enregistrerNouvelEtablissement($donnees_newEtablissement, $enfant);
             }
 
             //Enregistrement de l'éventuel nouveau établissement
             if($donnees_newRespLegal != null){
-                $new_respLegal = new ResponsableLegal();
-
-                $new_respLegal->setNom($donnees_newRespLegal->getNom());
-                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
-                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
-                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
-                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
-                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
-
-                $manager->persist($new_respLegal);
-                $enfant->setResponsableLegal($new_respLegal);
+                $this->enregisterNouveauResp($donnees_newRespLegal, $enfant);
             }
 
             //Enregistrement de l'éventuel correspondant administratif
             if($donnees_newCorrespAdmin != null){
-                $new_correspAdmin = new CorrespondantAdministratif();
-                $new_respLegal = new ResponsableLegal();
-
-                $new_respLegal->setNom($donnees_newRespLegal->getNom());
-                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
-                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
-                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
-                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
-                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
-                $manager->persist($new_respLegal);
-
-                $new_correspAdmin->setResponsableLegal($new_respLegal);
-                $new_correspAdmin->setNumSecu($donnees_newCorrespAdmin->getNulSecu());
-                $new_correspAdmin->setAideCaf($donnees_newCorrespAdmin->getAideCaf());
-                $new_correspAdmin->setAideMsa($donnees_newCorrespAdmin->getAideMsa());
-                $new_correspAdmin->setAideAutres($donnees_newCorrespAdmin->getAideAutres());
-                $manager->persist($new_correspAdmin);
-
-                $enfant->setCorrespondantAdministratif($new_correspAdmin);
+                $this->enregistrerNouveauCorresp($donnees_newCorrespAdmin, $enfant);
             }
 
             $manager->persist($enfant);
@@ -118,13 +84,13 @@ class EnfantController extends AbstractController
         $repEnfant = $this->getDoctrine()->getRepository(Enfant::class);
 
         $respLegaux = $enfant->getResponsableLegal();
-		
-		$corrAdmin = $enfant->getCorrespondantAdministratif();
+
+        $corrAdmin = $enfant->getCorrespondantAdministratif();
 
         return $this->render('enfant/show.html.twig', [
             'enfant' => $enfant,
             'responsablesLegaux' => $respLegaux,
-			'correspondantAdministratif' => $corrAdmin,
+            'correspondantAdministratif' => $corrAdmin,
         ]);
     }
 
@@ -135,9 +101,7 @@ class EnfantController extends AbstractController
     {
         $manager=$this->getDoctrine()->getManager();
 
-        $form = $this->createForm(EnfantType::class, $enfant, [
-                'entity_manager' => $manager
-        ]);
+        $form = $this->createForm(EnfantType::class, $enfant);
 
         $form->handleRequest($request);
 
@@ -149,50 +113,17 @@ class EnfantController extends AbstractController
             $donnees_newCorrespAdmin = $form->getData()->getNewCorrespondantAdministratif();
 
             if($donnees_newEtablissement != null){
-                $new_etablissement = new Etablissement();
-                $new_etablissement->setNom($donnees_newEtablissement->getNom());
-                $new_etablissement->setVille($donnees_newEtablissement->getVille());
-
-                $manager->persist($new_etablissement);
-                $enfant->setEtablissement($new_etablissement);
+                $this->enregistrerNouvelEtablissement($donnees_newEtablissement, $enfant);
             }
 
             //Enregistrement de l'éventuel nouveau établissement
             if($donnees_newRespLegal != null){
-                $new_respLegal = new ResponsableLegal();
-
-                $new_respLegal->setNom($donnees_newRespLegal->getNom());
-                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
-                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
-                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
-                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
-                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
-
-                $manager->persist($new_respLegal);
-                $enfant->setResponsableLegal($new_respLegal);
+                $this->enregisterNouveauResp($donnees_newRespLegal, $enfant);
             }
 
             //Enregistrement de l'éventuel correspondant administratif
             if($donnees_newCorrespAdmin != null){
-                $new_correspAdmin = new CorrespondantAdministratif();
-                $new_respLegal = new ResponsableLegal();
-
-                $new_respLegal->setNom($donnees_newRespLegal->getNom());
-                $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
-                $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
-                $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
-                $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
-                $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
-                $manager->persist($new_respLegal);
-
-                $new_correspAdmin->setResponsableLegal($new_respLegal);
-                $new_correspAdmin->setNumSecu($donnees_newCorrespAdmin->getNumSecu());
-                $new_correspAdmin->setAideCaf($donnees_newCorrespAdmin->getAideCaf());
-                $new_correspAdmin->setAideMsa($donnees_newCorrespAdmin->getAideMsa());
-                $new_correspAdmin->setAideAutres($donnees_newCorrespAdmin->getAideAutres());
-                $manager->persist($new_correspAdmin);
-
-                $enfant->setCorrespondantAdministratif($new_correspAdmin);
+                $this->enregistrerNouveauCorresp($donnees_newCorrespAdmin, $enfant);
             }
 
             $manager->flush();
@@ -218,5 +149,55 @@ class EnfantController extends AbstractController
         }
 
         return $this->redirectToRoute('enfant_index');
+    }
+
+
+
+
+    private function enregistrerNouvelEtablissement(Etablissement $donnees_newEtablissement, Enfant $enfant){
+        $new_etablissement = new Etablissement();
+        $new_etablissement->setNom($donnees_newEtablissement->getNom());
+        $new_etablissement->setVille($donnees_newEtablissement->getVille());
+
+        $this->getDoctrine()->getManager()->persist($new_etablissement);
+        $enfant->setEtablissement($new_etablissement);
+    }
+
+    private function enregisterNouveauResp(ResponsableLegal $donnees_newRespLegal, Enfant $enfant){
+        $new_respLegal = new ResponsableLegal();
+
+        $new_respLegal->setNom($donnees_newRespLegal->getNom());
+        $new_respLegal->setPrenom($donnees_newRespLegal->getPrenom());
+        $new_respLegal->setEmail($donnees_newRespLegal->getEmail());
+        $new_respLegal->setTelDom($donnees_newRespLegal->getTelDom());
+        $new_respLegal->setTelPort($donnees_newRespLegal->getTelPort());
+        $new_respLegal->setTelTrav($donnees_newRespLegal->getTelTrav());
+
+        $this->getDoctrine()->getManager()->persist($new_respLegal);
+        $enfant->setResponsableLegal($new_respLegal);
+    }
+
+    private function enregistrerNouveauCorresp(CorrespondantAdministratif $donnees_newCorrespAdmin, Enfant $enfant){
+        $new_correspAdmin = new CorrespondantAdministratif();
+
+        $manager=$this->getDoctrine()->getManager();
+
+        $responsable = $donnees_newCorrespAdmin->getNewResponsableLegal();
+
+        if($responsable != null){//Si le formulaire a été rempli
+            enregisterNouveauResp($responsable);
+            $new_correspAdmin->setResponsableLegal($responsable);
+        }else{
+            $new_correspAdmin->setResponsableLegal($donnees_newCorrespAdmin->getResponsableLegal());
+        }
+        
+        $new_correspAdmin->setNumSecu($donnees_newCorrespAdmin->getNumSecu());
+        $new_correspAdmin->setAideCaf($donnees_newCorrespAdmin->getAideCaf());
+        $new_correspAdmin->setAideMsa($donnees_newCorrespAdmin->getAideMsa());
+        $new_correspAdmin->setAideAutres($donnees_newCorrespAdmin->getAideAutres());
+
+        $manager->persist($new_correspAdmin);
+
+        $enfant->setCorrespondantAdministratif($new_correspAdmin);
     }
 }

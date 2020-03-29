@@ -8,8 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CorrespondantAdministratifRepository")
+ * @UniqueEntity(fields={"responsableLegal"}, message="Ce correspondant a déjà été enregistré !")
  */
 
 class CorrespondantAdministratif
@@ -28,17 +31,17 @@ class CorrespondantAdministratif
     private $num_secu;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $aide_caf;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $aide_msa;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $aide_autres;
 
@@ -51,6 +54,11 @@ class CorrespondantAdministratif
      * @ORM\OneToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="correspondantAdministratif", cascade={"persist", "remove"})
      */
     private $responsableLegal;
+
+    /**
+     * @Assert\Valid
+     */
+    private $new_responsableLegal;
 
     public function __construct()
     {
@@ -149,6 +157,18 @@ class CorrespondantAdministratif
     public function setResponsableLegal(?ResponsableLegal $responsableLegal): self
     {
         $this->responsableLegal = $responsableLegal;
+
+        return $this;
+    }
+
+    public function getNewResponsableLegal(): ?ResponsableLegal
+    {
+        return $this->new_responsableLegal;
+    }
+
+    public function setNewResponsableLegal(?ResponsableLegal $new_responsableLegal): self
+    {
+        $this->new_responsableLegal = $new_responsableLegal;
 
         return $this;
     }
