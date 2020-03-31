@@ -41,7 +41,7 @@ class Affaire
      *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !"))
      * @Assert\Regex(pattern="/[0-9]+/i",
      *              match=false,
-     *              message = "On ne peux pas créer une affaire avec des chiffres !")
+     *              message = "On ne peut pas créer une affaire avec des chiffres !")
      */
     private $nom_basque;
 
