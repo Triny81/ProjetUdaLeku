@@ -25,8 +25,8 @@ class CorrespondantAdministratif
     private $id;
 
     /**
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $num_secu;
 

@@ -1,18 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Enfant{% endblock %}
+{% block title %}Nouvel Enfant{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-10">
-			<h1>Inscription d'un enfant</h1>
-		</div>
-		<div class="col-md-2">
-			<a type="button" class="btn btn-small btn-primary" href="{{ path('enfant_index') }}">Retour</a>
-		</div>
-	</div>
-</div>
+  <div class="row">
+    <div class="col-md-10">
+      <span><h1>Inscription d'un enfant</h1>
+        {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+        {% endfor %}
+      </span>
+    </div>
+    <div class="col-md-2">
+      <a type="button" class="btn btn-small btn-primary" href="{{ path('enfant_index') }}">Retour</a>
+    </div>
+  </div>
     
     {{ include('enfant/_form.html.twig') }}
     

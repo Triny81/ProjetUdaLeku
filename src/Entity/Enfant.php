@@ -25,19 +25,19 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le nom de l'enfant n'est pas renseigné !")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le prénom de l'enfant n'est pas renseigné !")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le date de naissance de l'enfant n'est pas renseignée !")
      */
     private $dateNaiss;
 
@@ -48,7 +48,7 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="L'adresse de l'enfant n'est pas renseignée !")
      */
     private $adresse_1;
 
@@ -59,13 +59,13 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="La ville où habite l'enfant n'est pas renseignée !")
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="La code postal n'est pas renseigné !")
      */
     private $code_postal;
 
@@ -76,6 +76,7 @@ class Enfant
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Centre", inversedBy="enfants")
+     * @Assert\NotBlank(message="Le centre où doit être inscrit l'enfant n'est pas renseigné !")
      */
     private $centre;
 
@@ -88,15 +89,6 @@ class Enfant
      * @ORM\ManyToOne(targetEntity="App\Entity\ResponsableLegal", inversedBy="enfants", cascade={"persist"})
      */
     private $responsable_legal;
-
-    /**
-     * @Assert\IsFalse(message="Une personne ne peut avoir deux rôles à la fois !")
-     */
-    public function isCorrespAsSameAsResp(){
-        return $this->getResponsableLegal() === $this->getCorrespondantAdministratif()->getResponsableLegal();
-    }
-
-
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CorrespondantAdministratif", inversedBy="enfants", cascade={"persist"})
@@ -118,6 +110,13 @@ class Enfant
      * @Assert\Valid
      */
     private $new_responsableLegal;
+
+    /**
+     * @Assert\IsFalse(message="Un même responsable ne peut avoir deux rôles à la fois !")
+     */
+    public function isCorrespAsSameAsResp(){
+        return $this->getResponsableLegal() === $this->getCorrespondantAdministratif()->getResponsableLegal();
+    }
 
     public function __construct()
     {

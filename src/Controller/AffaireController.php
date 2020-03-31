@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 
 /**
@@ -26,21 +28,13 @@ class AffaireController extends AbstractController
      * @Route("/", name="affaire_index", methods={"GET"})
      */
     public function index(AffaireRepository $affaireRepository, Request $request): Response
-    {
-        //Cette fonction index créé une affaire avant même que l'utilisateur ne l'ait demandé, c'est qui n'est pas optimisé
-    
+    { 
         //Implémentation du formulaire de création d'une affaire
         $nouvelleAffaire = new Affaire();
         $formCreate = $this->createForm(AffaireType::class, $nouvelleAffaire);
         $formCreate->handleRequest($request);
 
         $toutesLesAffaires = $affaireRepository->findAll();
-
-        if ($formCreate->isSubmitted() && $formCreate->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($affaire);
-            $entityManager->flush();
-        }
 
         return $this->render('affaire/index.html.twig', [
             'affaires' => $toutesLesAffaires,
@@ -51,17 +45,28 @@ class AffaireController extends AbstractController
     /**
      * @Route("/", name="affaire_creation", methods={"GET","POST"})
      */
-    public function newAffaire(Request $request): Response
-    {//TODO : Supprimer cette action;, ou enlever cette action déjà présente dans l'action métier de la route index.
-    //Elle a été mise deux fois pour des raisons de simplicités (pour afficher le formulaire lors du chargement de l'index)
+    public function newAffaire(Request $request, ValidatorInterface $validator): Response
+    {
         $affaire = new Affaire();
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($affaire);
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($affaire);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'L\'affaire '.$form->getData()->getNomFrancais().' a été créée avec succès !');
+            }
+            else{
+                $errors = $validator->validate($form->getData());
+
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
+            
         }
         
         return $this->redirectToRoute('affaire_index');
@@ -71,15 +76,27 @@ class AffaireController extends AbstractController
     /**
      * @Route("/modification/{id}", name="affaire_modification", methods={"GET","POST"})
      */
-    public function editAffaire(Request $request, Affaire $affaire): Response
+    public function editAffaire(Request $request, Affaire $affaire, ValidatorInterface $validator): Response
     {
         $form = $this->createForm(AffaireType::class, $affaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted()) {
+            $donnees_affaire = $form->getData();
+            if($form->isValid()){
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('affaire_index');            
+                $this->addFlash('success', 'L\'affaire '.$donnees_affaire->getNomFrancais().' a été modifiée avec succès !');
+
+                return $this->redirectToRoute('affaire_index');
+            }
+            else{
+                $errors = $validator->validate($form->getData());
+
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }          
         }
 
         return $this->render('affaire/edit.html.twig', [
@@ -99,10 +116,17 @@ class AffaireController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($affaire);
             $entityManager->flush();
+
+            $this->addFlash('success', 'L\'affaire '.$affaire->getNomFrancais().' a été supprimée !');
         }
 
         return $this->redirectToRoute('affaire_index');
     }
+
+    /*Le contrôleur de type_affair n'a pas été modfiié. Dans l'optique d'avoir un modal de
+    création/modification de type d'affaire, les render et les redirect seront surement
+    à modifier.
+    */
 
     /**
      * @Route("/", name="type_affaire_creation", methods={"GET","POST"})

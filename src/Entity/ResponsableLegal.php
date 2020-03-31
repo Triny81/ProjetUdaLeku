@@ -25,19 +25,19 @@ class ResponsableLegal
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -48,7 +48,7 @@ class ResponsableLegal
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank
      */
     private $tel_port;
 

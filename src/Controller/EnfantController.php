@@ -16,6 +16,8 @@ use App\Entity\CorrespondantAdministratif;
 use App\Entity\ResponsableLegal;
 use App\Entity\Etablissement;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 /**
  * @Route("/gestionEnfants")
  */
@@ -34,40 +36,52 @@ class EnfantController extends AbstractController
     /**
      * @Route("/creation", name="enfant_creation", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ValidatorInterface $validator): Response
     {
         $enfant = new Enfant();
 
         $form = $this->createForm(EnfantType::class, $enfant);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
+                $manager = $this->getDoctrine()->getManager();
 
-            $manager = $this->getDoctrine()->getManager();
+                $donnes_enfant = $form->getData();
+                //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
+                $donnees_newEtablissement = $donnes_enfant->getNewEtablissement();
+                $donnees_newRespLegal = $donnes_enfant->getNewResponsableLegal();
+                $donnees_newCorrespAdmin = $donnes_enfant->getNewCorrespondantAdministratif();
 
-            //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
-            $donnees_newEtablissement = $form->getData()->getNewEtablissement();
-            $donnees_newRespLegal = $form->getData()->getNewResponsableLegal();
-            $donnees_newCorrespAdmin = $form->getData()->getNewCorrespondantAdministratif();
+                if($donnees_newEtablissement != null){
+                    $this->enregistrerNouvelEtablissement($donnees_newEtablissement, $enfant);
+                }
 
-            if($donnees_newEtablissement != null){
-                $this->enregistrerNouvelEtablissement($donnees_newEtablissement, $enfant);
+                //Enregistrement de l'éventuel nouveau établissement
+                if($donnees_newRespLegal != null){
+                    $this->enregisterNouveauResp($donnees_newRespLegal, $enfant);
+                }
+
+                //Enregistrement de l'éventuel correspondant administratif
+                if($donnees_newCorrespAdmin != null){
+                    $this->enregistrerNouveauCorresp($donnees_newCorrespAdmin, $enfant);
+                }
+
+                $manager->persist($enfant);
+                $manager->flush();
+
+                $this->addFlash('success', $donnes_enfant->getPrenom()." ".$donnes_enfant->getNom()." a été inscrit(e) avec succès !");
+
+                return $this->redirectToRoute('enfant_index');
+            }else{
+                $errors = $validator->validate($form->getData());
+
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+
             }
-
-            //Enregistrement de l'éventuel nouveau établissement
-            if($donnees_newRespLegal != null){
-                $this->enregisterNouveauResp($donnees_newRespLegal, $enfant);
-            }
-
-            //Enregistrement de l'éventuel correspondant administratif
-            if($donnees_newCorrespAdmin != null){
-                $this->enregistrerNouveauCorresp($donnees_newCorrespAdmin, $enfant);
-            }
-
-            $manager->persist($enfant);
-            $manager->flush();
-
-            return $this->redirectToRoute('enfant_index');
+            
         }
 
         return $this->render('enfant/new.html.twig', [
@@ -97,7 +111,7 @@ class EnfantController extends AbstractController
     /**
      * @Route("/modification/{id}", name="enfant_modification", methods={"GET","POST"})
      */
-    public function edit(Request $request, Enfant $enfant): Response
+    public function edit(Request $request, Enfant $enfant, ValidatorInterface $validator): Response
     {
         $manager=$this->getDoctrine()->getManager();
 
@@ -105,30 +119,42 @@ class EnfantController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted()) {
+            if ($form->isValid()){
+                $donnes_enfant = $form->getData();
             //Récupération des données formulaires de saisie d'un éventuel nouvel établissement/correspondant administratif/responsable légal
-            $donnees_newEtablissement = $form->getData()->getNewEtablissement();
-            $donnees_newRespLegal = $form->getData()->getNewResponsableLegal();
-            $donnees_newCorrespAdmin = $form->getData()->getNewCorrespondantAdministratif();
+                $donnees_newEtablissement = $donnes_enfant->getNewEtablissement();
+                $donnees_newRespLegal = $donnes_enfant->getNewResponsableLegal();
+                $donnees_newCorrespAdmin = $donnes_enfant->getNewCorrespondantAdministratif();
 
-            if($donnees_newEtablissement != null){
-                $this->enregistrerNouvelEtablissement($donnees_newEtablissement, $enfant);
-            }
+                if($donnees_newEtablissement != null){
+                    $this->enregistrerNouvelEtablissement($donnees_newEtablissement, $enfant);
+                }
 
             //Enregistrement de l'éventuel nouveau établissement
-            if($donnees_newRespLegal != null){
-                $this->enregisterNouveauResp($donnees_newRespLegal, $enfant);
-            }
+                if($donnees_newRespLegal != null){
+                    $this->enregisterNouveauResp($donnees_newRespLegal, $enfant);
+                }
 
             //Enregistrement de l'éventuel correspondant administratif
-            if($donnees_newCorrespAdmin != null){
-                $this->enregistrerNouveauCorresp($donnees_newCorrespAdmin, $enfant);
+                if($donnees_newCorrespAdmin != null){
+                    $this->enregistrerNouveauCorresp($donnees_newCorrespAdmin, $enfant);
+                }
+
+                $manager->flush();
+
+                $this->addFlash('success', "La fiche de ".$donnes_enfant->getPrenom()." ".$donnes_enfant->getNom()." a été modifiée avec succès !");
+
+                return $this->redirectToRoute('enfant_index');
+
+
+            }else{
+                $errors = $validator->validate($form->getData());
+
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
             }
-
-            $manager->flush();
-
-            return $this->redirectToRoute('enfant_index');
         }
 
         return $this->render('enfant/edit.html.twig', [
@@ -147,6 +173,8 @@ class EnfantController extends AbstractController
             $entityManager->remove($enfant);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', $donnes_enfant->getPrenom()." ".$donnes_enfant->getNom().' a été désinscrit.');
 
         return $this->redirectToRoute('enfant_index');
     }
