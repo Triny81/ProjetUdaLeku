@@ -58,7 +58,7 @@ class Affaire
 
     public function __construct()
     {
-        $this->listeAffaire = new ArrayCollection();
+        $this->listeAffaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,13 +107,13 @@ class Affaire
      */
     public function getListeAffaire(): Collection
     {
-        return $this->listeAffaire;
+        return $this->listeAffaires;
     }
 
     public function addListeAffaire(ListeAffaire $listeAffaire): self
     {
-        if (!$this->listeAffaire->contains($listeAffaire)) {
-            $this->listeAffaire[] = $listeAffaire;
+        if (!$this->listeAffaires->contains($listeAffaire)) {
+            $this->listeAffaires[] = $listeAffaire;
         }
 
         return $this;
@@ -121,8 +121,8 @@ class Affaire
 
     public function removeListeAffaire(ListeAffaire $listeAffaire): self
     {
-        if ($this->listeAffaire->contains($listeAffaire)) {
-            $this->listeAffaire->removeElement($listeAffaire);
+        if ($this->listeAffaires->contains($listeAffaire)) {
+            $this->listeAffaires->removeElement($listeAffaire);
         }
 
         return $this;

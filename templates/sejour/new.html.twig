@@ -21,8 +21,11 @@
 		</div>
 	</div>
 	
+
+	
 	<a class="btn btn-primary" href="#" role="button"> Valider </a>
 	<a class="btn btn-primary" href="{ path('sejour_index') }}" role="button"> Annuler </a>
+	
 	<hr>
 	
 	{{ form_start(form) }}
@@ -98,9 +101,9 @@
 		  </div>
 		</div>
 
-		{{ form_widget(form) }}
+	{{ form_widget(form) }}
 		
-		<button class="btn">{{ button_label|default('Save') }}</button>
+		<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 		
 	{{ form_end(form) }}
 

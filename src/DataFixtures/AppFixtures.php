@@ -39,6 +39,7 @@ class AppFixtures extends Fixture
 		$sejourEquit -> setCout(350);
 		$manager->persist($sejourEquit); 
 
+
 		// Centre
 		$centre1 = new Centre();
 		$centre1 -> setVille("Bayonne");
@@ -62,22 +63,22 @@ class AppFixtures extends Fixture
 		$etablissement2 -> setNom("Jules Ferry");
 		$etablissement2 -> setVille("Bayonne");
 		$manager->persist($etablissement2);
-								
+
 		// TypeAffaire
-		$vetement = new typeAffaire();
+		$vetement = new TypeAffaire();
 		$vetement -> setNom("Vêtement");
 		$manager->persist($vetement);
 		
-		$toilette = new typeAffaire();
+		$toilette = new TypeAffaire();
 		$toilette -> setNom("Toilette");
 		$manager->persist($toilette);
 		
-		$autre = new typeAffaire();
+		$autre = new TypeAffaire();
 		$autre -> setNom("Autre");
 		$manager->persist($autre);
 	
 		// Moultes Affaires
-		
+
 		$tshirt = new Affaire();
 		$tshirt -> setNomFrancais("T-shirt");
 		$tshirt -> setNomBasque("Tix-sharix");
@@ -114,6 +115,7 @@ class AppFixtures extends Fixture
 		$plancheSurf -> setTypeAffaire($autre);
 		$manager -> persist($plancheSurf);
 		
+
 		// ListeAffaire
 		$listeEte = new ListeAffaire();
 		$listeEte -> setNomFrancais("Été");
@@ -122,6 +124,7 @@ class AppFixtures extends Fixture
 		$listeEte -> addAffaire($serviette);
 		$listeEte -> addAffaire($baskets);
 		$manager -> persist($listeEte);
+
 		
 		$listeHiver = new ListeAffaire();
 		$listeHiver -> setNomFrancais("Hiver");
@@ -200,7 +203,7 @@ class AppFixtures extends Fixture
 			$enfant -> setEtablissement($etablissement1);
 			$enfant -> setCentre($centre1);
 
-			$enfant -> addSejour($sejourCirque);
+			$enfant -> addSejour($cirque);
 			
 			$manager->persist($enfant);
           }
@@ -239,7 +242,7 @@ class AppFixtures extends Fixture
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
 
-			$enfant -> addSejour($sejourEquit);
+			$enfant -> addSejour($equitation);
 
 
 			$manager->persist($enfant);
@@ -298,7 +301,7 @@ class AppFixtures extends Fixture
 			$abdoul -> setResponsableLegal($jeanReneRespLegal);
 			$abdoul -> setEtablissement($etablissement2);
 			$abdoul -> setCentre($centre3);
-			$abdoul -> addSejour($sejourCirque);
+			$abdoul -> addSejour($cirque);
 
 			$manager->persist($abdoul);
 
@@ -313,7 +316,7 @@ class AppFixtures extends Fixture
 			$mahmoud -> setCorrespondantAdministratif($jeanReneCorrespondantAdmin);
 			$mahmoud -> setEtablissement($etablissement2);
 			$mahmoud -> setCentre($centre3);
-			$mahmoud -> addSejour($sejourCirque);
+			$mahmoud -> addSejour($cirque);
 
 			$manager->persist($mahmoud);
 
