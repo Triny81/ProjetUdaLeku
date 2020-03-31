@@ -26,7 +26,7 @@ class SejourType extends AbstractType
             /*->add('enfants', CollectionType::class,	['entry_type' => EnfantType::class,
 													])*/
             ->add('listeAffaire',EntityType::class, ['class'=>ListeAffaire::class,
-													  'choice_label' => 'nomFrancais',
+													  'choice_label' => 'nom_francais',
                                                       'expanded'=>false,
                                                       'multiple'=>false,])
         ;

@@ -56,7 +56,7 @@
 			
 			Liste d'affaire pour ce séjour : 
 			<select class=form-control-5>
-					<option value=un> {{sejour.listeAffaire.nomFrancais}} </option>
+					<option value=un> {{sejour.listeAffaire.getNomFrancais() }} </option>
 			</select>
 			<a class="btn btn-primary" href="#" role="button"> Modifier </a>
 			
@@ -73,8 +73,8 @@
 					{% for affaire in sejour.listeAffaire.affaire  %}
 						<tr>
 							<td> 1 </td>
-							<td> {{ affaire.nomFrancais }} </td>
-							<td> {{ affaire.nomBasque }} </td>
+							<td> {{ affaire.getNomFrancais() }} </td>
+							<td> {{ affaire.getNomBasque() }} </td>
 							<td> {{ affaire.typeAffaire.nom }} </td>
 						</tr>
 					{% endfor %}
