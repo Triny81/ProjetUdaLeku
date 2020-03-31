@@ -200,8 +200,6 @@ class AppFixtures extends Fixture
 			$enfant -> setCentre($centre1);
 
 			$enfant -> addSejour($sejourCirque);
-
-			$enfant -> addSejour($cirque);
 			
 			$manager->persist($enfant);
           }
@@ -241,8 +239,6 @@ class AppFixtures extends Fixture
 			$enfant -> setCentre($centre3);
 
 			$enfant -> addSejour($sejourEquit);
-
-			$enfant -> addSejour($equitation);
 
 
 			$manager->persist($enfant);
@@ -319,58 +315,6 @@ class AppFixtures extends Fixture
 			$mahmoud -> addSejour($sejourCirque);
 
 			$manager->persist($mahmoud);
-
-		 // TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Vêtement");
-		$manager->persist($typeAffaire);
-
-		// Moultes Affaires
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Lunette");
-		$affaire -> setNomBasque("Lunettax");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager -> persist($affaire);
-
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("T-shirt");
-		$affaire -> setNomBasque("Tix-sharix");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Baskets");
-		$affaire -> setNomBasque("Basktaxa");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-
-		//TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Toilette");
-		$manager->persist($typeAffaire);
-
-		// Affaire
-		$affaire = new affaire();
-		$affaire -> setNomFrancais("Serviette");
-		$affaire -> setNomBasque("Servetxin");
-		$affaire -> setTypeAffaire($typeAffaire);
-		$manager->persist($affaire);
-		
-		//TypeAffaire
-		$typeAffaire = new typeAffaire();
-		$typeAffaire -> setNom("Autre");
-		$manager->persist($typeAffaire);
-		
-		// ListeAffaire
-		$listeAffaire = new ListeAffaire();
-		$listeAffaire -> setNomFrancais("Été");
-		$listeAffaire -> setNomBasque("???");
-		$manager->persist($listeAffaire);
-		
-		$listeAffaire = new ListeAffaire();
-		$listeAffaire -> setNomFrancais("Hiver");
-		$listeAffaire -> setNomBasque("???");
-		$manager->persist($listeAffaire);
 
         $manager->flush();
     }

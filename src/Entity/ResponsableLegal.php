@@ -25,19 +25,19 @@ class ResponsableLegal
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le nom du responsable légal n'est pas renseigné !")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le prénom du responsable légal n'est pas renseigné !")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le mail du responsable légal n'est pas renseigné !")
      */
     private $email;
 
@@ -48,7 +48,7 @@ class ResponsableLegal
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank(message="Le portable du responsable légal n'est pas renseigné !")
      */
     private $tel_port;
 

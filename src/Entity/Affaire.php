@@ -25,20 +25,22 @@ class Affaire
 
     /**
      * @ORM\Column(type="string", length=40)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank
      * @Assert\Length(max = 40,
      *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
-     * @Assert\Type(type="string",
+     * @Assert\Regex(pattern="/[0-9]+/i",
+     *              match=false,
      *              message = "On ne peux pas créer une affaire avec des chiffres !")
      */
     private $nom_francais;
 
     /**
      * @ORM\Column(type="string", length=40)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
+     * @Assert\NotBlank
      * @Assert\Length(max = 40,
-     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
-     * @Assert\Type(type="string",
+     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !"))
+     * @Assert\Regex(pattern="/[0-9]+/i",
+     *              match=false,
      *              message = "On ne peux pas créer une affaire avec des chiffres !")
      */
     private $nom_basque;
