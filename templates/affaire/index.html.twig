@@ -8,11 +8,18 @@
       <h1>Gestion des affaires</h1>
     </div>
     <div class="col-md-8">
-      {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-      {% endfor %}
+      {% set tabMessages = [] %}
+          {% for message in app.flashes('error') %}
+              {% set tabMessages = tabMessages|merge([message]) %}
+          {% endfor %}
+          {% if tabMessages.0 is defined %}
+          <div class="alert alert-danger">
+            {% for message in tabMessages %}
+                {{ message }}
+                <br />
+            {% endfor %}
+          </div>
+          {% endif %}
       {% for message in app.flashes('success') %}
         <div class="alert alert-success">
             {{ message }}

@@ -26,7 +26,7 @@ class CorrespondantAdministratif
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="Le numéro de sécurité social du correspondant administratif n'est pas renseigné !")
      */
     private $num_secu;
 

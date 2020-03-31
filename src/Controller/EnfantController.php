@@ -174,7 +174,7 @@ class EnfantController extends AbstractController
             $entityManager->flush();
         }
 
-        $this->addFlash('success', $donnes_enfant->getPrenom()." ".$donnes_enfant->getNom().' a été désinscrit.');
+        $this->addFlash('success', $enfant->getPrenom()." ".$enfant->getNom().' a été désinscrit.');
 
         return $this->redirectToRoute('enfant_index');
     }
