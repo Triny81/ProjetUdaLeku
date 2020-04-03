@@ -50,7 +50,7 @@
         {% for affaire in affaires %}
          <td>{{ affaire.nomFrancais }}</td>
         <td>{{ affaire.nomBasque }}</td>
-        <td>{% if affaire.typeAffaire.nom is null %}Aucun
+        <td>{% if affaire.typeAffaire.nom is not defined %}Aucun
         {%else%} {{affaire.typeAffaire.nom}}
         {%endif%}
          </td>

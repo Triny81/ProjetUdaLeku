@@ -26,8 +26,6 @@ class Affaire
     /**
      * @ORM\Column(type="string", length=40)
      * @Assert\NotBlank
-     * @Assert\Length(max = 40,
-     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
      * @Assert\Regex(pattern="/[0-9]+/i",
      *              match=false,
      *              message = "On ne peux pas créer une affaire avec des chiffres !")
@@ -37,8 +35,6 @@ class Affaire
     /**
      * @ORM\Column(type="string", length=40)
      * @Assert\NotBlank
-     * @Assert\Length(max = 40,
-     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !"))
      * @Assert\Regex(pattern="/[0-9]+/i",
      *              match=false,
      *              message = "On ne peux pas créer une affaire avec des chiffres !")
@@ -52,7 +48,6 @@ class Affaire
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeAffaire", inversedBy="affaires")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $type_affaire;
 
