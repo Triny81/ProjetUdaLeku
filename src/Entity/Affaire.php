@@ -28,7 +28,7 @@ class Affaire
      * @Assert\NotBlank
      * @Assert\Regex(pattern="/[0-9]+/i",
      *              match=false,
-     *              message = "On ne peux pas créer une affaire avec des chiffres !")
+     *              message = "On ne peut pas créer une affaire avec des chiffres !")
      */
     private $nom_francais;
 
@@ -37,7 +37,7 @@ class Affaire
      * @Assert\NotBlank
      * @Assert\Regex(pattern="/[0-9]+/i",
      *              match=false,
-     *              message = "On ne peux pas créer une affaire avec des chiffres !")
+     *              message = "On ne peut pas créer une affaire avec des chiffres !")
      */
     private $nom_basque;
 

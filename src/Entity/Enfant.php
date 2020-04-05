@@ -65,7 +65,7 @@ class Enfant
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Assert\NotBlank(message="La code postal n'est pas renseigné !")
+     * @Assert\NotBlank(message="Le code postal n'est pas renseigné !")
      */
     private $code_postal;
 
