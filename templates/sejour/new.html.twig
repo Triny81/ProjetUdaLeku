@@ -21,14 +21,12 @@
 		</div>
 	</div>
 	
-
-	
-	<a class="btn btn-primary" href="#" role="button"> Valider </a>
-	<a class="btn btn-primary" href="{ path('sejour_index') }}" role="button"> Annuler </a>
-	
+	{{ form_start(form) }}
+	<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+	<a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Annuler </a> 
 	<hr>
 	
-	{{ form_start(form) }}
+	
 
 	<div class="modal-body row">
 		<div class="col-md-6">
@@ -65,10 +63,10 @@
 				<tbody>
 					{# {% for affaire in sejour.listeAffaire.affaire  %} #}
 						<tr>
-							<td> Quantité </td>
-							<td> Nom français </td>
-							<td> Nom basque </td>
-							<td> Nom Affaire </td>
+							<td>  </td>
+							<td>  </td>
+							<td>  </td>
+							<td>  </td>
 						</tr>
 					{# {% endfor %} #}
 				</tbody>
@@ -103,9 +101,9 @@
 
 	{{ form_widget(form) }}
 		
-		<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+		
 		
 	{{ form_end(form) }}
 
-    <a href="{{ path('sejour_index') }}">back to list</a>
+    {# <a href="{{ path('sejour_index') }}">back to list</a> #}
 {% endblock %}

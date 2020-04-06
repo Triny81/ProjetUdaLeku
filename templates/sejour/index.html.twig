@@ -11,12 +11,12 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Nom</th>
-                <th>Date_debut</th>
-                <th>Date_fin</th>
-                <th>N°_ministre</th>
-                <th>Cout</th>
-                <th>actions</th>
+                <th>Séjour</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>N° ministre</th>
+                <th>Coût</th>
+                <th>Que voulez-vous faire ?</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                 <td>{{ sejour.cout }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ path('sejour_consultation', {'id': sejour.id}) }}"> Consulter </a>
-                    <a class="btn btn-primary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Edit </a>
+                    <a class="btn btn-primary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
                 </td>
             </tr>
         {% else %}
