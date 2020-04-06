@@ -22,6 +22,24 @@ class AppFixtures extends Fixture
         // Création d'un générateur de données Faker
          $faker = \Faker\Factory::create('fr_FR');
 
+        // Séjour
+		$sejourCirque = new Sejour();
+		$sejourCirque -> setNom("Cirque");
+		$sejourCirque -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
+		$sejourCirque -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
+		$sejourCirque -> setNumMinistre("123456AX");
+		$sejourCirque -> setCout(350);
+		$manager->persist($sejourCirque);
+		
+		$sejourEquit = new Sejour();
+		$sejourEquit -> setNom("Equitation");
+		$sejourEquit -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
+		$sejourEquit -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
+		$sejourEquit -> setNumMinistre("123456AX");
+		$sejourEquit -> setCout(350);
+		$manager->persist($sejourEquit); 
+
+
 		// Centre
 		$centre1 = new Centre();
 		$centre1 -> setVille("Bayonne");
@@ -49,8 +67,7 @@ class AppFixtures extends Fixture
 		$etablissement2 -> setNom("Jules Ferry");
 		$etablissement2 -> setVille("Bayonne");
 		$manager->persist($etablissement2);
-	
-						
+
 		// TypeAffaire
 		$vetement = new TypeAffaire();
 		$vetement -> setNom("Vêtement");
@@ -65,6 +82,7 @@ class AppFixtures extends Fixture
 		$manager->persist($autre);
 	
 		// Moultes Affaires
+
 		$tshirt = new Affaire();
 		$tshirt -> setNomFrancais("T-shirt");
 		$tshirt -> setNomBasque("Tix-sharix");
@@ -119,7 +137,7 @@ class AppFixtures extends Fixture
 		$combi -> setTypeAffaire($vetement);
 		$manager -> persist($combi);
 		
-	
+
 		// ListeAffaire
 		$listeEte = new ListeAffaire();
 		$listeEte -> setNomFrancais("Été");
@@ -131,6 +149,7 @@ class AppFixtures extends Fixture
 		$listeEte -> addAffaire($brosseADent);
 		$listeEte -> addAffaire($serviette);
 		$manager -> persist($listeEte);
+
 		
 		$listeHiver = new ListeAffaire();
 		$listeHiver -> setNomFrancais("Hiver");
@@ -142,7 +161,7 @@ class AppFixtures extends Fixture
 		$listeHiver -> addAffaire($serviette);
 		$listeHiver -> addAffaire($lunette);
 		$manager -> persist($listeHiver);
-		
+			
 		// Sejour
 		$sej_ski = new Sejour();
 		$sej_ski -> setNom("Ski");

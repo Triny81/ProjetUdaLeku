@@ -7,6 +7,27 @@
 
     {# {{ include('sejour/_form.html.twig') }} #}
 	
+	<a class="btn btn-primary" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
+	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
+	
+	<div class="btn-group" role="group">
+		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		  Options
+		</button>
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		  <a class="dropdown-item disabled" href="#"> Modifier </a>
+		  <a class="dropdown-item disabled" href="#"> Supprimer </a>
+		  <a class="dropdown-item disabled" href="#"> Imprimer, générer </br> et publipostage </a>
+		</div>
+	</div>
+	
+
+	
+	<a class="btn btn-primary" href="#" role="button"> Valider </a>
+	<a class="btn btn-primary" href="{ path('sejour_index') }}" role="button"> Annuler </a>
+	
+	<hr>
+	
 	{{ form_start(form) }}
 
 	<div class="modal-body row">
@@ -80,9 +101,9 @@
 		  </div>
 		</div>
 
-		{{ form_widget(form) }}
+	{{ form_widget(form) }}
 		
-		<button class="btn">{{ button_label|default('Save') }}</button>
+		<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 		
 	{{ form_end(form) }}
 
