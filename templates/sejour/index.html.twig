@@ -3,7 +3,9 @@
 {% block title %} Liste des séjours {% endblock %}
 
 {% block body %}
-    <h1> Gestion des séjour </h1>
+    <h1> Gestion des séjours </h1>
+	
+	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
 
     <table class="table">
         <thead>
