@@ -13,18 +13,24 @@ use App\Form\ListeAffaireType;
 use App\Entity\ListeAffaire;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 class SejourType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nom')
-            ->add('date_debut')
-            ->add('date_fin')
+            ->add('date_debut', DateType::class, [
+                'empty_data' => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
+                'years'=> range(date('Y'), date('Y')+10),
+                'format' => 'dd MM yyyy'])
+            ->add('date_fin', DateType::class, [
+                'empty_data' => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
+                'years'=> range(date('Y'), date('Y')+10),
+                'format' => 'dd MM yyyy'])
             ->add('num_ministre')
             ->add('cout')
-            /*->add('enfants', CollectionType::class,	['entry_type' => EnfantType::class,
-													])*/
             ->add('listeAffaire',EntityType::class, ['class'=>ListeAffaire::class,
 													  'choice_label' => 'nom_francais',
                                                       'expanded'=>false,

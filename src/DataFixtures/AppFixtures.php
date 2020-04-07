@@ -22,24 +22,6 @@ class AppFixtures extends Fixture
         // Création d'un générateur de données Faker
          $faker = \Faker\Factory::create('fr_FR');
 
-        // Séjour
-		$sejourCirque = new Sejour();
-		$sejourCirque -> setNom("Cirque");
-		$sejourCirque -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourCirque -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourCirque -> setNumMinistre("123456AX");
-		$sejourCirque -> setCout(350);
-		$manager->persist($sejourCirque);
-		
-		$sejourEquit = new Sejour();
-		$sejourEquit -> setNom("Equitation");
-		$sejourEquit -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourEquit -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourEquit -> setNumMinistre("123456AX");
-		$sejourEquit -> setCout(350);
-		$manager->persist($sejourEquit); 
-
-
 		// Centre
 		$centre1 = new Centre();
 		$centre1 -> setVille("Bayonne");
