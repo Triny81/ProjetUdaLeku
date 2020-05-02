@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}Uda Leku{% endblock %}</title>
-  {% block stylesheets %}<link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')}}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {% block stylesheets %}
+	  <link rel="stylesheet" href="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')}}"> 
+	 {# <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}" > #}
   {% endblock %}
 </head>
 <body>
