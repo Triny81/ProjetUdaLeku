@@ -20,25 +20,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Création d'un générateur de données Faker
-          $faker = \Faker\Factory::create('fr_FR');
-
-        // Séjour
-		$sejourCirque = new Sejour();
-		$sejourCirque -> setNom("Cirque");
-		$sejourCirque -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourCirque -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourCirque -> setNumMinistre("123456AX");
-		$sejourCirque -> setCout(350);
-		$manager->persist($sejourCirque);
-		
-		$sejourEquit = new Sejour();
-		$sejourEquit -> setNom("Equitation");
-		$sejourEquit -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourEquit -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
-		$sejourEquit -> setNumMinistre("123456AX");
-		$sejourEquit -> setCout(350);
-		$manager->persist($sejourEquit); 
-
+         $faker = \Faker\Factory::create('fr_FR');
 
 		// Centre
 		$centre1 = new Centre();
@@ -51,6 +33,10 @@ class AppFixtures extends Fixture
 		
 		$centre3 = new Centre();
 		$centre3 -> setVille("Biarritz");
+		$manager->persist($centre3);
+
+		$centre3 = new Centre();
+		$centre3 -> setVille("Hendaye");
 		$manager->persist($centre3);
 		
 		// Etablissement
@@ -104,59 +90,83 @@ class AppFixtures extends Fixture
 		$manager -> persist($brosseADent);
 		
 		$lunette = new Affaire();
-		$lunette -> setNomFrancais("Lunette");
+		$lunette -> setNomFrancais("Lunettes de soleil");
 		$lunette -> setNomBasque("Lunettax");
 		$lunette -> setTypeAffaire($autre);
 		$manager -> persist($lunette);
 		
-		$plancheSurf = new Affaire();
-		$plancheSurf -> setNomFrancais("Planche de surf");
-		$plancheSurf -> setNomBasque("Planche de surfxin");
-		$plancheSurf -> setTypeAffaire($autre);
-		$manager -> persist($plancheSurf);
+		$maillot = new Affaire();
+		$maillot -> setNomFrancais("Maillot de bain");
+		$maillot -> setNomBasque("Maillotxin");
+		$maillot -> setTypeAffaire($vetement);
+		$manager -> persist($maillot);
+
+		$doudoune = new Affaire();
+		$doudoune -> setNomFrancais("Doudoune");
+		$doudoune -> setNomBasque("Doudounea");
+		$doudoune -> setTypeAffaire($vetement);
+		$manager -> persist($doudoune);
+
+		$chassure = new Affaire();
+		$chassure -> setNomFrancais("Chaussures de randonnée");
+		$chassure -> setNomBasque("Chassurix randonnax");
+		$chassure -> setTypeAffaire($vetement);
+		$manager -> persist($chassure);
+
+		$combi = new Affaire();
+		$combi -> setNomFrancais("Combinaison de ski");
+		$combi -> setNomBasque("Combinaison de skitxin");
+		$combi -> setTypeAffaire($vetement);
+		$manager -> persist($combi);
 		
 
 		// ListeAffaire
 		$listeEte = new ListeAffaire();
 		$listeEte -> setNomFrancais("Été");
-		$listeEte -> setNomBasque("???");
-		$listeEte -> addAffaire($tshirt);
-		$listeEte -> addAffaire($serviette);
+		$listeEte -> setNomBasque("Etax");
+		$listeEte -> addAffaire($lunette);
 		$listeEte -> addAffaire($baskets);
+		$listeEte -> addAffaire($serviette);
+		$listeEte -> addAffaire($maillot);
+		$listeEte -> addAffaire($brosseADent);
+		$listeEte -> addAffaire($serviette);
 		$manager -> persist($listeEte);
 
 		
 		$listeHiver = new ListeAffaire();
 		$listeHiver -> setNomFrancais("Hiver");
-		$listeHiver -> setNomBasque("???");
+		$listeHiver -> setNomBasque("Hiverax");
+		$listeHiver -> addAffaire($combi);
+		$listeHiver -> addAffaire($chassure);
+		$listeHiver -> addAffaire($doudoune);
 		$listeHiver -> addAffaire($brosseADent);
+		$listeHiver -> addAffaire($serviette);
 		$listeHiver -> addAffaire($lunette);
-		$listeHiver -> addAffaire($plancheSurf);
 		$manager -> persist($listeHiver);
 			
 		// Sejour
-		$cirque = new Sejour();
-		$cirque -> setNom("Cirque");
-		$cirque -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
-		$cirque -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
-		$cirque -> setNumMinistre("123456AX");
-		$cirque -> setCout(350);
+		$sej_ski = new Sejour();
+		$sej_ski -> setNom("Ski");
+		$sej_ski -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 9 weeks', $interval = '+ 5 days', $timezone = null));
+		$sej_ski -> setDateFin($faker->dateTimeInInterval($startDate = '+ 11 weeks', $interval = '+ 5 days', $timezone = null));
+		$sej_ski -> setNumMinistre("123456AX");
+		$sej_ski -> setCout(350);
 
 					
-		$equitation = new Sejour();
-		$equitation -> setNom("Equitation");
-		$equitation -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
-		$equitation -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
-		$equitation -> setNumMinistre("123456AX");
-		$equitation -> setCout(350);
+		$sej_ete = new Sejour();
+		$sej_ete -> setNom("Vacances d'été");
+		$sej_ete -> setDateDebut($faker->dateTimeInInterval($startDate = '+ 10 weeks', $interval = '+ 5 days', $timezone = null));
+		$sej_ete -> setDateFin($faker->dateTimeInInterval($startDate = '+ 12 weeks', $interval = '+ 5 days', $timezone = null));
+		$sej_ete -> setNumMinistre("123456AX");
+		$sej_ete -> setCout(290);
 
 		
 		// Et si on associait les listes aux séjours ?
-		$equitation -> setListeAffaire($listeEte);
-		$cirque -> setListeAffaire($listeHiver);
+		$sej_ete -> setListeAffaire($listeEte);
+		$sej_ski -> setListeAffaire($listeHiver);
 		
-		$manager->persist($cirque);
-		$manager->persist($equitation);
+		$manager->persist($sej_ski);
+		$manager->persist($sej_ete);
 
 		//DOUBLE BOUCLE, JUSTE POUR VARIER LES SEJOURS/ETABLISSEMENT/CENTRES/NOMBRE DE RESP LEGAUX
           for ($i = 0; $i < 5; $i++)
@@ -203,7 +213,7 @@ class AppFixtures extends Fixture
 			$enfant -> setEtablissement($etablissement1);
 			$enfant -> setCentre($centre1);
 
-			$enfant -> addSejour($cirque);
+			$enfant -> addSejour($sej_ski);
 			
 			$manager->persist($enfant);
           }
@@ -242,18 +252,19 @@ class AppFixtures extends Fixture
 			$enfant -> setEtablissement($etablissement2);
 			$enfant -> setCentre($centre3);
 
-			$enfant -> addSejour($equitation);
+			$enfant -> addSejour($sej_ete);
 
 
 			$manager->persist($enfant);
 
           }
 
+          //Vérification de l'héritage des correspondants et des responsables
          //Imaginons Jean-René le correspondant administratif de Mahmoud qui soit aussi le responsable d'Abdoul !
 
-          // Responsable Legal JEAN-RENÉ, qui sera correspondant admin (tout le monde est correspondant légal !)
+          // Responsable Legal JEAN-RENÉ, qui sera aussi correspondant admin
 			$jeanReneRespLegal = new ResponsableLegal();
-			$jeanReneRespLegal -> setNom("Le corresp/responsable");
+			$jeanReneRespLegal -> setNom("Le CorrespResponsable");
 			$jeanReneRespLegal -> setPrenom("Jean-René");
 			$jeanReneRespLegal -> setEmail($faker -> email);
 			$jeanReneRespLegal -> setTelDom($faker -> phoneNumber);
@@ -272,8 +283,8 @@ class AppFixtures extends Fixture
 
 			// Il lui faut un autre correspondant à Abdoul !
 			$responsableLegalCorrespAbdoul = new ResponsableLegal();
-			$responsableLegalCorrespAbdoul -> setNom("LUC");
-			$responsableLegalCorrespAbdoul -> setPrenom("Le corresp d'abdoul");
+			$responsableLegalCorrespAbdoul -> setNom("Le corresp d'abdoul");
+			$responsableLegalCorrespAbdoul -> setPrenom("Philippe");
 			$responsableLegalCorrespAbdoul -> setEmail($faker -> email);
 			$responsableLegalCorrespAbdoul -> setTelDom($faker -> phoneNumber);
 			$responsableLegalCorrespAbdoul -> setTelPort($faker -> phoneNumber);
@@ -301,7 +312,7 @@ class AppFixtures extends Fixture
 			$abdoul -> setResponsableLegal($jeanReneRespLegal);
 			$abdoul -> setEtablissement($etablissement2);
 			$abdoul -> setCentre($centre3);
-			$abdoul -> addSejour($cirque);
+			$abdoul -> addSejour($sej_ski);
 
 			$manager->persist($abdoul);
 
@@ -316,7 +327,7 @@ class AppFixtures extends Fixture
 			$mahmoud -> setCorrespondantAdministratif($jeanReneCorrespondantAdmin);
 			$mahmoud -> setEtablissement($etablissement2);
 			$mahmoud -> setCentre($centre3);
-			$mahmoud -> addSejour($cirque);
+			$mahmoud -> addSejour($sej_ski);
 
 			$manager->persist($mahmoud);
 

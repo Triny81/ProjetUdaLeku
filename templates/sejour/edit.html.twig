@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification du séjour : {{sejour.nom}} {% endblock %}
+{% block title %}Modification d'un séjour {% endblock %}
 
 {% block body %}
-    <h1> Modification du séjour {{sejour.nom}} </h1>
+    <h1> Modification du séjour : {{sejour.nom}} </h1>
 	
-	<a class="btn btn-primary" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
+	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
 	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
 	
 	<div class="btn-group" role="group">
@@ -18,11 +18,8 @@
 		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
 		</div>
 	</div>
-	<a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Annuler </a>
-
-   {#  {{ include('sejour/_form.html.twig', {'button_label': 'Update'}) }} pour sauvegarder #}
+	<a class="btn btn-primary" href="{{ path('sejour_consultation',{'id':sejour.id}) }}" role="button"> Annuler les modifications</a>
    
 	{{ include('sejour/_form.html.twig') }}
-    {# <a href="{{ path('sejour_index') }}">back to list</a> #}
     
 {% endblock %}
