@@ -1,4 +1,103 @@
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<button type="submit" class="btn btn-primary"> Valider </button>
+
+<div class="modal-body row">
+	<div class="col-md-6">
+		
+		{# Partie concernant le séjour #}
+		<fieldset>
+			<div>
+				{{ form_label(form.nom,"Nom",{'errors': false})}}
+				{{ form_widget(form.nom) }}
+			</div>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						{{ form_label(form.date_debut,"Date de début",{'errors': false})}}
+						{{ form_widget(form.date_debut) }}
+					</div>
+					<div class="col">
+						{{ form_label(form.date_fin,"Date de fin",{'errors': false})}}
+						{{ form_widget(form.date_fin) }}
+					</div>
+					<div class="w-100"></div>
+					<div class="col">
+						{{ form_label(form.num_ministre,"N° Ministère",{'errors': false})}}
+						{{ form_widget(form.num_ministre) }}
+					</div>
+					<div class="col">
+						{{ form_label(form.cout,"Coût",{'errors': false})}}
+						{{ form_widget(form.cout) }}
+					</div>
+				</div>
+			</div>	
+		</fieldset>
+
+	</br></br>
+
+	<div>
+		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour",{'errors': false})}}
+		{{ form_widget(form.listeAffaire) }}
+	</div>		
+	<table class="table">
+		<thead>
+			<tr>
+				<th> Quantité </th>
+				<th> Français </th>
+				<th> Euskara </th>
+				<th> Type </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if sejour.listeAffaire is not null %}
+			{% for affaire in sejour.listeAffaire.affaire  %}
+			<tr>
+				<td> 1 </td>
+				<td> {{ affaire.nomFrancais }} </td>
+				<td> {{ affaire.nomBasque}} </td>
+				<td> {{ affaire.typeAffaire.nom }} </td>
+			</tr>
+			{% endfor %}
+			{% endif %}
+		</tbody>
+	</table>
+</div>
+<div class="col-md-6">
+
+	{# Partie concernant les enfants #}
+
+	Liste des enfants inscrits à ce séjour <a class="btn btn-primary" href="#" role="button"> Modifier </a>
+	<table class="table">
+		<thead>
+			<tr>
+				<th> Nom </th>
+				<th> Prénom </th>
+				<th> Centre </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if sejour.enfants is not null %}
+			{% for enfant in sejour.enfants  %}
+			<tr>
+				<td> {{enfant.nom}} </td>
+				<td> {{enfant.prenom}}</td>
+				<td> {{enfant.centre.ville}} </td>
+			</tr>
+			{% endfor %}
+			{% endif %}
+		</tbody>
+	</table>
+
+</div>
+</div>
+
+
+
+
+
+
+
 {{ form_end(form) }}

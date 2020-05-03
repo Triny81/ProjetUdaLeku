@@ -1,16 +1,104 @@
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Informations concernant l'enfant</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Responsables légaux</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Séjours</a>
+</div>
+</nav>
 {{ form_start(form) }}
-    {{ form_row(form.nom) }}
-    {{ form_row(form.prenom) }}
-    {{ form_row(form.date_naiss) }}
-    {{ form_row(form.remarque) }}
-    {{ form_row(form.adresse_1) }}
-    {{ form_row(form.adresse_2) }}
-    {{ form_row(form.ville) }}
-    {{ form_row(form.code_postal) }}
-    {{ form_row(form.responsable_legal) }}
-    {{ form_row(form.responsable_legal) }}
-    {{ form_row(form.etablissement) }}
-    {{ form_row(form.centre) }}
-    {{ form_row(form.sejour) }}
-    <button type="submit" class="btn btn-primary">Enregistrer !</button>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                {{ form_label(form.nom,"Nom",{'errors': false})}}
+                {{ form_widget(form.nom) }}
+            </div>
+            <div>
+                {{ form_label(form.prenom,"Prénom",{'errors': false})}}
+                {{ form_widget(form.prenom) }}
+            </div>
+            <br>
+            <div>
+                {{ form_label(form.date_naiss,"Date de naissance",{'errors': false})}}
+                {{ form_widget(form.date_naiss) }}
+            </div>
+            <div>
+                {{ form_label(form.remarque,"Remarques",{'errors': false})}}
+                {{ form_widget(form.remarque) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                {{ form_label(form.adresse_1,"Adresse",{'errors': false})}}
+                {{ form_widget(form.adresse_1) }}
+            </div>
+            <br>
+            <div>                
+                {{ form_label(form.adresse_2,"Complément d'adresse (falcultatif)",{'errors': false})}}
+                {{ form_widget(form.adresse_2) }}
+            </div>
+            <div>                
+                {{ form_label(form.ville,null,{'errors': false})}}
+                {{ form_widget(form.ville) }}
+            </div>
+            <div>                
+                {{ form_label(form.code_postal,null,{'errors': false})}}
+                {{ form_widget(form.code_postal) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+        {{ form_label(form.etablissement,"Établissement",{'errors': false})}}
+        {{ form_widget(form.etablissement) }}
+    </div>
+    <div>
+        <h5>Renseignez votre établissement ici s'il n'existe pas déjà</h5>
+        <div>
+            {{ form_label(form.new_etablissement.nom,null,{'errors': false})}}
+            {{ form_widget(form.new_etablissement.nom) }}
+        </div>
+        <div>
+            {{ form_label(form.new_etablissement.ville,"Ville",{'errors': false})}}
+            {{ form_widget(form.new_etablissement.ville) }}
+        </div>
+    </div>
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.centre) }}
+        </div>
+    </div>
+
+</div>
+
+<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.correspondant_administratif) }}
+        <h5>Renseignez le correspondant administratif ici s'il n'existe pas déjà</h5>
+        <div>
+            {{ include('enfant/_form_newCorresp.html.twig') }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form.responsable_legal,"Deuxième responsable légal (falcultatif)",{'errors': false}) }}
+        {{ form_widget(form.responsable_legal) }}
+        <br>
+        <h5>Renseignez le responsable ici s'il n'existe pas déjà</h5>
+        {{ include('enfant/_form_newResp.html.twig') }}
+    </div>
+</div>
+</div>
+<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+  <div>
+    <center>
+    {{ form_label(form.sejour,"Séjours",{'errors': false}) }}
+    {{ form_widget(form.sejour) }}
+    </center>
+</div>
+</div>
+<button type="submit" class="btn btn-primary">Enregistrer !</button>
+</div>
 {{ form_end(form) }}

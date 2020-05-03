@@ -19,7 +19,7 @@ class TypeAffaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 

@@ -3,7 +3,24 @@
 {% block title %}Gestionnaires d'inscription des enfants{% endblock %}
 
 {% block body %}
-<h1>Gestion des inscriptions des enfants</h1>
+<div class="row">
+    <div class="col-md-8">
+      <h1>Gestion des enfants</h1>
+    </div>
+    <div class="col-md-4">
+      {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+      {% endfor %}
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
 <a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
     Inscire un nouvel enfant
 </a>
@@ -22,7 +39,7 @@
         <tr>
             <td>{{ enfant.nom }}</td>
             <td>{{ enfant.prenom }}</td>
-            <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
+            <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('d/m/Y') : '' }}</td>
             <td>{{ enfant.centre.ville }}</td>
             <td>
                 <a type="button" href="{{path('enfant_consultation',{'id':enfant.id})}}" class="btn btn-primary">
@@ -32,9 +49,10 @@
         </tr>
         {% else %}
         <tr>
-            <td colspan="10">Aucun enfant n'a été encore inscrit... Pourquoi pas en inscrire un maintenant ?</td>
+            <td colspan="10">Aucun enfant n'a été encore inscrit... Pourquoi ne pas en inscrire un maintenant ?</td>
         </tr>
         {% endfor %}
+        
     </tbody>
 </table>
 

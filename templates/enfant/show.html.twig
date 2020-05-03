@@ -19,31 +19,31 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ enfant.id }}</td>
-            </tr>
-            <tr>
                 <th>Nom</th>
                 <td>{{ enfant.nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <td>{{ enfant.prenom }}</td>
             </tr>
             <tr>
                 <th>Date de naissance</th>
-                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('Y-m-d') : '' }}</td>
+                <td>{{ enfant.dateNaiss ? enfant.dateNaiss|date('d/m/Y') : '' }}</td>
             </tr>
             <tr>
-                <th>Remarque</th>
-                <td>{{ enfant.remarque }}</td>
+                <th>Établissement scolaire</th>
+                <td>{{ enfant.etablissement ? enfant.etablissement.nom : 'Aucun' }}</td>
             </tr>
             <tr>
-                <th>Adresse 1</th>
+                <th>Centre</th>
+                <td>{{ enfant.centre.ville }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
                 <td>{{ enfant.adresse1 }}</td>
             </tr>
             <tr>
-                <th>Adresse 2</th>
+                <th>Complément d'adresse</th>
                 <td>{{ enfant.adresse2 }}</td>
             </tr>
             <tr>
@@ -53,29 +53,34 @@
             <tr>
                 <th>Code Postal</th>
                 <td>{{ enfant.codePostal }}</td>
+            </tr>            
+            <tr>
+                <th>Remarques</th>
+                <td>{{ enfant.remarque }}</td>
             </tr>
             <tr>
                 <th>Correspondant administratif</th>
                 <td>
-                    {{ responsablesLegaux[0].nom|upper }} {{ responsablesLegaux[0].prenom }} </br>
+                     {{ enfant.correspondantAdministratif.responsableLegal.nom|upper }} {{ enfant.correspondantAdministratif.responsableLegal.prenom}}
                 </td>
             </tr>
-            {% if responsablesLegaux[1] is defined %}
             <tr>
-                <th>Responsable légal</th>
+                <th>Deuxième responsable légal</th>
                 <td>
-                    {{ responsablesLegaux[1].nom|upper }} {{ responsablesLegaux[1].prenom }} </br>
+                    {% if enfant.responsableLegal is not null %} 
+                        {{enfant.responsableLegal.nom|upper}} {{enfant.responsableLegal.prenom}}
+                    {% endif %} 
+                </td>
+            </tr>
+            {% if enfant.sejour is not null %}
+            <tr>
+                <th>Séjours</th>
+                <td>{% for sejour in enfant.sejour %}
+                        {{ sejour }} </br>
+                    {% endfor %}
                 </td>
             </tr>
             {% endif %}
-            <tr>
-                <th>Centre</th>
-                <td>{{ enfant.centre.ville }}</td>
-            </tr>
-            <tr>
-                <th>Établissement</th>
-                <td>{{ enfant.etablissement.nom }}</td>
-            </tr>
         </tbody>
     </table>
 
@@ -83,7 +88,7 @@
          Modifier
      </a>
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">
-            Supprimer
+            Désinscrire
      </button>
 
     <!-- Modal suppression enfant -->

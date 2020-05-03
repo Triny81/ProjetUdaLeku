@@ -6,6 +6,14 @@ use App\Entity\Sejour;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
+use App\Entity\Enfant;
+use App\Form\ListeAffaireType;
+use App\Entity\ListeAffaire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class SejourType extends AbstractType
 {
@@ -13,12 +21,20 @@ class SejourType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('date_debut')
-            ->add('date_fin')
+            ->add('date_debut', DateType::class, [
+                'empty_data' => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
+                'years'=> range(date('Y'), date('Y')+10),
+                'format' => 'dd MM yyyy'])
+            ->add('date_fin', DateType::class, [
+                'empty_data' => ['year' => 'Année', 'month' => 'Mois', 'day' => 'Jour'],
+                'years'=> range(date('Y'), date('Y')+10),
+                'format' => 'dd MM yyyy'])
             ->add('num_ministre')
             ->add('cout')
-            ->add('enfants')
-            ->add('listeAffaire')
+            ->add('listeAffaire',EntityType::class, ['class'=>ListeAffaire::class,
+													  'choice_label' => 'nom_francais',
+                                                      'expanded'=>false,
+                                                      'multiple'=>false,])
         ;
     }
 

@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Form\FormTypeInterface;
-
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ResponsableLegalRepository")
+ * @UniqueEntity(fields={"nom","prenom"}, message="Ce responsable a déjà été enregistré !")
  */
 class ResponsableLegal
 {
@@ -21,39 +24,48 @@ class ResponsableLegal
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom du responsable légal n'est pas renseigné !")
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom du responsable légal n'est pas renseigné !")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le mail du responsable légal n'est pas renseigné !")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel_dom;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le portable du responsable légal n'est pas renseigné !")
      */
     private $tel_port;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $tel_trav;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
+     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="responsable_legal")
      */
     private $enfants;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\CorrespondantAdministratif", mappedBy="responsableLegal", cascade={"persist", "remove"})
+     */
+    private $correspondantAdministratif;
 
     public function __construct()
     {
@@ -149,7 +161,7 @@ class ResponsableLegal
     {
         if (!$this->enfants->contains($enfant)) {
             $this->enfants[] = $enfant;
-            $enfant->addResponsableLegal($this);
+            $enfant->setResponsableLegal($this);
         }
 
         return $this;
@@ -159,7 +171,28 @@ class ResponsableLegal
     {
         if ($this->enfants->contains($enfant)) {
             $this->enfants->removeElement($enfant);
-            $enfant->removeResponsableLegal($this);
+            // set the owning side to null (unless already changed)
+            if ($enfant->getResponsableLegal() === $this) {
+                $enfant->setResponsableLegal(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCorrespondantAdministratif(): ?CorrespondantAdministratif
+    {
+        return $this->correspondantAdministratif;
+    }
+
+    public function setCorrespondantAdministratif(?CorrespondantAdministratif $correspondantAdministratif): self
+    {
+        $this->correspondantAdministratif = $correspondantAdministratif;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newResponsableLegal = null === $correspondantAdministratif ? null : $this;
+        if ($correspondantAdministratif->getResponsableLegal() !== $newResponsableLegal) {
+            $correspondantAdministratif->setResponsableLegal($newResponsableLegal);
         }
 
         return $this;

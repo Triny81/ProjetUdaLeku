@@ -25,26 +25,24 @@ class Affaire
 
     /**
      * @ORM\Column(type="string", length=40)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
-     * @Assert\Length(max = 40,
-     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
-     * @Assert\Type(type="string",
-     *              message = "On ne peux pas créer une affaire avec des chiffres !")
+     * @Assert\NotBlank
+     * @Assert\Regex(pattern="/[0-9]+/i",
+     *              match=false,
+     *              message = "On ne peut pas créer une affaire avec des chiffres !")
      */
     private $nom_francais;
 
     /**
      * @ORM\Column(type="string", length=40)
-     * @Assert\NotBlank(message = "Ce champ n'a pas été rempli !")
-     * @Assert\Length(max = 40,
-     *                maxMessage = "Les noms ne peuvent pas dépasser les {{ limit }} caractères !")
-     * @Assert\Type(type="string",
-     *              message = "On ne peux pas créer une affaire avec des chiffres !")
+     * @Assert\NotBlank
+     * @Assert\Regex(pattern="/[0-9]+/i",
+     *              match=false,
+     *              message = "On ne peut pas créer une affaire avec des chiffres !")
      */
     private $nom_basque;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ListeAffaire", mappedBy="affaire")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ListeAffaire", inversedBy="affaire")
      */
     private $listeAffaires;
 
@@ -87,10 +85,22 @@ class Affaire
         return $this;
     }
 
+    public function getTypeAffaire(): ?TypeAffaire
+    {
+        return $this->type_affaire;
+    }
+
+    public function setTypeAffaire(?TypeAffaire $type_affaire): self
+    {
+        $this->type_affaire = $type_affaire;
+
+        return $this;
+    }
+
     /**
      * @return Collection|ListeAffaire[]
      */
-    public function getListeAffaires(): Collection
+    public function getListeAffaire(): Collection
     {
         return $this->listeAffaires;
     }
@@ -99,7 +109,6 @@ class Affaire
     {
         if (!$this->listeAffaires->contains($listeAffaire)) {
             $this->listeAffaires[] = $listeAffaire;
-            $listeAffaire->addAffaire($this);
         }
 
         return $this;
@@ -109,20 +118,7 @@ class Affaire
     {
         if ($this->listeAffaires->contains($listeAffaire)) {
             $this->listeAffaires->removeElement($listeAffaire);
-            $listeAffaire->removeAffaire($this);
         }
-
-        return $this;
-    }
-
-    public function getTypeAffaire(): ?TypeAffaire
-    {
-        return $this->type_affaire;
-    }
-
-    public function setTypeAffaire(?TypeAffaire $type_affaire): self
-    {
-        $this->type_affaire = $type_affaire;
 
         return $this;
     }

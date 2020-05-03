@@ -1,11 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sejour{% endblock %}
+{% block title %} Consultation d'un séjour {% endblock %}
 
 {% block body %}
-    <h1>Sejour</h1>
+    <h1> Consultation du séjour : {{sejour.nom}} </h1>
+	
+	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
+	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
+	
+	<div class="btn-group" role="group">
+		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		  Options
+		</button>
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		  <a class="dropdown-item" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
+		  {{ include('sejour/_delete_form.html.twig') }}
+		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
+		</div>
+	</div>
+	
+	<a class="btn btn-primary disabled" href="#" role="button"> Valider </a>
+	<a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Retour </a> 
+		 
+	<hr>
+	
+	<div class="modal-body row">
+	  <div class="col-md-6">
+		
+		{# Partie concernant le séjour #}		
+			<fieldset disabled>			
+				<div class="container">
+					<div class="row">				  
+						<div class="col-sm-3"> Séjour </div>
+						<div class="col-sm-9"> <input type="text" placeholder=" {{sejour.nom}} "> </div>
+							  
+						<div class="w-100"></div>
+					  
+						<div class="col"> Date de début </div>
+						<div class="col"> <input type= text placeholder=" {{ sejour.dateDebut ? sejour.dateDebut|date('d/m/Y') : '' }} "> </div>
+						<div class="col"> Date de fin </div>
+						<div class="col"> <input type= text placeholder=" {{ sejour.dateFin ? sejour.dateFin|date('d/m/Y') : '' }} "> </div>
+						
+						<div class="w-100"></div>
+						
+						<div class="col"> N° Ministère </div>
+						<div class="col"> <input type= text placeholder=" {{sejour.numMinistre}} "> </div>
+						<div class="col"> Coût </div>
+						<div class="col"> <input type= text placeholder=" {{sejour.cout}} "> </div>
+					</div>
+				</div>	
+			</fieldset>
+			
+			</br></br>
+			
+			Liste d'affaires pour ce séjour : 
+			<select class=form-control-5>
+					<option value=un> {{sejour.listeAffaire.nomFrancais }} </option>
+			</select>
+			<a class="btn btn-primary" href="#" role="button"> Modifier </a>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Quantité </th>
+						<th> Français </th>
+						<th> Euskara </th>
+						<th> Type </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for affaire in sejour.listeAffaire.affaire  %}
+						<tr>
+							<td> 1 </td>
+							<td> {{ affaire.nomFrancais }} </td>
+							<td> {{ affaire.nombasque }} </td>
+							<td> {{ affaire.typeAffaire.nom }} </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		
+	</div>
+	<div class="col-md-6">
+		
+		{# Partie concernant les enfants #}			
+			Liste des enfants inscrits à ce séjour
+			<table class="table">
+				<thead>
+					<tr>
+						<th> Nom </th>
+						<th> Prénom </th>
+						<th> Centre </th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for enfant in sejour.enfants  %}
+						<tr>
+							<td> {{ enfant.nom }} </td>
+							<td> {{ enfant.prenom }} </td>
+							<td> {{ enfant.centre.ville }} </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		 
+	  </div>
+	</div>
 
-    <table class="table">
+    {#
+	<table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -16,27 +119,27 @@
                 <td>{{ sejour.nom }}</td>
             </tr>
             <tr>
-                <th>Date_debut</th>
+                <th>Date début</th>
                 <td>{{ sejour.dateDebut ? sejour.dateDebut|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Date_fin</th>
+                <th>Date fin</th>
                 <td>{{ sejour.dateFin ? sejour.dateFin|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>N°_ministre</th>
+                <th>N° ministère</th>
                 <td>{{ sejour.numMinistre }}</td>
             </tr>
             <tr>
-                <th>Cout</th>
+                <th>Coût</th>
                 <td>{{ sejour.cout }}</td>
             </tr>
         </tbody>
-    </table>
+    </table> 
+	#}
 
-    <a href="{{ path('sejour_index') }}">back to list</a>
+    {#<a class="btn btn-primary" href="{{ path('sejour_index') }}"> Retour</a>
+	<a class="btn btn-primary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a> #}
 
-    <a href="{{ path('sejour_modification', {'id': sejour.id}) }}">edit</a>
-
-    {{ include('sejour/_delete_form.html.twig') }}
+   
 {% endblock %}

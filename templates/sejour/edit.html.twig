@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Sejour{% endblock %}
+{% block title %}Modification d'un séjour {% endblock %}
 
 {% block body %}
-    <h1>Edit Sejour</h1>
-
-    {{ include('sejour/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('sejour_index') }}">back to list</a>
-
-    {{ include('sejour/_delete_form.html.twig') }}
+    <h1> Modification du séjour : {{sejour.nom}} </h1>
+	
+	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
+	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
+	
+	<div class="btn-group" role="group">
+		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		  Options
+		</button>
+		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+		  <a class="dropdown-item" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
+		  {{ include('sejour/_delete_form.html.twig') }}
+		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
+		</div>
+	</div>
+	<a class="btn btn-primary" href="{{ path('sejour_consultation',{'id':sejour.id}) }}" role="button"> Annuler les modifications</a>
+   
+	{{ include('sejour/_form.html.twig') }}
+    
 {% endblock %}

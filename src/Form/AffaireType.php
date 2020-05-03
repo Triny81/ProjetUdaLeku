@@ -20,7 +20,9 @@ class AffaireType extends AbstractType
             ->add('type_affaire',EntityType::class, ['class'=>TypeAffaire::class,
                                                     'choice_label'=>'nom',
                                                     'expanded'=>false,
-                                                    'multiple'=>false,])
+                                                    'multiple'=>false,
+                                                    'required'=>false,
+                                                    'placeholder'=>"Aucun"])
         ;
     }
 

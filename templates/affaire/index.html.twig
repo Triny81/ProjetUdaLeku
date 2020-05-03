@@ -1,14 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Affaire index{% endblock %}
-
 {% block body %}
-<h1>Gestion des affaires</h1>
+<div class="row">
+    <div class="col-md-4">
+      <h1>Gestion des affaires</h1>
+    </div>
+    <div class="col-md-8">
+      {% set tabMessages = [] %}
+          {% for message in app.flashes('error') %}
+              {% set tabMessages = tabMessages|merge([message]) %}
+          {% endfor %}
+          {% if tabMessages.0 is defined %}
+          <div class="alert alert-danger">
+            {% for message in tabMessages %}
+                {{ message }}
+                <br />
+            {% endfor %}
+          </div>
+          {% endif %}
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreationAffaire">
   Créer une affaire
 </button>
+
+
 
 
 <table class="table">
@@ -24,7 +49,7 @@
         {% for affaire in affaires %}
          <td>{{ affaire.nomFrancais }}</td>
         <td>{{ affaire.nomBasque }}</td>
-        <td>{% if affaire.typeAffaire.nom is null %}Aucun
+        <td>{% if affaire.typeAffaire.nom is not defined %}Aucun
         {%else%} {{affaire.typeAffaire.nom}}
         {%endif%}
          </td>
@@ -64,7 +89,7 @@
     </tr>
     {% else %}
     <tr>
-        <td colspan="4"><center>Aucune affaire n'a été eregistré... Pourquoi pas en créer une maintenant ?</center></td>
+        <td colspan="4"><center>Aucune affaire n'a été eregistré... Pourquoi ne pas en créer une maintenant ?</center></td>
     </tr>
     {% endfor %}
 </tbody>

@@ -1,43 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sejour index{% endblock %}
+{% block title %} Liste des séjours {% endblock %}
 
 {% block body %}
-    <h1>Sejour index</h1>
+    <h1> Gestion des séjours </h1>
+	
+	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer un nouveau séjour </a>
 
-    {<table class="table">
+    <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Date_debut</th>
-                <th>Date_fin</th>
-                <th>N°_ministre</th>
-                <th>Cout</th>
-                <th>actions</th>
+                <th>Séjour</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for sejour in sejours %}
             <tr>
-                <td>{{ sejour.id }}</td>
                 <td>{{ sejour.nom }}</td>
-                <td>{{ sejour.dateDebut ? sejour.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ sejour.dateFin ? sejour.dateFin|date('Y-m-d') : '' }}</td>
-                <td>{{ sejour.numMinistre }}</td>
-                <td>{{ sejour.cout }}</td>
+                <td>{{ sejour.dateDebut ? sejour.dateDebut|date('d/m/Y') : '' }}</td>
+                <td>{{ sejour.dateFin ? sejour.dateFin|date('d/m/Y') : '' }}</td>
                 <td>
-                    <a href="{{ path('sejour_consultation', {'id': sejour.id}) }}">show</a>
-                    <a href="{{ path('sejour_modification', {'id': sejour.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('sejour_consultation', {'id': sejour.id}) }}"> Consulter </a>
+                    <a class="btn btn-primary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun séjour n'a été eregistré... Pourquoi ne pas en créer un maintenant ?</td>
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> 
 
-    <a href="{{ path('sejour_creation') }}">Create new</a>}
+   {# <a href="{{ path('sejour_creation') }}">Create new</a> #}
 {% endblock %}

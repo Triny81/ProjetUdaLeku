@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EtablissementRepository")
  */
@@ -19,21 +21,21 @@ class Etablissement
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de l'établissement n'est pas renseigné !")
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="La ville de l'établissement n'est pas renseignée !")
      */
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="etablissement")
+     * @ORM\OneToMany(targetEntity="App\Entity\Enfant", mappedBy="etablissement", cascade={"persist"})
      */
     private $enfants;
-
-
 
     public function __construct()
     {
@@ -99,6 +101,4 @@ class Etablissement
 
         return $this;
     }
-
-    
 }
