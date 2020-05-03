@@ -31,7 +31,7 @@ class EnfantType extends AbstractType
             ->add('ville')
             ->add('code_postal')
             ->add('responsable_legal',CollectionType::class, ['entry_type'=>ResponsableLegalType::class,
-                                                                'entry_options' => ['label' => false]],)
+                                                                'entry_options' => ['label' => false]])
                                                     /*'choice_label' => function ($responsable_legal) {
                                                              return $responsable_legal->getNom()." ".$responsable_legal->getPrenom();
                                                      },
