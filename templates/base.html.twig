@@ -2,33 +2,27 @@
 <html>
 <head>
   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>{% block title %}Uda Leku{% endblock %}</title>
+  <title>{% block title %}Udaleku{% endblock %}</title>
 
   {% block stylesheets %}
-    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
-  {% endblock %}
+  <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 
-</head>
-<body>
-
-  {% block menu %}
-  <header>
-    <style language = "css">
+  <style language = "css">
     #leMenu {
       float:left;
     }
 
     #image {
-      margin-left: 95px;
+      align-content: center;
     }
 
-    leMenu.vertical-menu {
+    .vertical-menu {
       width: 200px; /* Set a width if you like */
     }
 
-    .vertical-menu a {
+    .vertical-menu > a {
       background-color: #f8f9fa; /* Grey background color */
       color: black; /* Black text color */
       display: block; /* Make the links appear below each other */
@@ -36,80 +30,113 @@
       text-decoration: none; /* Remove underline from links */
     }
 
-    leMenu.vertical-menu a:hover {
+    .vertical-menu a:hover {
       background-color: #ccc; /* Dark grey background on mouse-over */
     }
 
-    leMenu.vertical-menu a.active {
+    .vertical-menu a.active {
       background-color: #4CAF50; /* Add a green color to the "active/current" link */
       color: white;
     }
 
     #titreMenu{
       font-size: 35px;
-      text-decoration: underline;
       color : #ed2e3d;
       font-weight: bold;
+      text-align: center;
     }
 
-    #gestionSejours{
-      font-size: 15px;
+    #gestionnaire{
+      font-size: 1em;
       color : #00ac79;
       font-weight: bold;
     }
 
-    #gestionAffaires{
-      font-size: 15px;
-      color : #00ac79;
-      font-weight: bold;
-    }
+  </style>
+  {% endblock %}
 
-    #listeAffaires{
-      font-size: 15px;
-      color : #00ac79;
-      font-weight: bold;
-    }
-    
-    #gestionEnfants{
-      font-size: 15px;
-      color : #00ac79;
-      font-weight: bold;
-    }
-
-    </style>
+</head>
+<body>
+  <header>
+    <center>
+      <nav class="navbar navbar-light bg-dark"  id="barre">
+        <a class="navbar-brand" href="#"></a>
+        <a href="/login" class="btn btn-secondary btn-small" role="button" aria-pressed="true">Connexion</a>
+      </nav>
+    </center>
+  </header>
 
 
-  <center>
-  <nav class="navbar navbar-light bg-light"  id="barre">
-    <a class="navbar-brand" href="/">
-      <div id="logo">
-        <a href="/gestionSejours"><img src="https://udaleku.eus/lib/css/irudik/logoa-lauki.png" height="170" width="170" class="img-fluid" id="image"></a>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        {% block menu %}
+        <div id = "leMenu">
+         <div class="vertical-menu">
+            <a href="/gestionSejours"><img src="{{asset('logo-udaleku.png')}}" height="170" width="170" class="img-fluid" id="image"></a>
+           <a href="{{path('sejour_index')}}" id = "gestionnaire">Gestion des séjours</a>
+           <a href="#" id = "gestionnaire" >Gestion des listes<br>d'affaires</a>
+           <a href="{{path('affaire_index')}}" id = "gestionnaire" >Gestion des affaires</a>
+           <a href="{{path('enfant_index')}}" id = "gestionnaire">Gestion des enfants</a>
+         </div>
+       </div>
+
+       {% endblock %}
+     </div>
+
+
+     <!-- Contenu (body) -->
+     <div class="col-md-10">
+      <br />
+      <br />      
+      <div class="row">
+          <h1>
+            {% block titrePage %}  
+            Remplacer le titre !(block titrePage)
+            {% endblock %}
+          </h1>
       </div>
-    </a>
-    <a href="/login" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Connexion</a>
-  </nav>
-</center>
-</header>
+      <!-- Block contenu le système permettant d'afficher les messages d'erreurs (ou de succès) -->
+      {% block messagesSysteme %}
+      {% set tabMessages = [] %}
+          {% for message in app.flashes('error') %}
+          {% set tabMessages = tabMessages|merge([message]) %}
+          {% endfor %}
+          {% if tabMessages.0 is defined %}
+          <div class="alert alert-danger">
+            {% for message in tabMessages %}
+            {{ message }}
+            <br />
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% for message in app.flashes('success') %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+          {% endfor %}
+      {% endblock %}
+      <hr>
+      <!-- Block contenant toutes les fonctionnalités possibles du gestionnaire (créer, modifier, valider...) -->
+      {% block outils %}
+      Placer toutes les fonctionnalités dans le block outils !  
+      {% endblock %}
+      <br />
+      <br />
 
- <div  id = "leMenu">
-   <div class="vertical-menu">
-   <a href="#" class="inactive" id = "titreMenu" >Menu</a>
-   <a href="{{path('sejour_index')}}" id = "gestionSejours">Gestion des séjours</a>
-   <a href="#" id = "listeAffaires" >Gestion des listes<br>d'affaires</a>
-   <a href="{{path('affaire_index')}}" id = "gestionAffaires" >Gestion des affaires</a>
-   <a href="{{path('enfant_index')}}" id = "gestionEnfants">Gestion des enfants</a>
- </div>
+      {% block body %}  
+      {% endblock %}
+    </div>
+
+  </div>
 </div>
 
-  {% endblock %}
 
-  {% block body %}  
-  {% endblock %}
-
-  {% block javascripts %}
-  <script src="{{asset('https://code.jquery.com/jquery-3.3.1.slim.min.js')}}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')}}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="{{asset('assets/js/bootstrap.js')}}"></script> 
-  {% endblock %}
+{% block javascripts %}
+<script src="{{asset('https://code.jquery.com/jquery-3.3.1.slim.min.js')}}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')}}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="{{asset('assets/js/bootstrap.js')}}"></script> 
+{% endblock %}
 </body>
 </html>
