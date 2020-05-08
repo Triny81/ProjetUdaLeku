@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste d'affaires{% endblock %}
+
+{% block body %}
+    <h1>Liste d'affaires</h1>
+
+    <a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
+        Créer une liste d'affaires
+    </a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Francais</th>
+                <th>Euskara</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for liste_affaire in liste_affaires %}
+            <tr>
+                <td>{{ liste_affaire.id }}</td>
+                <td>{{ liste_affaire.nomFrancais }}</td>
+                <td>{{ liste_affaire.nomBasque }}</td>
+                <td>
+                    <a href="{{ path('liste_affaire_show', {'id': liste_affaire.id}) }}">show</a>
+                    <a href="{{ path('liste_affaire_edit', {'id': liste_affaire.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune liste n'existe</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
