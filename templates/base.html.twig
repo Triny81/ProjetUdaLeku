@@ -52,6 +52,7 @@
       font-weight: bold;
     }
 
+
   </style>
   {% endblock %}
 
@@ -61,7 +62,10 @@
     <center>
       <nav class="navbar navbar-light bg-dark"  id="barre">
         <a class="navbar-brand" href="#"></a>
-        <a href="/login" class="btn btn-secondary btn-small" role="button" aria-pressed="true">Connexion</a>
+        <div class="my-2 my-lg-0">
+          <a href="/login" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">Connexion</a>
+          <a href="/logout" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">Déconnexion</a>
+        </div>
       </nav>
     </center>
   </header>
@@ -93,7 +97,7 @@
       <div class="row">
           <h1>
             {% block titrePage %}  
-            Remplacer le titre !(block titrePage)
+            Remplacer le titre dans le block titrePage
             {% endblock %}
           </h1>
       </div>
@@ -128,7 +132,6 @@
       {% block body %}  
       {% endblock %}
     </div>
-
   </div>
 </div>
 
