@@ -16,6 +16,10 @@
 
     #image {
       align-content: center;
+      border-radius: 50%;
+      background: white;
+      height: 170px;
+      width: 170px;
     }
 
     .vertical-menu {
@@ -23,34 +27,49 @@
     }
 
     .vertical-menu > a {
-      background-color: #f8f9fa; /* Grey background color */
-      color: black; /* Black text color */
-      display: block; /* Make the links appear below each other */
-      padding: 12px; /* Add some padding */
-      text-decoration: none; /* Remove underline from links */
+      background-color: #f6d635;  
+      color: black;
+      display: block;
+      padding: 12px;
+      text-decoration: none;
+      border-width: 3px;
     }
 
     .vertical-menu a:hover {
-      background-color: #ccc; /* Dark grey background on mouse-over */
     }
 
     .vertical-menu a.active {
-      background-color: #4CAF50; /* Add a green color to the "active/current" link */
-      color: white;
-    }
-
-    #titreMenu{
-      font-size: 35px;
-      color : #ed2e3d;
-      font-weight: bold;
-      text-align: center;
+      color: green;
     }
 
     #gestionnaire{
-      font-size: 1em;
-      color : #00ac79;
-      font-weight: bold;
+      font-size: 1.2em;
+      color: #000000;
     }
+
+    #gestionnaire:hover{
+      color: #cc0000;
+    }
+
+    .btn-purple {
+      background: #82647c;
+      color: #ffffff;
+    }
+
+    .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active, .open > .dropdown-toggle.btn-purple {
+      background: #685063;
+      color: #ffffff;
+    }
+
+    .btn-purple:active, .btn-purple.active {
+      background: #845773;
+      box-shadow: none;
+    }
+
+    .bg-dark-purple{
+      background: #3f182e;
+    }
+
 
   </style>
   {% endblock %}
@@ -59,9 +78,12 @@
 <body>
   <header>
     <center>
-      <nav class="navbar navbar-light bg-dark"  id="barre">
+      <nav class="navbar navbar-light bg-dark-purple"  id="barre">
         <a class="navbar-brand" href="#"></a>
-        <a href="/login" class="btn btn-secondary btn-small" role="button" aria-pressed="true">Connexion</a>
+        <div class="my-2 my-lg-0">
+          <a href="/login" class="btn btn-purple btn-sm" role="button" aria-pressed="true">Connexion</a>
+          <a href="/logout" class="btn btn-purple btn-sm" role="button" aria-pressed="true">Déconnexion</a>
+        </div>
       </nav>
     </center>
   </header>
@@ -74,7 +96,7 @@
         {% block menu %}
         <div id = "leMenu">
          <div class="vertical-menu">
-            <a href="/gestionSejours"><img src="{{asset('logo-udaleku.png')}}" height="170" width="170" class="img-fluid" id="image"></a>
+           <a href="/gestionSejours"><img src="{{asset('logo-udaleku.png')}}" class="img-fluid" id="image"></a>
            <a href="{{path('sejour_index')}}" id = "gestionnaire">Gestion des séjours</a>
            <a href="#" id = "gestionnaire" >Gestion des listes<br>d'affaires</a>
            <a href="{{path('affaire_index')}}" id = "gestionnaire" >Gestion des affaires</a>
@@ -91,31 +113,31 @@
       <br />
       <br />      
       <div class="row">
-          <h1>
-            {% block titrePage %}  
-            Remplacer le titre !(block titrePage)
-            {% endblock %}
-          </h1>
+        <h1>
+          {% block titrePage %}  
+          Remplacer le titre dans le block titrePage
+          {% endblock %}
+        </h1>
       </div>
       <!-- Block contenu le système permettant d'afficher les messages d'erreurs (ou de succès) -->
       {% block messagesSysteme %}
       {% set tabMessages = [] %}
-          {% for message in app.flashes('error') %}
-          {% set tabMessages = tabMessages|merge([message]) %}
-          {% endfor %}
-          {% if tabMessages.0 is defined %}
-          <div class="alert alert-danger">
-            {% for message in tabMessages %}
-            {{ message }}
-            <br />
-            {% endfor %}
-          </div>
-          {% endif %}
-          {% for message in app.flashes('success') %}
-          <div class="alert alert-success">
-            {{ message }}
-          </div>
-          {% endfor %}
+      {% for message in app.flashes('error') %}
+      {% set tabMessages = tabMessages|merge([message]) %}
+      {% endfor %}
+      {% if tabMessages.0 is defined %}
+      <div class="alert alert-danger">
+        {% for message in tabMessages %}
+        {{ message }}
+        <br />
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% for message in app.flashes('success') %}
+      <div class="alert alert-success">
+        {{ message }}
+      </div>
+      {% endfor %}
       {% endblock %}
       <hr>
       <!-- Block contenant toutes les fonctionnalités possibles du gestionnaire (créer, modifier, valider...) -->
@@ -128,7 +150,6 @@
       {% block body %}  
       {% endblock %}
     </div>
-
   </div>
 </div>
 

@@ -2,20 +2,24 @@
 
 {% block title %}Enfant{% endblock %}
 
-{% block body %}
+{% block titrePage %}Consultation de la fiche d'un enfant{% endblock %}
+
+{% block outils %}
 <a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
     Inscire un nouvel enfant
 </a>
-    <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-10">
-            <h1>Consultation de la fiche d'un enfant</h1>
-        </div>
-        <div class="col-md-2">
-            <a type="button" class="btn btn-small btn-primary" href="{{ path('enfant_index') }}">Retour</a>
-        </div>
-    </div>
-</div>
+    <a type="button" href="{{path('enfant_modification',{'id':enfant.id})}}" class="btn btn-primary">
+         Modifier
+     </a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">
+            Désinscrire
+     </button>
+     <a type="button" href="{{path('enfant_index')}}" class="btn btn-primary">
+         Retour
+     </a>
+{% endblock %}
+
+{% block body %}
     <table class="table">
         <tbody>
             <tr>
@@ -83,13 +87,6 @@
             {% endif %}
         </tbody>
     </table>
-
-    <a type="button" href="{{path('enfant_modification',{'id':enfant.id})}}" class="btn btn-primary">
-         Modifier
-     </a>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">
-            Désinscrire
-     </button>
 
     <!-- Modal suppression enfant -->
 <div class="modal fade" id="modalSuppressionEnfant" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

@@ -10,6 +10,7 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreationAffaire">
   Créer une affaire
 </button>
+
 {% endblock %}
 
 
@@ -37,10 +38,12 @@
             <a type="button" href="{{path('affaire_modification',{'id':affaire.id})}}" class="btn btn-primary">
                 Modifier
             </a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-                Supprimer
-            </button>
+            
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+      Supprimer
+</button>
+            
 
 <!-- Modal suppression affaire -->
 <div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
