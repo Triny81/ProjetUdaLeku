@@ -39,14 +39,14 @@
         <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
+		</button>
+	  </div>
+	<div class="modal-body">
     <h3><center>Êtes-vous sûr de vouloir supprimer l'affaire {{affaire.nomFrancais}} ?</center></h3>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>{{ include('affaire/_delete_form.html.twig') }}
-    </div>
+  </div>
 </div>
 </div>
 {% endblock %}

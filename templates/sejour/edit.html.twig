@@ -18,8 +18,30 @@
 		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
 		</div>
 	</div>
+	
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+            Supprimer
+     </button>
 	<a class="btn btn-primary" href="{{ path('sejour_consultation',{'id':sejour.id}) }}" role="button"> Annuler les modifications</a>
    
 	{{ include('sejour/_form.html.twig') }}
+	
+	<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Supprimer un séjour</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			<div class="modal-body">
+			<h3><center>Êtes-vous sûr de vouloir supprimer le séjour {{sejour.nom}} ?</center></h3>
+		</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>{{ include('sejour/_delete_form.html.twig') }}
+			</div>
+		</div>
+	</div>
     
 {% endblock %}

@@ -61,7 +61,7 @@ class EnfantType extends AbstractType
                                                     'required'=>false,
                                                     'placeholder'=>'Aucun(e)',
                                                     'query_builder' => function (EntityRepository $entityRepo ) {
-                                                            return $entityRepo->createQueryBuilder('e')        
+                                                            return $entityRepo->createQueryBuilder('e')
                                                                     ->orderBy('e.nom', 'ASC');
                                                         }
                                                     ],)
