@@ -2,34 +2,18 @@
 
 {% block title %}Modification d'une affaire{% endblock %}
 
+{% block titrePage %}Modification d'une affaire{% endblock %}
+
+{% block outils %}
+<a class="btn btn-secondary" href="{{ path('affaire_index') }}" role="button"> Annuler les modifications</a>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+    Supprimer
+</button>
+{% endblock %}
+
 {% block body %}
-	<div class="row">
-		<div class="col-md-10">
-      <span><h1>Modification d'une affaire</h1>
-        {% set tabMessages = [] %}
-          {% for message in app.flashes('error') %}
-              {% set tabMessages = tabMessages|merge([message]) %}
-          {% endfor %}
-          {% if tabMessages.0 is defined %}
-          <div class="alert alert-danger">
-            {% for message in tabMessages %}
-                {{ message }}
-                <br />
-            {% endfor %}
-          </div>
-          {% endif %}
-      </span>
-		</div>
-		<div class="col-md-2">
-			<a type="button" class="btn btn-small btn-primary" href="{{ path('affaire_index') }}">Retour</a>
-		</div>
-	</div>
-
+	
     {{ include('affaire/_form.html.twig') }}
-
-	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-            Supprimer
-     </button>
 
     <!-- Modal suppression affaire -->
 <div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

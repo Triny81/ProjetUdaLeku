@@ -2,44 +2,21 @@
 
 {% block title %}Modification fiche d'enfant{% endblock %}
 
-{% block body %}
+{% block titrePage %}Modification de la fiche d'un enfant{% endblock %}
+
+{% block outils %}
 <a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
-    Inscrire un nouvel enfant
+    Inscire un nouvel enfant
 </a>
-  <div class="row">
-    <div class="col-md-10">
-      <span><h1>Modification de la fiche d'un enfant</h1>
-        {% set tabMessages = [] %}
-          {% for message in app.flashes('error') %}
-              {% set tabMessages = tabMessages|merge([message]) %}
-          {% endfor %}
-          {% if tabMessages.0 is defined %}
-          <div class="alert alert-danger">
-            {% for message in tabMessages %}
-                {{ message }}
-                <br />
-            {% endfor %}
-          </div>
-          {% endif %}
-      </span>
-    </div>
-    <div class="col-md-2">
-      <a type="button" class="btn btn-small btn-primary" href="{{ path('enfant_consultation',{'id':enfant.id}) }}">Retour</a>
-    </div>
-  </div>
-   <br>
-   <br> 
-   <br>
-   <br>
-   <br>
-   <br>
-   <br>
+<button type="submit" class="btn btn-primary" form="enfant">Enregistrer !</button>
+<a class="btn btn-secondary" href="{{ path('enfant_consultation',{'id':enfant.id}) }}" role="button">Annuler les modifications</a>
+
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">Désinscrire</button>
+{% endblock %}
+
+{% block body %}
 
     {{ include('enfant/_form.html.twig') }}
-
-	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">
-            Supprimer
-     </button>
 
     <!-- Modal suppression enfant -->
 <div class="modal fade" id="modalSuppressionEnfant" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

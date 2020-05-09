@@ -1,40 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Affaire index{% endblock %}
-{% block body %}
-<div class="row">
-    <div class="col-md-4">
-      <h1>Gestion des affaires</h1>
-    </div>
-    <div class="col-md-8">
-      {% set tabMessages = [] %}
-          {% for message in app.flashes('error') %}
-              {% set tabMessages = tabMessages|merge([message]) %}
-          {% endfor %}
-          {% if tabMessages.0 is defined %}
-          <div class="alert alert-danger">
-            {% for message in tabMessages %}
-                {{ message }}
-                <br />
-            {% endfor %}
-          </div>
-          {% endif %}
-      {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  </div>
+
+{% block titrePage %}Gestion des affaires{% endblock %}
 
 
+{% block outils %}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreationAffaire">
   Créer une affaire
 </button>
 
+{% endblock %}
 
 
+{% block body %}
 
 <table class="table">
     <thead>
@@ -58,10 +38,12 @@
             <a type="button" href="{{path('affaire_modification',{'id':affaire.id})}}" class="btn btn-primary">
                 Modifier
             </a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-                Supprimer
-            </button>
+            
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+      Supprimer
+</button>
+            
 
 <!-- Modal suppression affaire -->
 <div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
