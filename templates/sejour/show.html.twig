@@ -2,66 +2,68 @@
 
 {% block title %} Consultation d'un séjour {% endblock %}
 
+{% block titrePage %}Consultation du séjour : {{sejour.nom}}{% endblock %}
+
+{% block outils %}<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
+<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
+
+<div class="btn-group" role="group">
+  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Options
+  </button>
+  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+    <a class="dropdown-item" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
+    {{ include('sejour/_delete_form.html.twig') }}
+    <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
+  </div>
+</div>
+
+<a class="btn btn-primary disabled" href="#" role="button"> Valider </a>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+          Supprimer
+   </button>
+<a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Retour </a>  {% endblock %}
+
+
 {% block body %}
-    <h1> Consultation du séjour : {{sejour.nom}} </h1>
-	
-	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
-	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
-	
-	<div class="btn-group" role="group">
-		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  Options
-		</button>
-		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		  <a class="dropdown-item" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
-		  {{ include('sejour/_delete_form.html.twig') }}
-		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
-		</div>
-	</div>
-	
-	<a class="btn btn-primary disabled" href="#" role="button"> Valider </a>
-	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-            Supprimer
-     </button>
-	<a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Retour </a> 
-		 
+
 	<hr>
-	
+
 	<div class="modal-body row">
 	  <div class="col-md-6">
-		
-		{# Partie concernant le séjour #}		
-			<fieldset disabled>			
+
+		{# Partie concernant le séjour #}
+			<fieldset disabled>
 				<div class="container">
-					<div class="row">				  
+					<div class="row">
 						<div class="col-sm-3"> Séjour </div>
 						<div class="col-sm-9"> <input type="text" placeholder=" {{sejour.nom}} "> </div>
-							  
+
 						<div class="w-100"></div>
-					  
+
 						<div class="col"> Date de début </div>
 						<div class="col"> <input type= text placeholder=" {{ sejour.dateDebut ? sejour.dateDebut|date('d/m/Y') : '' }} "> </div>
 						<div class="col"> Date de fin </div>
 						<div class="col"> <input type= text placeholder=" {{ sejour.dateFin ? sejour.dateFin|date('d/m/Y') : '' }} "> </div>
-						
+
 						<div class="w-100"></div>
-						
+
 						<div class="col"> N° Ministère </div>
 						<div class="col"> <input type= text placeholder=" {{sejour.numMinistre}} "> </div>
 						<div class="col"> Coût </div>
 						<div class="col"> <input type= text placeholder=" {{sejour.cout}} "> </div>
 					</div>
-				</div>	
+				</div>
 			</fieldset>
-			
+
 			</br></br>
-			
-			Liste d'affaires pour ce séjour : 
+
+			Liste d'affaires pour ce séjour :
 			<select class=form-control-5>
 					<option value=un> {{sejour.listeAffaire.nomFrancais }} </option>
 			</select>
 			<a class="btn btn-primary" href="#" role="button"> Modifier </a>
-			
+
 			<table class="table">
 				<thead>
 					<tr>
@@ -82,11 +84,11 @@
 					{% endfor %}
 				</tbody>
 			</table>
-		
+
 	</div>
 	<div class="col-md-6">
-		
-		{# Partie concernant les enfants #}			
+
+		{# Partie concernant les enfants #}
 			Liste des enfants inscrits à ce séjour
 			<table class="table">
 				<thead>
@@ -106,7 +108,7 @@
 					{% endfor %}
 				</tbody>
 			</table>
-		 
+
 	  </div>
 	</div>
 
@@ -138,7 +140,7 @@
                 <td>{{ sejour.cout }}</td>
             </tr>
         </tbody>
-    </table> 
+    </table>
 	#}
 
     {#<a class="btn btn-primary" href="{{ path('sejour_index') }}"> Retour</a>
@@ -161,5 +163,5 @@
 			</div>
 		</div>
 	</div>
-   
+
 {% endblock %}

@@ -5,6 +5,11 @@ namespace App\Controller;
 use App\Entity\ListeAffaire;
 use App\Form\ListeAffaire1Type;
 use App\Repository\ListeAffaireRepository;
+
+use App\Entity\Affaire;
+use App\Form\AffaireType;
+use App\Repository\AffaireRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

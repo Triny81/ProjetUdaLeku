@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste d'affaires{% endblock %}
+{% block title %}Gestion des listes d'affaires{% endblock %}
+
+{% block titrePage %}Gestion des listes d'affaires{% endblock %}
+
+{% block outils %}
+	<a class="btn btn-success" href="{{ path('liste_affaire_creation') }}" role="button"> Créer une liste d'affaires </a>
+{% endblock %}
 
 {% block body %}
-    <h1>Liste d'affaires</h1>
-
-    <a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
-        Créer une liste d'affaires
-    </a>
 
     <table class="table">
         <thead>
@@ -19,12 +20,17 @@
         <tbody>
         {% for liste_affaire in liste_affaires %}
             <tr>
-                <td>{{ liste_affaire.id }}</td>
                 <td>{{ liste_affaire.nomFrancais }}</td>
                 <td>{{ liste_affaire.nomBasque }}</td>
                 <td>
-                    <a href="{{ path('liste_affaire_show', {'id': liste_affaire.id}) }}">show</a>
-                    <a href="{{ path('liste_affaire_edit', {'id': liste_affaire.id}) }}">edit</a>
+								<a type="button" href="{{path('liste_affaire_modification',{'id':liste_affaire.id})}}" class="btn btn-primary">
+										Modifier
+								</a>
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionListeAffaire">
+					Supprimer
+		</button>
                 </td>
             </tr>
         {% else %}
