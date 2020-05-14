@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des listes d'affaires{% endblock %}
+
+{% block titrePage %}Gestion des listes d'affaires{% endblock %}
+
+{% block outils %}
+	<a class="btn btn-success" href="{{ path('liste_affaire_creation') }}" role="button"> Créer une liste d'affaires </a>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Francais</th>
+                <th>Euskara</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for liste_affaire in liste_affaires %}
+            <tr>
+                <td>{{ liste_affaire.nomFrancais }}</td>
+                <td>{{ liste_affaire.nomBasque }}</td>
+                <td>
+
+								<button type="button" href="{{path('liste_affaire_consultation',{'id':liste_affaire.id})}}" class="btn btn-primary">Consulter</button>
+
+								<a type="button" href="{{path('liste_affaire_modification',{'id':liste_affaire.id})}}" class="btn btn-warning">
+										Modifier
+								</a>
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionListeAffaire">
+					Supprimer
+		</button>
+
+		<!-- Modal suppression liste affaire -->
+		<div class="modal fade" id="modalSuppressionListeAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une liste d'affaires</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		      </button>
+		  </div>
+		  <div class="modal-body">
+		    <h3><center>Êtes-vous sûr de vouloir supprimer la liste d'affaire {{liste_affaire.nomFrancais}} ?</center></h3>
+		    </div>
+		    <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>
+		        {{ include('liste_affaire/_delete_form.html.twig') }}
+		    </div>
+		</div>
+		</div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune liste n'existe</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
