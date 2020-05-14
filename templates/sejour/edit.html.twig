@@ -27,40 +27,11 @@
 {% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
-    <h1> Modification du séjour : {{sejour.nom}} </h1>
-	
-	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
-	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
-	
-	<div class="btn-group" role="group">
-		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  Options
-		</button>
-		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		  <a class="dropdown-item" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
-		  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-            Supprimer
-			</button>
-		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
-		</div>
-	</div>
-	
-	
-	<a class="btn btn-primary" href="{{ path('sejour_consultation',{'id':sejour.id}) }}" role="button"> Annuler les modifications</a>
-   
-	{{ include('sejour/_form.html.twig') }}
-	
-	
-	
-	
-=======
 
-
-
+    <h1> Modification du séjour : {{sejour.nom}} </h1>	
+	
 	{{ include('sejour/_form.html.twig') }}
 
->>>>>>> 619c47415062abd0725e3bcc0f668053d09f3723
 	<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">

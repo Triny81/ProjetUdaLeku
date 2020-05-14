@@ -26,32 +26,6 @@
 
 
 {% block body %}
-<<<<<<< HEAD
-    <h1> Consultation du séjour : {{sejour.nom}} </h1>
-	
-	<a class="btn btn-success" href="{{ path('sejour_creation') }}" role="button"> Créer </a>
-	<a class="btn btn-primary" href="#" role="button"> Ouvrir </a>
-	
-	<div class="btn-group" role="group">
-		<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		  Options
-		</button>
-		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-		  <a class="dropdown-item" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
-		  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-            Supprimer
-			</button>
-		  <a class="dropdown-item" href="#"> Imprimer, générer </br> et publipostage </a>
-		</div>
-	</div>
-	
-	<a class="btn btn-primary disabled" href="#" role="button"> Valider </a>
-	
-	<a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Retour </a> 
-		 
-=======
-
->>>>>>> 619c47415062abd0725e3bcc0f668053d09f3723
 	<hr>
 
 	<div class="modal-body row">
@@ -82,18 +56,13 @@
 			</fieldset>
 
 			</br></br>
-<<<<<<< HEAD
+
 			
 			Liste d'affaires pour ce séjour : 
 			<select class=form-control-5 disabled>
-=======
-
-			Liste d'affaires pour ce séjour :
-			<select class=form-control-5>
->>>>>>> 619c47415062abd0725e3bcc0f668053d09f3723
 					<option value=un> {{sejour.listeAffaire.nomFrancais }} </option>
 			</select>
-			<a class="btn btn-primary" href="#" role="button"> Modifier </a>
+			<a class="btn btn-primary disabled" href="#" role="button"> Modifier </a>
 
 			<table class="table">
 				<thead>

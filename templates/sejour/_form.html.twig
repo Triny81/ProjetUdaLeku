@@ -42,9 +42,19 @@
 
 	<div>
 		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour", {'errors': false}) }}
-		{{ form_widget(form.listeAffaire) }}
+		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'myFunction()' }}) }}
 	</div>	
+	
+	<p id="demo"></p>
+	<script>
+		function myFunction()
+		{
+			var listeChoisie = document.getElementById("sejour_listeAffaire").value;	
+			document.getElementById("demo").innerHTML = listeChoisie;
 
+			var tabAffaires = document.getElementById("tabAffaires");
+		}
+	</script>
 	
 	<table class="table">
 		<thead>
@@ -55,16 +65,16 @@
 				<th> Type </th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tabAffaires">
 			{% if sejour.listeAffaire is not null %}
-			{% for affaire in sejour.listeAffaire.affaire  %}
-			<tr>
-				<td> 1 </td>
-				<td> {{ affaire.nomFrancais }} </td>
-				<td> {{ affaire.nomBasque}} </td>
-				<td> {{ affaire.typeAffaire.nom }} </td>
-			</tr>
-			{% endfor %}
+				{% for affaire in sejour.listeAffaire.affaire  %}
+				<tr>
+					<td> 1 </td>
+					<td> {{ affaire.nomFrancais }} </td>
+					<td> {{ affaire.nomBasque}} </td>
+					<td> {{ affaire.typeAffaire.nom }} </td>
+				</tr>
+				{% endfor %}
 			{% endif %}
 		</tbody>
 	</table>
