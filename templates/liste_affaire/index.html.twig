@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des listes d'affaires{% endblock %}
+
+{% block titrePage %}Gestion des listes d'affaires{% endblock %}
+
+{% block outils %}
+	<a class="btn btn-success" href="{{ path('liste_affaire_creation') }}" role="button"> Créer une liste d'affaires </a>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Francais</th>
+                <th>Euskara</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for liste_affaire in liste_affaires %}
+            <tr>
+                <td>{{ liste_affaire.nomFrancais }}</td>
+                <td>{{ liste_affaire.nomBasque }}</td>
+                <td>
+								<a type="button" href="{{path('liste_affaire_modification',{'id':liste_affaire.id})}}" class="btn btn-primary">
+										Modifier
+								</a>
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionListeAffaire">
+					Supprimer
+		</button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune liste n'existe</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

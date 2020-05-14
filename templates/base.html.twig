@@ -13,7 +13,6 @@
     #leMenu {
       float:left;
     }
-
     #image {
       align-content: center;
       border-radius: 50%;
@@ -21,50 +20,40 @@
       height: 170px;
       width: 170px;
     }
-
     .vertical-menu {
       width: 200px; /* Set a width if you like */
     }
-
     .vertical-menu > a {
-      background-color: #f6d635;  
+      background-color: #f6d635;
       color: black;
       display: block;
       padding: 12px;
       text-decoration: none;
     }
-
     .vertical-menu a:hover {
     }
-
     .vertical-menu a.active {
       color: green;
     }
-
     #gestionnaire{
       font-size: 1.2em;
       color: #000000;
     }
-
     #gestionnaire:hover{
       color: #cc0000;
     }
-
     .btn-purple {
       background: #82647c;
       color: #ffffff;
     }
-
     .btn-purple:hover, .btn-purple:focus, .btn-purple:active, .btn-purple.active, .open > .dropdown-toggle.btn-purple {
       background: #685063;
       color: #ffffff;
     }
-
     .btn-purple:active, .btn-purple.active {
       background: #845773;
       box-shadow: none;
     }
-
     .bg-dark-purple{
       background: #3f182e;
     }
@@ -81,8 +70,7 @@
       <nav class="navbar navbar-light bg-dark-purple">
         <a class="navbar-brand" href="#"></a>
         <div class="my-2 my-lg-0">
-          <a href="/login" class="btn btn-purple btn-sm" role="button" aria-pressed="true">Connexion</a>
-          <a href="/logout" class="btn btn-purple btn-sm" role="button" aria-pressed="true">Déconnexion</a>
+          <a href="{{path('app_logout')}}" class="btn btn-purple btn-sm" role="button" aria-pressed="true">Déconnexion</a>
         </div>
       </nav>
     </center>
@@ -98,7 +86,7 @@
          <div class="vertical-menu">
            <a href="/gestionSejours"><img src="{{asset('logo-udaleku.png')}}" class="img-fluid" id="image"></a>
            <a href="{{path('sejour_index')}}" id = "gestionnaire">Gestion des séjours</a>
-           <a href="#" id = "gestionnaire" >Gestion des listes<br>d'affaires</a>
+           <a href="{{path('liste_affaire_index')}}" id = "gestionnaire" >Gestion des listes<br>d'affaires</a>
            <a href="{{path('affaire_index')}}" id = "gestionnaire" >Gestion des affaires</a>
            <a href="{{path('enfant_index')}}" id = "gestionnaire">Gestion des enfants</a>
          </div>
@@ -111,10 +99,10 @@
      <!-- Contenu (body) -->
      <div class="col-md-10">
       <br />
-      <br />      
+      <br />
       <div class="row">
         <h1>
-          {% block titrePage %}  
+          {% block titrePage %}
           Remplacer le titre dans le block titrePage
           {% endblock %}
         </h1>
@@ -142,12 +130,12 @@
       <hr>
       <!-- Block contenant toutes les fonctionnalités possibles du gestionnaire (créer, modifier, valider...) -->
       {% block outils %}
-      Placer toutes les fonctionnalités dans le block outils !  
+      Placer toutes les fonctionnalités dans le block outils !
       {% endblock %}
       <br />
       <br />
 
-      {% block body %}  
+      {% block body %}
       {% endblock %}
     </div>
   </div>
@@ -157,7 +145,7 @@
 {% block javascripts %}
 <script src="{{asset('https://code.jquery.com/jquery-3.3.1.slim.min.js')}}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')}}" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="{{asset('assets/js/bootstrap.js')}}"></script> 
+<script src="{{asset('assets/js/bootstrap.js')}}"></script>
 {% endblock %}
 </body>
 </html>

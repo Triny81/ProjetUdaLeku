@@ -1576,6 +1576,18 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
+<<<<<<< HEAD
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
+                "reference": "0fb9675b84a1666ab45182b6c5b29956921e818d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/0fb9675b84a1666ab45182b6c5b29956921e818d",
+                "reference": "0fb9675b84a1666ab45182b6c5b29956921e818d",
+=======
             "version": "1.0.3",
             "source": {
                 "type": "git",
@@ -1586,6 +1598,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9",
                 "reference": "bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9",
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
                 "shasum": ""
             },
             "require": {
@@ -1624,7 +1637,11 @@
                 "laminas",
                 "zf"
             ],
+<<<<<<< HEAD
+            "time": "2020-01-07T22:58:31+00:00"
+=======
             "time": "2020-04-03T16:01:00+00:00"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
         },
         {
             "name": "monolog/monolog",
@@ -1706,6 +1723,26 @@
         },
         {
             "name": "ocramius/package-versions",
+<<<<<<< HEAD
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/PackageVersions.git",
+                "reference": "651c372efc914aea8223e049f85afaf65e09ba23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/651c372efc914aea8223e049f85afaf65e09ba23",
+                "reference": "651c372efc914aea8223e049f85afaf65e09ba23",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1.0",
+                "php": "^7.4.0"
+            },
+            "require-dev": {
+                "composer/composer": "^1.9.3",
+=======
             "version": "1.8.0",
             "source": {
                 "type": "git",
@@ -1724,6 +1761,7 @@
             },
             "require-dev": {
                 "composer/composer": "^1.9.3 || ^2.0@dev",
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
                 "doctrine/coding-standard": "^7.0.2",
                 "ext-zip": "^1.15.0",
                 "infection/infection": "^0.15.3",
@@ -1753,6 +1791,22 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
+<<<<<<< HEAD
+            "time": "2020-03-06T11:34:16+00:00"
+        },
+        {
+            "name": "ocramius/proxy-manager",
+            "version": "2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/ProxyManager.git",
+                "reference": "e77928e8f11ea36b388f87e75c993d05f5da6bf1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/e77928e8f11ea36b388f87e75c993d05f5da6bf1",
+                "reference": "e77928e8f11ea36b388f87e75c993d05f5da6bf1",
+=======
             "time": "2020-04-06T17:43:35+00:00"
         },
         {
@@ -1767,13 +1821,20 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/ac1dd414fd114cfc0da9930e0ab46063c2f5e62a",
                 "reference": "ac1dd414fd114cfc0da9930e0ab46063c2f5e62a",
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-code": "^3.4.1",
+<<<<<<< HEAD
+                "ocramius/package-versions": "^1.5.1",
+                "php": "7.4.*",
+                "webimpress/safe-writer": "^2.0"
+=======
                 "ocramius/package-versions": "^1.8.0",
                 "php": "~7.4.1",
                 "webimpress/safe-writer": "^2.0.1"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
             },
             "conflict": {
                 "doctrine/annotations": "<1.6.1",
@@ -1783,6 +1844,15 @@
             "require-dev": {
                 "doctrine/coding-standard": "^6.0.0",
                 "ext-phar": "*",
+<<<<<<< HEAD
+                "infection/infection": "^0.15.0",
+                "nikic/php-parser": "^4.3.0",
+                "phpbench/phpbench": "^0.17.0",
+                "phpunit/phpunit": "^8.5.2",
+                "slevomat/coding-standard": "^5.0.4",
+                "squizlabs/php_codesniffer": "^3.5.4",
+                "vimeo/psalm": "^3.8.5"
+=======
                 "infection/infection": "^0.16.2",
                 "nikic/php-parser": "^4.4.0",
                 "phpbench/phpbench": "^0.17.0",
@@ -1790,6 +1860,7 @@
                 "slevomat/coding-standard": "^5.0.4",
                 "squizlabs/php_codesniffer": "^3.5.4",
                 "vimeo/psalm": "^3.11.1"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
             },
             "suggest": {
                 "laminas/laminas-json": "To have the JsonRpc adapter (Remote Object feature)",
@@ -1828,7 +1899,11 @@
                 "proxy pattern",
                 "service proxies"
             ],
+<<<<<<< HEAD
+            "time": "2020-02-08T19:22:03+00:00"
+=======
             "time": "2020-04-13T14:42:16+00:00"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -5271,6 +5346,18 @@
         },
         {
             "name": "webimpress/safe-writer",
+<<<<<<< HEAD
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webimpress/safe-writer.git",
+                "reference": "d03bea3b98abe1d4c8b24cbebf524361ffaafee4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webimpress/safe-writer/zipball/d03bea3b98abe1d4c8b24cbebf524361ffaafee4",
+                "reference": "d03bea3b98abe1d4c8b24cbebf524361ffaafee4",
+=======
             "version": "2.0.1",
             "source": {
                 "type": "git",
@@ -5281,14 +5368,20 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/webimpress/safe-writer/zipball/d6e879960febb307c112538997316371f1e95b12",
                 "reference": "d6e879960febb307c112538997316371f1e95b12",
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2"
             },
             "require-dev": {
+<<<<<<< HEAD
+                "phpunit/phpunit": "^8.4.3",
+                "webimpress/coding-standard": "dev-develop"
+=======
                 "phpunit/phpunit": "^8.5.2 || ^9.0.1",
                 "webimpress/coding-standard": "^1.1.4"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
             },
             "type": "library",
             "extra": {
@@ -5315,6 +5408,22 @@
                 "safe writer",
                 "webimpress"
             ],
+<<<<<<< HEAD
+            "time": "2019-11-27T19:40:53+00:00"
+        },
+        {
+            "name": "webmozart/assert",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozart/assert.git",
+                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/aed98a490f9a8f78468232db345ab9cf606cf598",
+                "reference": "aed98a490f9a8f78468232db345ab9cf606cf598",
+=======
             "time": "2020-03-21T15:49:08+00:00"
         },
         {
@@ -5329,6 +5438,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/webmozart/assert/zipball/ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
                 "reference": "ab2cb0b3b559010b75981b1bdce728da3ee90ad6",
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
                 "shasum": ""
             },
             "require": {
@@ -5336,7 +5446,11 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
+<<<<<<< HEAD
+                "vimeo/psalm": "<3.6.0"
+=======
                 "vimeo/psalm": "<3.9.1"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.36 || ^7.5.13"
@@ -5363,7 +5477,11 @@
                 "check",
                 "validate"
             ],
+<<<<<<< HEAD
+            "time": "2020-02-14T12:15:55+00:00"
+=======
             "time": "2020-04-18T12:12:48+00:00"
+>>>>>>> 0c1c04bb7c2bbee076bc5fdb1e2456d1af817866
         }
     ],
     "packages-dev": [
