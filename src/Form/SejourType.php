@@ -9,11 +9,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use App\Entity\Enfant;
-use App\Form\ListeAffaireType;
+use App\Entity\Affaire;
+
 use App\Entity\ListeAffaire;
+use App\Form\ListeAffaireType;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class SejourType extends AbstractType
 {
@@ -31,11 +37,39 @@ class SejourType extends AbstractType
                 'format' => 'dd MM yyyy'])
             ->add('num_ministre')
             ->add('cout')
-            ->add('listeAffaire',EntityType::class, ['class'=>ListeAffaire::class,
+            ->add('listeAffaire', EntityType::class, ['class'=>ListeAffaire::class,
 													  'choice_label' => 'nom_francais',
                                                       'expanded'=>false,
-                                                      'multiple'=>false,])
+                                                      'multiple'=>false, ]) 
+			
         ;
+		
+		$formModifier = function (FormInterface $form, ListeAffaire $listeAffaire = null)
+		{
+			$affaires = null === $listeAffaire ? [] : $listeAffaire -> getAffaire();
+			
+			$form->add('listeAffaire', EntityType::class, ['class'=>ListeAffaire::class,
+													  'choice_label' => 'nom_francais',
+                                                      'expanded'=>false,
+                                                      'multiple'=>false,]);
+		};
+/*		
+		$builder->addEventListener(
+			FormEvents::PRE_SET_DATA, 
+			function (FormEvent $event) use ($formModifier) {
+				$data = $event -> getData();
+				
+				$formModifier($event -> getForm(), $data -> getListeAffaire());
+		}); 
+		
+		$builder -> get('listeAffaire') -> addEventListener(
+			FormEvents::POST_SUBMIT,
+			function (FormEvent $event) use ($formModifier) {
+				$listeAffaire = $event -> getForm() -> getData();
+				$formModifier($event -> getForm() -> getParent(), $listeAffaire);
+			}
+		);
+*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -44,4 +78,5 @@ class SejourType extends AbstractType
             'data_class' => Sejour::class,
         ]);
     }
+
 }
