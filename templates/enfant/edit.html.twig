@@ -5,10 +5,10 @@
 {% block titrePage %}Modification de la fiche d'un enfant{% endblock %}
 
 {% block outils %}
-<a type="button" href="{{path('enfant_creation')}}" class="btn btn-success">
+<a type="button" href="{{path('enfant_creation')}}" class="btn btn-success" id="prout">
     Inscire un nouvel enfant
 </a>
-<button type="submit" class="btn btn-primary" form="enfant">Enregistrer !</button>
+<input type="button" class="btn btn-primary" id="faux_submit" value="Enregistrer !"/>
 <a class="btn btn-secondary" href="{{ path('enfant_consultation',{'id':enfant.id}) }}" role="button">Annuler les modifications</a>
 
 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">Désinscrire</button>
@@ -35,4 +35,18 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas désinscrire</button>{{ include('enfant/_delete_form.html.twig') }}
     </div>
 </div>
+</div>
+</div>
+
+
+<script src="{{asset('https://code.jquery.com/jquery-3.5.0.js')}}"></script>
+<script type="text/javascript">
+       $('#faux_submit').on("click", function () { // on a click on the button with id 'one'
+              var input = this;
+              input.disabled  = true;
+              $('#vrai_submit').trigger('click');
+        });
+</script>
+
 {% endblock %}
+
