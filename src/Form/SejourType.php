@@ -43,7 +43,7 @@ class SejourType extends AbstractType
                                                       'multiple'=>false, ]) 
 			
         ;
-		
+/*	
 		$formModifier = function (FormInterface $form, ListeAffaire $listeAffaire = null)
 		{
 			$affaires = null === $listeAffaire ? [] : $listeAffaire -> getAffaire();
@@ -53,7 +53,7 @@ class SejourType extends AbstractType
                                                       'expanded'=>false,
                                                       'multiple'=>false,]);
 		};
-/*		
+		
 		$builder->addEventListener(
 			FormEvents::PRE_SET_DATA, 
 			function (FormEvent $event) use ($formModifier) {
