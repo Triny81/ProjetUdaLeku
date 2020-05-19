@@ -35,10 +35,24 @@ class AffaireController extends AbstractController
         $formCreate->handleRequest($request);
 
         $toutesLesAffaires = $affaireRepository->findAll();
+        /*L'idée pour mettre les formulaires de modification est de passer un tableau de vues
+        de formulaires à la vue "index".
+        Ce tableau est composé de la vue d'un formulaire de chaque affaire de la BD.
+        */
+        /*
+        $tableauFormulairesEdit = [];
+
+        foreach($toutesLesAffaires as $affaire){
+            $formEdit = $this->createForm(AffaireType::class, $affaire);
+            $formEdit->handleRequest($request);
+            $vueFormEdit = $formEdit->createView();
+            array_push($tableauFormulairesEdit, $vueFormEdit);
+        }*/
 
         return $this->render('affaire/index.html.twig', [
             'affaires' => $toutesLesAffaires,
             'formCreate' => $formCreate->createView(),
+            //'tableauFormulairesEdit' => $tableauFormulairesEdit //On passe le tableau de formulaires dans la vue
         ]);
     }
 
@@ -99,11 +113,12 @@ class AffaireController extends AbstractController
             }          
         }
 
+        //return $this->redirectToRoute('affaire_index'); //À utiliser lors de la modification sur la page "index"
+        
         return $this->render('affaire/edit.html.twig', [
             'affaire' => $affaire,
             'form' => $form->createView(),
         ]);
-
         
     }
 

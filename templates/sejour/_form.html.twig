@@ -13,6 +13,8 @@
 				{{ form_widget(form.nom) }}
 			</div>
 			
+
+			
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -35,13 +37,35 @@
 				</div>
 			</div>	
 		</fieldset>
-
+		
 	</br></br>
 
 	<div>
-		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour",{'errors': false})}}
-		{{ form_widget(form.listeAffaire) }}
-	</div>		
+		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour", {'errors': false}) }}
+		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'myFunction()' }}) }}
+	</div>	
+	
+	<p id="demo"></p>
+	<script>
+		function myFunction()
+		{
+			var listeChoisie = document.getElementById("sejour_listeAffaire").value;	
+			document.getElementById("demo").innerHTML = listeChoisie;
+
+			var tabAffaires = document.getElementById("tabAffaires");
+			
+			switch(listeChoisie)
+			{
+				case 33 :
+					// ...
+					break;
+				case 34 :
+					// ...
+					break;
+			}
+		}
+	</script>
+	
 	<table class="table">
 		<thead>
 			<tr>
@@ -51,16 +75,16 @@
 				<th> Type </th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="tabAffaires">
 			{% if sejour.listeAffaire is not null %}
-			{% for affaire in sejour.listeAffaire.affaire  %}
-			<tr>
-				<td> 1 </td>
-				<td> {{ affaire.nomFrancais }} </td>
-				<td> {{ affaire.nomBasque}} </td>
-				<td> {{ affaire.typeAffaire.nom }} </td>
-			</tr>
-			{% endfor %}
+				{% for affaire in sejour.listeAffaire.affaire  %}
+				<tr>
+					<td> 1 </td>
+					<td> {{ affaire.nomFrancais }} </td>
+					<td> {{ affaire.nomBasque}} </td>
+					<td> {{ affaire.typeAffaire.nom }} </td>
+				</tr>
+				{% endfor %}
 			{% endif %}
 		</tbody>
 	</table>

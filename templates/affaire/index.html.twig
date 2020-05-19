@@ -16,64 +16,114 @@
 
 {% block body %}
 
+<!-- Test des formulaires de modifications 
+  Ces formulaires marchent dans la mesure où ils sont à l'extérieur d'une fenêtre modale -->
+<!--
+{#
+{% for formEdit in tableauFormulairesEdit %}
+{{form_start(formEdit, {'action': path('affaire_modification',{'id': affaires[loop.index0].id})}) }}
+{{ form_row(formEdit.nom_francais) }}
+{{ form_row(formEdit.nom_basque) }}
+{{ form_row(formEdit.type_affaire) }}
+<button type="submit" class="btn btn-primary">Enregistrer !</button>
+{{ form_end(formEdit) }}
+{% endfor %}
+#}
+-->
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>Nom français</th>
-            <th>Nom basque</th>
-            <th>Type de l'affaire</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for affaire in affaires %}
-         <td>{{ affaire.nomFrancais }}</td>
-        <td>{{ affaire.nomBasque }}</td>
-        <td>{% if affaire.typeAffaire.nom is not defined %}Aucun
-        {%else%} {{affaire.typeAffaire.nom}}
-        {%endif%}
-         </td>
-
-        <td>
-            <a type="button" href="{{path('affaire_modification',{'id':affaire.id})}}" class="btn btn-primary">
-                Modifier
-            </a>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-      Supprimer
-</button>
-
-
-<!-- Modal suppression affaire -->
-<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
-    <h3><center>Êtes-vous sûr de vouloir supprimer l'affaire {{affaire.nomFrancais}} ?</center></h3>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>
-        {{ include('affaire/_delete_form.html.twig') }}
-    </div>
-</div>
-</div>
-
-
-
-        </td>
-    </tr>
-    {% else %}
+  <thead>
     <tr>
-        <td colspan="4"><center>Aucune affaire n'a été eregistré... Pourquoi ne pas en créer une maintenant ?</center></td>
+      <th>Nom français</th>
+      <th>Nom basque</th>
+      <th>Type de l'affaire</th>
+      <th></th>
     </tr>
-    {% endfor %}
+  </thead>
+  <tbody>
+    {% for affaire in affaires %}
+    <td>{{ affaire.nomFrancais }}</td>
+    <td>{{ affaire.nomBasque }}</td>
+    <td>{% if affaire.typeAffaire.nom is not defined %}Aucun
+      {%else%} {{affaire.typeAffaire.nom}}
+      {%endif%}
+    </td>
+
+    <td>
+      <!-- Le problème des fenêtres modales est que , lors de l'affichage, les fenêtres modales (toutes) ne contiennent
+      pas les formulaires, car ces formulaires utilisent des variables twig : Ces variables ne sont sûrement pas accessibles
+      depuis les composants JS de Bootstrap. De plus, pour tester les variables twig dans les fenêtres modales, on peut voir
+      qu'il n'y a seulement que la première affaire qui est accessible : toutes les fenêtres font donc référence à la même affaire (la boucle for n'est donc pas prise en compte).-->
+      <!-- 
+      <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalModificationAffaire">
+        Modifier
+      </a>
+
+      <div class="modal fade" id="modalModificationAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modifier une affaire</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {#
+              Test : {{affaire.nomFrancais}}
+              {{form_start(tableauFormulairesEdit[0], {'action': path('affaire_modification',{'id': affaire.id})}) }}
+              {{ form_row(tableauFormulairesEdit[0].nom_francais) }}
+              {{ form_row(tableauFormulairesEdit[0].nom_basque) }}
+              {{ form_row(tableauFormulairesEdit[0].type_affaire) }}
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary">Enregistrer !</button>
+              </div>
+              {{ form_end(tableauFormulairesEdit[0]) }}
+              #}
+            </div>
+          </div>
+        </div>
+      </div>
+    -->
+
+    <!-- Bouton modifier, à désactiver si on ajoute le code au dessus -->
+    <a type="button" href="{{path('affaire_modification',{'id':affaire.id})}}" class="btn btn-primary">
+      Modifier
+    </a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+      Supprimer
+    </button>
+
+
+    <!-- Modal suppression affaire -->
+    <div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une affaire</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3><center>Êtes-vous sûr de vouloir supprimer l'affaire {{affaire.nomFrancais}} ?</center></h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>
+            {{ include('affaire/_delete_form.html.twig') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+{% else %}
+<tr>
+  <td colspan="4"><center>Aucune affaire n'a été eregistré... Pourquoi ne pas en créer une maintenant ?</center></td>
+</tr>
+{% endfor %}
 </tbody>
 </table>
 
@@ -86,23 +136,19 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+      </div>
+      <div class="modal-body">
+       {{ form_start(formCreate) }}
+       {{ form_row(formCreate.nom_francais) }}
+       {{ form_row(formCreate.nom_basque) }}
+       {{ form_row(formCreate.type_affaire) }}
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer !</button>
+      </div>
+      {{ form_end(formCreate) }}
     </div>
-    <div class="modal-body">
-     {{ form_start(formCreate) }}
-         {{ form_row(formCreate.nom_francais) }}
-         {{ form_row(formCreate.nom_basque) }}
-         {{ form_row(formCreate.type_affaire) }}
-         <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-             <button type="submit" class="btn btn-primary">Enregistrer !</button>
-        </div>
-    {{ form_end(formCreate) }}
-    </div>
-    </div>
+  </div>
 </div>
-
-
-
-
 
 {% endblock %}
