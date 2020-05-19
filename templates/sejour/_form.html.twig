@@ -45,26 +45,53 @@
 		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'myFunction()' }}) }}
 	</div>	
 	
-	<p id="demo"></p>
+	<p id="demo">
+		Aucun
+	</p>
+	
 	<script>
+
 		function myFunction()
 		{
-			var listeChoisie = document.getElementById("sejour_listeAffaire").value;	
-			document.getElementById("demo").innerHTML = listeChoisie;
+			var listeChoisie = document.getElementById("sejour_listeAffaire");
+			var pElem = document.getElementById('demo');
+			var body = document.getElementById("tabAffaires");
+		
+			var index = listeChoisie.selectedIndex;
 
-			var tabAffaires = document.getElementById("tabAffaires");
-			
-			switch(listeChoisie)
+			switch(index)
 			{
-				case 33 :
-					// ...
+				case 0:
+					body.innerHTML =
+					"{% for affaire in listeAffaire[0].affaire %}" +
+						"<tr>" +
+							"<td> 1 </td>" +
+							"<td> {{ affaire.nomFrancais }} </td>" +
+							"<td> {{ affaire.nomBasque }} </td>" +
+							"<td> {{ affaire.typeAffaire.nom }} </td>" +
+						"</tr>" +
+					"{% endfor %}";
 					break;
-				case 34 :
-					// ...
+					
+				case 1:
+					body.innerHTML =
+					"{% for affaire in listeAffaire[1].affaire %}" +
+						"<tr>" +
+							"<td> 1 </td>" +
+							"<td> {{ affaire.nomFrancais }} </td>" +
+							"<td> {{ affaire.nomBasque }} </td>" +
+							"<td> {{ affaire.typeAffaire.nom }} </td>" +
+						"</tr>" +
+					"{% endfor %}";
 					break;
+					
 			}
+			
+			pElem.innerHTML = index;
 		}
 	</script>
+	
+	
 	
 	<table class="table">
 		<thead>
@@ -78,16 +105,17 @@
 		<tbody id="tabAffaires">
 			{% if sejour.listeAffaire is not null %}
 				{% for affaire in sejour.listeAffaire.affaire  %}
-				<tr>
-					<td> 1 </td>
-					<td> {{ affaire.nomFrancais }} </td>
-					<td> {{ affaire.nomBasque}} </td>
-					<td> {{ affaire.typeAffaire.nom }} </td>
-				</tr>
+					<tr id = "tr">
+						<td> 1 </td>
+						<td> {{ affaire.nomFrancais }} </td>
+						<td> {{ affaire.nomBasque}} </td>
+						<td> {{ affaire.typeAffaire.nom }} </td>
+					</tr>
 				{% endfor %}
 			{% endif %}
 		</tbody>
 	</table>
+	
 </div>
 <div class="col-md-6">
 
