@@ -12,9 +12,19 @@
 <style language = "css">
 #laSecurite {
   width:15%;
+  margin-top:20px;
+}
+
+#btnCo {
+  margin-top:20px;
 }
 </style>
 <center>
+
+    <center>
+    <img src="{{asset('logo-udaleku.png')}}" id="image">
+    </center>
+
 <div id = "laSecurite">
 <form method="post">
     {% if error %}
@@ -27,7 +37,7 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Veuillez renseignez vos identifiants</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Veuillez renseigner vos identifiants</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Mot de passe</label>
@@ -48,7 +58,7 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
+    <button class="btn btn-lg btn-primary" type="submit" id = "btnCo">
         Se connecter !
     </button>
 </form>
