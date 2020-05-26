@@ -1,6 +1,13 @@
 {{ form_start(form) }}
 
-    {{ form_widget(form) }}
+
+    {# {{ form_widget(form) }} #}
+
+    {% for la in liste_affaire.affaire %}
+        {{ la.nomFrancais }}
+
+    {% endfor %}
+
     <button type="submit" class="btn btn-primary"> Valider </button>
-	
+
 {{ form_end(form) }}
