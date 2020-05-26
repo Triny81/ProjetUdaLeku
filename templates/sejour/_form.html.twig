@@ -5,16 +5,16 @@
 
 <div class="modal-body row">
 	<div class="col-md-6">
-		
+
 		{# Partie concernant le séjour #}
 		<fieldset>
 			<div>
 				{{ form_label(form.nom,"Nom",{'errors': false})}}
 				{{ form_widget(form.nom) }}
 			</div>
-			
 
-			
+
+
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -35,23 +35,33 @@
 						{{ form_widget(form.cout) }}
 					</div>
 				</div>
-			</div>	
+			</div>
 		</fieldset>
-		
+
 	</br></br>
 
 	<div>
 		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour", {'errors': false}) }}
+<<<<<<< HEAD
 		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'displayAffaire()' }}) }}
 	</div>	
 		
+=======
+		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'myFunction()' }}) }}
+	</div>
+
+	<p id="demo">
+		Aucun
+	</p>
+
+>>>>>>> 0dcfe4e20d99a04bbfa2a8545314381a2b85c5bf
 	<script>
 		function displayAffaire()
 		{
 			var listeChoisie = document.getElementById("sejour_listeAffaire");
 		
 			var body = document.getElementById("tabAffaires");
-		
+
 			var index = listeChoisie.selectedIndex;
 
 			switch(index)
@@ -67,7 +77,7 @@
 						"</tr>" +
 					"{% endfor %}";
 					break;
-					
+
 				case 1:
 					body.innerHTML =
 					"{% for affaire in listeAffaire[1].affaire %}" +
@@ -78,13 +88,21 @@
 							"<td> {{ affaire.typeAffaire.nom }} </td>" +
 						"</tr>" +
 					"{% endfor %}";
+<<<<<<< HEAD
 					break;					
 			}			
+=======
+					break;
+
+			}
+
+			pElem.innerHTML = index;
+>>>>>>> 0dcfe4e20d99a04bbfa2a8545314381a2b85c5bf
 		}
 	</script>
-	
-	
-	
+
+
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -107,7 +125,7 @@
 			{% endif %}
 		</tbody>
 	</table>
-	
+
 </div>
 <div class="col-md-6">
 
