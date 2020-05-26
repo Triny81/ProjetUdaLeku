@@ -23,10 +23,16 @@ class ListeAffaireController extends AbstractController
     /**
      * @Route("/", name="liste_affaire_index", methods={"GET"})
      */
-    public function index(ListeAffaireRepository $listeAffaireRepository): Response
+    public function index(ListeAffaireRepository $listeAffaireRepository, Request $request): Response
     {
+      //Implémentation du formulaire de création d'une liste d'affaire
+      $nouvelleListeAffaire = new ListeAffaire();
+      $formCreate = $this->createForm(ListeAffaire1Type::class, $nouvelleListeAffaire);
+      $formCreate->handleRequest($request);
+
         return $this->render('liste_affaire/index.html.twig', [
             'liste_affaires' => $listeAffaireRepository->findAll(),
+            'formCreate' => $formCreate->createView(),
         ]);
     }
 
