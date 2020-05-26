@@ -114,7 +114,7 @@
 	{# Partie concernant les enfants #}
 
 	Liste des enfants inscrits à ce séjour 
-	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAjoutEnfants">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjoutEnfants">
           Modifier
 	</button>
 	
@@ -147,17 +147,21 @@
 	<div class="modal fade" id="modalAjoutEnfants" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
+			
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle"> /!\ Suppression d'un séjour </h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				
 			<div class="modal-body">
-			<h3><center>Êtes-vous sûr de vouloir supprimer le séjour {{sejour.nom}} ?</center></h3>
-		</div>
+				<h3><center>Êtes-vous sûr de vouloir supprimer le séjour {{sejour.nom}} ?</center></h3>
+			</div>
+		
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Ne pas supprimer</button>{{ include('sejour/_delete_form.html.twig') }}
 			</div>
+			
 		</div>
 	</div>
