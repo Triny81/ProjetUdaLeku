@@ -19,9 +19,10 @@
   </div>
 </div>
 
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionSejour">
           Supprimer
-   </button>
+</button>
+
 <a class="btn btn-primary" href="{{ path('sejour_consultation',{'id':sejour.id}) }}" role="button"> Annuler les modifications</a>
 
 {% endblock %}
@@ -32,7 +33,7 @@
 	
 	{{ include('sejour/_form.html.twig') }}
 
-	<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="modalSuppressionSejour" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
