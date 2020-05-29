@@ -43,33 +43,6 @@ class SejourType extends AbstractType
                                                       'multiple'=>false, ]) 
 			
         ;
-/*	
-		$formModifier = function (FormInterface $form, ListeAffaire $listeAffaire = null)
-		{
-			$affaires = null === $listeAffaire ? [] : $listeAffaire -> getAffaire();
-			
-			$form->add('listeAffaire', EntityType::class, ['class'=>ListeAffaire::class,
-													  'choice_label' => 'nom_francais',
-                                                      'expanded'=>false,
-                                                      'multiple'=>false,]);
-		};
-		
-		$builder->addEventListener(
-			FormEvents::PRE_SET_DATA, 
-			function (FormEvent $event) use ($formModifier) {
-				$data = $event -> getData();
-				
-				$formModifier($event -> getForm(), $data -> getListeAffaire());
-		}); 
-		
-		$builder -> get('listeAffaire') -> addEventListener(
-			FormEvents::POST_SUBMIT,
-			function (FormEvent $event) use ($formModifier) {
-				$listeAffaire = $event -> getForm() -> getData();
-				$formModifier($event -> getForm() -> getParent(), $listeAffaire);
-			}
-		);
-*/
     }
 
     public function configureOptions(OptionsResolver $resolver)

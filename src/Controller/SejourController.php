@@ -71,7 +71,7 @@ class SejourController extends AbstractController
     /**
      * @Route("/modification/{id}", name="sejour_modification", methods={"GET","POST"})
      */
-    public function edit(Request $request, Sejour $sejour, ListeAffaireRepository $listeAffaireRepository): Response
+    public function edit(Request $request, Sejour $sejour, ListeAffaireRepository $listeAffaireRepository, EnfantRepository $enfantRepository): Response
     {
         $form = $this->createForm(SejourType::class, $sejour);
         $form->handleRequest($request);
@@ -86,6 +86,7 @@ class SejourController extends AbstractController
             'sejour' => $sejour,
             'form' => $form->createView(),
 			'listeAffaire' => $listeAffaireRepository -> findAll(),
+			'enfants' => $enfantRepository -> findAll(),
         ]);
     }
 
