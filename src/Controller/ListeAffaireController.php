@@ -86,10 +86,11 @@ class ListeAffaireController extends AbstractController
     /**
      * @Route("/modification/{id}", name="liste_affaire_modification", methods={"GET","POST"})
      */
-    public function edit(Request $request, ListeAffaire $listeAffaire): Response
+    public function edit(Request $request, ListeAffaire $listeAffaire, AffaireRepository $affaireRepository): Response
     {
         $form = $this->createForm(ListeAffaire1Type::class, $listeAffaire);
         $form->handleRequest($request);
+        $toutesLesAffaires = $affaireRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -100,6 +101,7 @@ class ListeAffaireController extends AbstractController
         return $this->render('liste_affaire/edit.html.twig', [
             'liste_affaire' => $listeAffaire,
             'form' => $form->createView(),
+            'affaires' => $toutesLesAffaires,
         ]);
     }
 
