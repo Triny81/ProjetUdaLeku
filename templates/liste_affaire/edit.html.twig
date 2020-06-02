@@ -2,9 +2,12 @@
 
 {% block title %}Edit ListeAffaire{% endblock %}
 
-{% block body %}
+{% block titrePage %}Modifier la liste d'affaires{% endblock %}
 
-    <h1>Modifier la liste d'affaires</h1>
+{% block outils %}
+{% endblock %}
+
+{% block body %}
 
     {{ include('liste_affaire/_form.html.twig', {'button_label': 'Update'}) }}
 
