@@ -5,9 +5,12 @@
 {% block titrePage %}Gestion des listes d'affaires{% endblock %}
 
 {% block outils %}
+<!--
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreationListeAffaire">
 	Créer une liste d'affaires
 </button>
+-->
+<a class="btn btn-success" href="{{ path('liste_affaire_creation') }}" role="button"> Créer une nouvelle liste d'affaires </a>
 {% endblock %}
 
 {% block body %}
@@ -66,7 +69,7 @@
         </tbody>
     </table>
 
-		<!-- Modal création affaire -->
+		<!-- Modal création liste affaire
 		<div class="modal fade" id="modalCreationListeAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
@@ -77,16 +80,9 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		       {{ form_start(formCreate) }}
-		       {{ form_row(formCreate.nom_francais) }}
-		       {{ form_row(formCreate.nom_basque) }}
-		       <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-		        <button type="submit" class="btn btn-primary">Enregistrer !</button>
-		      </div>
-		      {{ form_end(formCreate) }}
+		       {{ include('liste_affaire/_form.html.twig') }}
 		    </div>
 		  </div>
 		</div>
-
+		-->
 {% endblock %}
