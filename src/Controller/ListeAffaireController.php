@@ -15,13 +15,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 /**
  * @Route("/listeAffaire")
  */
 class ListeAffaireController extends AbstractController
 {
     /**
-     * @Route("/", name="liste_affaire_index", methods={"GET"})
+     * @Route("/", name="liste_affaire_index", methods={"GET","POST"})
      */
     public function index(ListeAffaireRepository $listeAffaireRepository, Request $request): Response
     {
@@ -39,24 +41,36 @@ class ListeAffaireController extends AbstractController
     /**
      * @Route("/creation", name="liste_affaire_creation", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ValidatorInterface $validator): Response
     {
         $listeAffaire = new ListeAffaire();
         $form = $this->createForm(ListeAffaire1Type::class, $listeAffaire);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($listeAffaire);
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid())
+              {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($listeAffaire);
+                $entityManager->flush();
 
+                $this->addFlash('success', 'La liste '.$form->getData()->getNomFrancais().' a été créée avec succès !');
+              }
+
+            }
+            else{
+                $errors = $validator->validate($form->getData());
+
+                foreach ($errors as $error) {
+                    $this->addFlash('error', $error->getMessage());
+                }
+            }
+
+            /*return $this->render('liste_affaire/new.html.twig', [
+                'liste_affaire' => $listeAffaire,
+                'form' => $form->createView(),
+            ]);*/
             return $this->redirectToRoute('liste_affaire_index');
-        }
-
-        return $this->render('liste_affaire/new.html.twig', [
-            'liste_affaire' => $listeAffaire,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
@@ -72,10 +86,11 @@ class ListeAffaireController extends AbstractController
     /**
      * @Route("/modification/{id}", name="liste_affaire_modification", methods={"GET","POST"})
      */
-    public function edit(Request $request, ListeAffaire $listeAffaire): Response
+    public function edit(Request $request, ListeAffaire $listeAffaire, AffaireRepository $affaireRepository): Response
     {
         $form = $this->createForm(ListeAffaire1Type::class, $listeAffaire);
         $form->handleRequest($request);
+        $toutesLesAffaires = $affaireRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -86,6 +101,7 @@ class ListeAffaireController extends AbstractController
         return $this->render('liste_affaire/edit.html.twig', [
             'liste_affaire' => $listeAffaire,
             'form' => $form->createView(),
+            'affaires' => $toutesLesAffaires,
         ]);
     }
 

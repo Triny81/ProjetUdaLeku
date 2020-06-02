@@ -3,11 +3,32 @@
 {% block title %}Edit ListeAffaire{% endblock %}
 
 {% block body %}
-    <h1>Edit ListeAffaire</h1>
+
+    <h1>Modifier la liste d'affaires</h1>
 
     {{ include('liste_affaire/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('liste_affaire_index') }}">back to list</a>
+<table class="table" style="width:40%;">
+  <thead>
+    <tr>
+      <th scope="col">Nom Français</th>
+      <th scope="col">Nom Basque</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for affaire in affaires %}
+    <tr>
+        <td>{{ affaire.nomFrancais }}</td>
+        <td>{{ affaire.nomBasque }}</td><br>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+    <br>
+    <button type="button" href="{{ path('liste_affaire_index') }}" class="btn btn-primary">Annuler</button>
 
     {{ include('liste_affaire/_delete_form.html.twig') }}
+
+
 {% endblock %}
