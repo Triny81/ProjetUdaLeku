@@ -42,9 +42,12 @@
 		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour", {'errors': false}) }}
 		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'displayAffaire()' }}) }}
 	</div>	
-	
+
 	<p id = "p">
 	</p>
+	
+	
+	
 	<input type="text" name="nomFrancais" placeholder="nomFrancais" [b]class="ajax"[/b] disabled>
 	<input type="text" name="nomBasque" placeholder="nomBasque" [b]class="ajax"[/b] disabled>
 	<input type="text" name="type" placeholder="Type" [b]class="ajax"[/b] disabled>
@@ -164,6 +167,9 @@
           Modifier
 	</button>
 	
+	{{ form_widget(form.enfants) }}
+	
+	{#
 	<table class="table">
 		<thead>
 			<tr>
@@ -184,12 +190,13 @@
 			{% endif %}
 		</tbody>
 	</table>
-
+	#}
+	
 	</div>
 </div>
-
 {{ form_end(form) }}
 
+{#
 	<div class="modal fade bd-example-modal-xl" id="modalAjoutEnfants" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
@@ -200,10 +207,12 @@
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				
+			
+					
 			<div class="modal-body row">	
 				<div class="col-md-5">
-				Enfants inscrits au centre
+					Enfants inscrits au centre
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -214,7 +223,7 @@
 						</thead>
 						<tbody>
 							{% if sejour.enfants is not null %}
-							{% for enfant in enfants %}
+							{% for enfant in sejour.enfants  %}
 							<tr>
 								<td> {{enfant.nom}} </td>
 								<td> {{enfant.prenom}} </td>
@@ -226,7 +235,6 @@
 					</table>
 				</div>
 				
-			
 				<div class="col-md-2">
 					</br>
 					</br>
@@ -254,8 +262,7 @@
 					
 					<div class="text-center">
 						<button class="btn btn-primary"> Vider la liste </button>
-					</div>
-					
+					</div>				
 				</div>
 				
 				
@@ -283,10 +290,13 @@
 					</table>
 				</div>
 			</div>
-		
+				
+			
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal"> Annuler </button>{{ include('sejour/_delete_form.html.twig') }}
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"> Annuler </button> 
+				<button type="button" class="btn btn-primary" data-dismiss="modal"> Enregistrer </button> 
 			</div>
 			
 		</div>
 	</div>
+#}

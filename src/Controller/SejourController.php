@@ -75,7 +75,7 @@ class SejourController extends AbstractController
     {
         $form = $this->createForm(SejourType::class, $sejour);
         $form->handleRequest($request);
-
+		
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -84,9 +84,8 @@ class SejourController extends AbstractController
 
         return $this->render('sejour/edit.html.twig', [
             'sejour' => $sejour,
-            'form' => $form->createView(),
 			'listeAffaire' => $listeAffaireRepository -> findAll(),
-			'enfants' => $enfantRepository -> findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
