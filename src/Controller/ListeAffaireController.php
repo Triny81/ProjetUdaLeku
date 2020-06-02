@@ -34,7 +34,7 @@ class ListeAffaireController extends AbstractController
 
         return $this->render('liste_affaire/index.html.twig', [
             'liste_affaires' => $listeAffaireRepository->findAll(),
-            'formCreate' => $formCreate->createView(),
+            'form' => $formCreate->createView(),
         ]);
     }
 
@@ -66,11 +66,11 @@ class ListeAffaireController extends AbstractController
                 }
             }
 
-            /*return $this->render('liste_affaire/new.html.twig', [
+            return $this->render('liste_affaire/new.html.twig', [
                 'liste_affaire' => $listeAffaire,
                 'form' => $form->createView(),
-            ]);*/
-            return $this->redirectToRoute('liste_affaire_index');
+            ]);
+            //return $this->redirectToRoute('liste_affaire_index');
     }
 
     /**

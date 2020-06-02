@@ -18,7 +18,6 @@ class ListeAffaire1Type extends AbstractType
         $builder
             ->add('nom_francais')
             ->add('nom_basque')
-
         ;
     }
 
