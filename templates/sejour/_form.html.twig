@@ -44,38 +44,49 @@
 	</div>	
 	
 	<p id = "p">
-		<input type="text" name="nomFrancais" placeholder="Le nom fr">
-		<input type="text" name="nomBasque" placeholder="Le nom ba">
-		<input type="text" name="type" placeholder="Le type">
 	</p>
+	<input type="text" name="nomFrancais" placeholder="nomFrancais" [b]class="ajax"[/b] disabled>
+	<input type="text" name="nomBasque" placeholder="nomBasque" [b]class="ajax"[/b] disabled>
+	<input type="text" name="type" placeholder="Type" [b]class="ajax"[/b] disabled>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script>
 		$(document).ready(function()
 		{
-			// On récupère le nom
-			var value = $(this).val();
-			
-			// Index
-			var i = 0;
-			
-			// On prépare l'Ajax
-			$.ajax(
-			{
-				// On indique le fichier où aller consulter
-				url: "traitements.php",
+			$('sejour_listeAffaire').change(function()
+			{			
+				// On récupère le nom
+				var value = $('#sejour_listeAffaire option:selected').text();
 				
-				// Le type de l'envoi (POST ou GET)
-				type: "POST",
+				// Index
+				var i = 0;
 				
-				// On indique que le résultat sera un tableau JSON
-				dataType: "JSON",
-				
-				// On lui donne le nom de la liste
-				data: {nomFrancais : value},
-			}
-			)
-		})
+				// On prépare l'Ajax
+				$.ajax(
+				{
+					// On indique le fichier où aller consulter
+					url: "traitements.php",
+					
+					// Le type de l'envoi (POST ou GET)
+					type: "POST",
+					
+					// On indique que le résultat sera un tableau JSON
+					dataType: "JSON",
+					
+					// On lui donne le nom de la liste
+					data: {nomFrancais : value},
+					success:function(data)
+					{
+						$('input').each(function()
+						{
+							$(this).val(data[i]);
+							i++;
+						});
+					}
+				}
+				);
+			});
+		});
 	
 		function displayAffaire()
 		{
@@ -83,12 +94,14 @@
 
 			var body = document.getElementById("tabAffaires");
 			
-			var index = listeChoisie.selectedIndex;
-			
-			var myArray = '{{ listeAffaire | json_encode | raw }}';
-			
+			var index = listeChoisie.selectedIndex;			
+						
 			var p = document.getElementById("p");
-		
+			p.innerHTML = " /!\\ Zone de test /!\\ " + "</br>" + 
+						  $('#sejour_listeAffaire').val() + "</br>" +
+						  $('#sejour_listeAffaire option:selected').text()
+			
+
 			switch(index)
 			{
 				case 0:
@@ -190,7 +203,7 @@
 				
 			<div class="modal-body row">	
 				<div class="col-md-5">
-				Enfants inscrits à ce séjour
+				Enfants inscrits au centre
 					<table class="table">
 						<thead>
 							<tr>
@@ -201,7 +214,7 @@
 						</thead>
 						<tbody>
 							{% if sejour.enfants is not null %}
-							{% for enfant in sejour.enfants  %}
+							{% for enfant in enfants %}
 							<tr>
 								<td> {{enfant.nom}} </td>
 								<td> {{enfant.prenom}} </td>
@@ -222,7 +235,7 @@
 					
 						Ajouter à la liste
 
-						<button class="btn btn-primary"> <<< </button>	
+						<button class="btn btn-primary"> >>> </button>	
 						
 					</div>		
 					
@@ -231,7 +244,7 @@
 					<div class="text-center">
 						Retirer de la liste
 
-						<button class="btn btn-primary"> >>> </button>
+						<button class="btn btn-primary"> <<< </button>
 
 					</div>
 					
@@ -247,7 +260,7 @@
 				
 				
 				<div class="col-md-5">
-					Enfants inscrits au centre
+					Enfants inscrits à ce séjour
 					<table class="table">
 						<thead>
 							<tr>
@@ -258,7 +271,7 @@
 						</thead>
 						<tbody>
 							{% if sejour.enfants is not null %}
-							{% for enfant in enfants  %}
+							{% for enfant in sejour.enfants  %}
 							<tr>
 								<td> {{enfant.nom}} </td>
 								<td> {{enfant.prenom}} </td>

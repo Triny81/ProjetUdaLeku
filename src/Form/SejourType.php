@@ -41,6 +41,10 @@ class SejourType extends AbstractType
 													  'choice_label' => 'nom_francais',
                                                       'expanded'=>false,
                                                       'multiple'=>false, ]) 
+			->add('enfants', EntityType::class, ['class'=>Enfant::class,
+													  'choice_label' => 'nom',
+                                                      'expanded'=>true,
+                                                      'multiple'=>false, ])
 			
         ;
     }
