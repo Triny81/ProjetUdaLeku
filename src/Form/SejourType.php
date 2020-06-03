@@ -8,16 +8,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
+use Doctrine\ORM\EntityRepository;
+
 use App\Entity\Enfant;
 use App\Entity\Affaire;
-
 use App\Entity\ListeAffaire;
+
 use App\Form\ListeAffaireType;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -46,6 +47,11 @@ class SejourType extends AbstractType
 												  { 
 													  return $enfants -> getNom()." ".$enfants -> getPrenom();
 												  },
+												  'query_builder' => function (EntityRepository $entityRepo ) 
+													{
+														return $entityRepo->createQueryBuilder('e')
+																->orderBy('e.nom', 'ASC');
+													},
 												  'expanded'=>true,
 												  'multiple'=>true,])
         ;

@@ -76,12 +76,17 @@ class SejourController extends AbstractController
         $form = $this->createForm(SejourType::class, $sejour);
         $form->handleRequest($request);
 		
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+		{
+			$donnees_sejour = $form->getData();
             $this->getDoctrine()->getManager()->flush();
+			
+			
+			$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
 
             return $this->redirectToRoute('sejour_index');
         }
-
+		
         return $this->render('sejour/edit.html.twig', [
             'sejour' => $sejour,
 			'listeAffaire' => $listeAffaireRepository -> findAll(),

@@ -21,11 +21,11 @@
 <!--
 {#
 {% for formEdit in tableauFormulairesEdit %}
-{{form_start(formEdit, {'action': path('affaire_modification',{'id': affaires[loop.index0].id})}) }}
-{{ form_row(formEdit.nom_francais) }}
-{{ form_row(formEdit.nom_basque) }}
-{{ form_row(formEdit.type_affaire) }}
-<button type="submit" class="btn btn-primary">Enregistrer !</button>
+	{{form_start(formEdit, {'action': path('affaire_modification',{'id': affaires[loop.index0].id})}) }}
+	{{ form_row(formEdit.nom_francais) }}
+	{{ form_row(formEdit.nom_basque) }}
+	{{ form_row(formEdit.type_affaire) }}
+	<button type="submit" class="btn btn-primary">Enregistrer !</button>
 {{ form_end(formEdit) }}
 {% endfor %}
 #}
