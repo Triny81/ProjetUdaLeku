@@ -67,7 +67,8 @@ class SejourController extends AbstractController
             'sejour' => $sejour,
         ]);
     }
-
+	
+// DEBUT
     /**
      * @Route("/modification/{id}", name="sejour_modification", methods={"GET","POST"})
      */
@@ -79,11 +80,14 @@ class SejourController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) 
 		{
 			$donnees_sejour = $form->getData();
+			
             $this->getDoctrine()->getManager()->flush();
+			/*dump($donnees_sejour);
+			exit();*/
 			
 			
 			$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
-
+			
             return $this->redirectToRoute('sejour_index');
         }
 		
@@ -93,6 +97,7 @@ class SejourController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+// FIN
 
     /**
      * @Route("/consultation/{id}", name="sejour_suppression", methods={"DELETE"})

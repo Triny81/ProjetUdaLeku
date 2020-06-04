@@ -50,7 +50,7 @@ class Sejour
     private $listeAffaire;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="sejour")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Enfant", mappedBy="sejour", cascade={"persist"})
      */
     private $enfants;
 

@@ -43,54 +43,27 @@
 		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'displayAffaire()' }}) }}
 	</div>	
 
-	<p id = "p">
-	</p>
+	<script>	
+
+		var listeaffaire = {{ listeAffaire|json_encode()|raw }};
+		
+		/*var listeaffaire = {
+			0 : {
+				nomFrancais:"pouet",
+				nomBasque:"tee",
+				typeAffaire : { 
+							nom : "dfrf"
+			},
+			1 : {
+				nomFrancais:"pouet",
+				nomBasque:"tee",
+				typeAffaire : { 
+							nom : "dfrf"
+			}
+		}*/
+		console.log(listeaffaire)
 	
-	
-	
-	<input type="text" name="nomFrancais" placeholder="nomFrancais" [b]class="ajax"[/b] disabled>
-	<input type="text" name="nomBasque" placeholder="nomBasque" [b]class="ajax"[/b] disabled>
-	<input type="text" name="type" placeholder="Type" [b]class="ajax"[/b] disabled>
-	
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script>
-		$(document).ready(function()
-		{
-			$('sejour_listeAffaire').change(function()
-			{			
-				// On récupère le nom
-				var value = $('#sejour_listeAffaire option:selected').text();
-				
-				// Index
-				var i = 0;
-				
-				// On prépare l'Ajax
-				$.ajax(
-				{
-					// On indique le fichier où aller consulter
-					url: "traitements.php",
-					
-					// Le type de l'envoi (POST ou GET)
-					type: "POST",
-					
-					// On indique que le résultat sera un tableau JSON
-					dataType: "JSON",
-					
-					// On lui donne le nom de la liste
-					data: {nomFrancais : value},
-					success:function(data)
-					{
-						$('input').each(function()
-						{
-							$(this).val(data[i]);
-							i++;
-						});
-					}
-				}
-				);
-			});
-		});
-	
+
 		function displayAffaire()
 		{
 			var listeChoisie = document.getElementById("sejour_listeAffaire");
@@ -98,12 +71,6 @@
 			var body = document.getElementById("tabAffaires");
 			
 			var index = listeChoisie.selectedIndex;			
-						
-			var p = document.getElementById("p");
-			p.innerHTML = " /!\\ Zone de test /!\\ " + "</br>" + 
-						  $('#sejour_listeAffaire').val() + "</br>" +
-						  $('#sejour_listeAffaire option:selected').text()
-			
 
 			switch(index)
 			{
@@ -130,7 +97,7 @@
 						"</tr>" +
 					"{% endfor %}";
 					break;					
-			}			
+			}
 		}
 	</script>
 	
