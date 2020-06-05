@@ -78,31 +78,27 @@ class SejourController extends AbstractController
         $form = $this->createForm(SejourType::class, $sejour);
         $form->handleRequest($request);
 		
+		$listeEnfant = $enfantRepository -> findAll();
+		
         if ($form->isSubmitted() && $form->isValid()) 
 		{
 			$donnees_sejour = $form->getData();
 			
-			foreach($sejour -> getEnfants() as $enfant)
+			
+			foreach($listeEnfant as $enfant)
 			{
-				$enfant -> removeSejour($sejour);
-				
-				if($enfant == true)
+				if($donnees_sejour -> getEnfants() -> contains($enfant))
 				{
 					$enfant -> addSejour($sejour);
 				}
-				
+				else
+				{
+					$enfant -> removeSejour($sejour);
+				}
 			}
-			/*
-			foreach($donnees_sejour->getEnfants() as $enfant)
-			{
-				$enfant -> addSejour($sejour);
-			}
-			*/
 			
-            $this->getDoctrine()->getManager()->flush();
-			//dump($donnees_sejour->getEnfants());
-			//exit();
-			
+			$this->getDoctrine()->getManager()->persist($donnees_sejour);
+			$this->getDoctrine()->getManager()->flush();
 			
 			$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
 			
