@@ -18,6 +18,10 @@ class ListeAffaire1Type extends AbstractType
         $builder
             ->add('nom_francais')
             ->add('nom_basque')
+            ->add('affaire', EntityType::class, ['class'=>Affaire::class,
+													  'choice_label' => 'nom_francais',
+                                                      'expanded'=>true,
+                                                      'multiple'=>true, ])
         ;
     }
 

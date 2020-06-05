@@ -9,7 +9,12 @@
         {{ form_label(form.nom_basque,"Nom basque",{'errors': false})}}
         {{ form_widget(form.nom_basque) }}
     </div>
+		<div>
+				{{ form_label(form.affaire,"Contenu de la liste",{'errors': false})}}
+				{{ form_widget(form.affaire) }}
+		</div>
 <br>
+
 <button type="submit" class="btn btn-primary">Enregistrer !</button>
 
 

@@ -8,7 +8,7 @@ use App\Repository\SejourRepository;
 
 use App\Entity\Enfant;
 use App\Form\EnfantType;
-use App\Repository\EnfantRepository; 
+use App\Repository\EnfantRepository;
 
 use App\Entity\ListeAffaire;
 use App\Form\ListeAffaireType;
@@ -21,53 +21,53 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/gestionSejours")
- */
+* @Route("/gestionSejours")
+*/
 class SejourController extends AbstractController
 {
-    /**
-     * @Route("/", name="sejour_index", methods={"GET"})
-     */
-    public function index(SejourRepository $sejourRepository): Response
-    {
-        return $this->render('sejour/index.html.twig', [
-            'sejours' => $sejourRepository->findAll(),
-        ]);
+  /**
+  * @Route("/", name="sejour_index", methods={"GET"})
+  */
+  public function index(SejourRepository $sejourRepository): Response
+  {
+    return $this->render('sejour/index.html.twig', [
+      'sejours' => $sejourRepository->findAll(),
+    ]);
+  }
+
+  /**
+  * @Route("/creation", name="sejour_creation", methods={"GET","POST"})
+  */
+  public function new(Request $request, ListeAffaireRepository $listeAffaireRepository): Response
+  {
+    $sejour = new Sejour();
+    $form = $this->createForm(SejourType::class, $sejour);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->persist($sejour);
+      $entityManager->flush();
+
+      return $this->redirectToRoute('sejour_index');
     }
 
-    /**
-     * @Route("/creation", name="sejour_creation", methods={"GET","POST"})
-     */
-    public function new(Request $request, ListeAffaireRepository $listeAffaireRepository): Response
-    {
-        $sejour = new Sejour();
-        $form = $this->createForm(SejourType::class, $sejour);
-        $form->handleRequest($request);
+    return $this->render('sejour/new.html.twig', [
+      'sejour' => $sejour,
+      'listeAffaire' => $listeAffaireRepository -> findAll(),
+      'form' => $form->createView(),
+    ]);
+  }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($sejour);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('sejour_index');
-        }
-
-        return $this->render('sejour/new.html.twig', [
-            'sejour' => $sejour,
-			'listeAffaire' => $listeAffaireRepository -> findAll(),
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/consultation/{id}", name="sejour_consultation", methods={"GET"})
-     */
-    public function show(Sejour $sejour): Response
-    {
-        return $this->render('sejour/show.html.twig', [
-            'sejour' => $sejour,
-        ]);
-    }
+  /**
+  * @Route("/consultation/{id}", name="sejour_consultation", methods={"GET"})
+  */
+  public function show(Sejour $sejour): Response
+  {
+    return $this->render('sejour/show.html.twig', [
+      'sejour' => $sejour,
+    ]);
+  }
 	
 // DEBUT
     /**
@@ -83,8 +83,7 @@ class SejourController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) 
 		{
 			$donnees_sejour = $form->getData();
-			
-			
+					
 			foreach($listeEnfant as $enfant)
 			{
 				if($donnees_sejour -> getEnfants() -> contains($enfant))
@@ -113,17 +112,17 @@ class SejourController extends AbstractController
     }
 // FIN
 
-    /**
-     * @Route("/consultation/{id}", name="sejour_suppression", methods={"DELETE"})
-     */
-    public function delete(Request $request, Sejour $sejour): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$sejour->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($sejour);
-            $entityManager->flush();
-        }
+/**
+* @Route("/consultation/{id}", name="sejour_suppression", methods={"DELETE"})
+*/
+public function delete(Request $request, Sejour $sejour): Response
+{
+  if ($this->isCsrfTokenValid('delete'.$sejour->getId(), $request->request->get('_token'))) {
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->remove($sejour);
+    $entityManager->flush();
+  }
 
-        return $this->redirectToRoute('sejour_index');
-    }
+  return $this->redirectToRoute('sejour_index');
+}
 }
