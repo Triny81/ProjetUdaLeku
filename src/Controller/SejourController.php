@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * @Route("/gestionSejours")
  */
@@ -81,9 +82,26 @@ class SejourController extends AbstractController
 		{
 			$donnees_sejour = $form->getData();
 			
+			foreach($sejour -> getEnfants() as $enfant)
+			{
+				$enfant -> removeSejour($sejour);
+				
+				if($enfant == true)
+				{
+					$enfant -> addSejour($sejour);
+				}
+				
+			}
+			/*
+			foreach($donnees_sejour->getEnfants() as $enfant)
+			{
+				$enfant -> addSejour($sejour);
+			}
+			*/
+			
             $this->getDoctrine()->getManager()->flush();
-			/*dump($donnees_sejour);
-			exit();*/
+			//dump($donnees_sejour->getEnfants());
+			//exit();
 			
 			
 			$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
