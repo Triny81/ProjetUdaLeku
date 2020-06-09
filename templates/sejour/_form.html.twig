@@ -50,7 +50,17 @@
 	</p>
 	
 	<script>
-
+	
+		var lAffaire = Array( "{{ listeAffaire[0].affaire[0].nomFrancais }}",
+							  "{{ listeAffaire[1].nomFrancais }}",
+							  "{{ listeAffaire[2].nomFrancais }}",
+							  "{{ listeAffaire[3].nomFrancais }}",
+							  "{{ listeAffaire[4].nomFrancais }}",
+							  "{{ listeAffaire[5].nomFrancais }}"
+							);
+							
+		console.log( lAffaire )
+		
 		function myFunction()
 		{
 			var listeChoisie = document.getElementById("sejour_listeAffaire");
@@ -58,7 +68,7 @@
 			var body = document.getElementById("tabAffaires");
 		
 			var index = listeChoisie.selectedIndex;
-
+			pElem.innerHTML = index;
 			switch(index)
 			{
 				case 0:
@@ -86,8 +96,7 @@
 					break;
 					
 			}
-			
-			pElem.innerHTML = index;
+				
 		}
 	</script>
 	
