@@ -8,7 +8,7 @@
 {% block outils %}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCreationAffaire">
-  Créer une affaire
+	Créer une affaire
 </button>
 
 {% endblock %}
@@ -16,16 +16,16 @@
 
 {% block body %}
 
-<!-- Test des formulaires de modifications 
+<!-- Test des formulaires de modifications
   Ces formulaires marchent dans la mesure où ils sont à l'extérieur d'une fenêtre modale -->
 <!--
 {#
 {% for formEdit in tableauFormulairesEdit %}
-{{form_start(formEdit, {'action': path('affaire_modification',{'id': affaires[loop.index0].id})}) }}
-{{ form_row(formEdit.nom_francais) }}
-{{ form_row(formEdit.nom_basque) }}
-{{ form_row(formEdit.type_affaire) }}
-<button type="submit" class="btn btn-primary">Enregistrer !</button>
+	{{form_start(formEdit, {'action': path('affaire_modification',{'id': affaires[loop.index0].id})}) }}
+	{{ form_row(formEdit.nom_francais) }}
+	{{ form_row(formEdit.nom_basque) }}
+	{{ form_row(formEdit.type_affaire) }}
+	<button type="submit" class="btn btn-primary">Enregistrer !</button>
 {{ form_end(formEdit) }}
 {% endfor %}
 #}
@@ -54,7 +54,7 @@
       pas les formulaires, car ces formulaires utilisent des variables twig : Ces variables ne sont sûrement pas accessibles
       depuis les composants JS de Bootstrap. De plus, pour tester les variables twig dans les fenêtres modales, on peut voir
       qu'il n'y a seulement que la première affaire qui est accessible : toutes les fenêtres font donc référence à la même affaire (la boucle for n'est donc pas prise en compte).-->
-      <!-- 
+      <!--
       <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalModificationAffaire">
         Modifier
       </a>
@@ -121,7 +121,7 @@
 </tr>
 {% else %}
 <tr>
-  <td colspan="4"><center>Aucune affaire n'a été eregistré... Pourquoi ne pas en créer une maintenant ?</center></td>
+  <td colspan="4"><center>Aucune affaire n'a été enregistrée... Pourquoi ne pas en créer une maintenant ?</center></td>
 </tr>
 {% endfor %}
 </tbody>

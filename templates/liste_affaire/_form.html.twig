@@ -1,4 +1,21 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+	<div>
+        {{ form_label(form.nom_francais,"Nom français",{'errors': false})}}
+        {{ form_widget(form.nom_francais) }}
+    </div>
+    <div>
+        {{ form_label(form.nom_basque,"Nom basque",{'errors': false})}}
+        {{ form_widget(form.nom_basque) }}
+    </div>
+		<div>
+				{{ form_label(form.affaire,"Contenu de la liste",{'errors': false})}}
+				{{ form_widget(form.affaire) }}
+		</div>
+<br>
+
+<button type="submit" class="btn btn-primary">Enregistrer !</button>
+
+
 {{ form_end(form) }}

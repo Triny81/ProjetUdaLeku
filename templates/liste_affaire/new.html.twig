@@ -2,10 +2,15 @@
 
 {% block title %}Nouvelle liste d'affaires{% endblock %}
 
+{% block titrePage %}Nouvelle liste d'affaires{% endblock %}
+
+{% block outils %}
+{% endblock %}
+
 {% block body %}
-    <h1>Création d'une liste d'affaires</h1>
 
     {{ include('liste_affaire/_form.html.twig') }}
 
-    <a href="{{ path('liste_affaire_index') }}">back to list</a>
+<br>
+    <a class="btn btn-primary" href="{{ path('liste_affaire_index') }}" role="button">Retour</a>
 {% endblock %}

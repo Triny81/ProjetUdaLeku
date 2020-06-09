@@ -19,9 +19,9 @@
 </div>
 
 <a class="btn btn-primary disabled" href="#" role="button"> Valider </a>
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionAffaire">
-          Supprimer
-   </button>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionSejour">
+	Supprimer
+</button>
 <a class="btn btn-primary" href="{{ path('sejour_index') }}" role="button"> Retour </a>  {% endblock %}
 
 
@@ -35,8 +35,8 @@
 			<fieldset disabled>
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-3"> Séjour </div>
-						<div class="col-sm-9"> <input type="text" placeholder=" {{sejour.nom}} "> </div>
+						<div class="col-sm-2"> Séjour </div>
+						<div class="col-sm-10"> <input type="text" placeholder=" {{sejour.nom}} "> </div>
 
 						<div class="w-100"></div>
 
@@ -146,7 +146,7 @@
     {#<a class="btn btn-primary" href="{{ path('sejour_index') }}"> Retour</a>
 	<a class="btn btn-primary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a> #}
 
-	<div class="modal fade" id="modalSuppressionAffaire" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="modalSuppressionSejour" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
