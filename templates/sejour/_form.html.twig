@@ -49,16 +49,6 @@
 	
 	<script>
 	
-		var lAffaire = Array( "{{ listeAffaire[0].affaire[0].nomFrancais }}",
-							  "{{ listeAffaire[1].nomFrancais }}",
-							  "{{ listeAffaire[2].nomFrancais }}",
-							  "{{ listeAffaire[3].nomFrancais }}",
-							  "{{ listeAffaire[4].nomFrancais }}",
-							  "{{ listeAffaire[5].nomFrancais }}"
-							);
-							
-		console.log( lAffaire )
-		
 		/*
 		var listeaffaire = {
 			0 : {
@@ -76,15 +66,53 @@
 		}
 		*/
 		
+		// A mon avis il faudra faire un tableau de tableau
+		// Le premier tableau sera la liste des affaires
+		// Le deuxième tableau sera les affaires dans chaque listes
+		
+		var lAffaire = Array();
+		var lesAffaires = Array();
+		
+		{% for LA in listeAffaire %}
+			{% for affaire in LA %}
+				lesAffaires.push( "{{affaire.nomFrancais}}" );
+			{% endfor %}
+
+			lAffaire.push( lesAffaires );
+		{% endfor %}
+		
+		var lAffaire2 = {{ listeAffaire | json_encode | raw }};
+		
+		var lAffaire3 = Array( "{{ listeAffaire[0].nomFrancais }}",
+							  "{{ listeAffaire[1].nomFrancais }}",
+							  "{{ listeAffaire[2].nomFrancais }}",
+							  "{{ listeAffaire[3].nomFrancais }}",
+							  "{{ listeAffaire[4].nomFrancais }}",
+							  "{{ listeAffaire[5].nomFrancais }}"
+							);
+		
+		var lAffaire4 = Array()
+		{% for l in listeAffaire[1].affaire %}
+			lAffaire4.push( "{{ l.nomFrancais }}" );
+		{% endfor %}
+		
+		console.log( lAffaire );
+		console.log( lAffaire2 );
+		console.log( lAffaire3 );	
+		console.log( lAffaire4 );
+		
 		function displayAffaire()
 		{
 			var listeChoisie = document.getElementById("sejour_listeAffaire");
-
+			var pElem = document.getElementById("demo");
 			var body = document.getElementById("tabAffaires");
 		
 			var index = listeChoisie.selectedIndex;
-			pElem.innerHTML = index;
+			
+			pElem.innerHTML = lAffaire3[index];
+			
 
+			/*
 			switch(index)
 			{
 				case 0:
@@ -111,7 +139,7 @@
 					"{% endfor %}";
 					break;					
 			}
-
+			*/
 		}
 	</script>
 	
