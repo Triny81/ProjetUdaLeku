@@ -75,47 +75,41 @@ class SejourController extends AbstractController
   */
   public function edit(Request $request, Sejour $sejour, ListeAffaireRepository $listeAffaireRepository, EnfantRepository $enfantRepository): Response
   {
-    $form = $this->createForm(SejourType::class, $sejour);
-    $form->handleRequest($request);
+	$form = $this->createForm(SejourType::class, $sejour);
+	$form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid())
-    {
-      $donnees_sejour = $form->getData();
+	$listeEnfant = $enfantRepository -> findAll();
 
-      foreach($sejour -> getEnfants() as $enfant)
-      {
-        $enfant -> removeSejour($sejour);
+	if ($form->isSubmitted() && $form->isValid() )
+	{
+	  $donnees_sejour = $form->getData();
 
-        if($enfant == true)
-        {
-          $enfant -> addSejour($sejour);
-        }
+	  foreach($listeEnfant as $enfant)
+	  {
+		if($donnees_sejour -> getEnfants() -> contains($enfant) )
+		{
+			$enfant -> addSejour($sejour);
+		}
+		else
+		{
+			$enfant -> removeSejour($sejour);
+		}
+	  }
 
-      }
-      /*
-      foreach($donnees_sejour->getEnfants() as $enfant)
-      {
-      $enfant -> addSejour($sejour);
-    }
-    */
+	$this->getDoctrine()->getManager()->persist($donnees_sejour);
+	$this->getDoctrine()->getManager()->flush();
 
-    $this->getDoctrine()->getManager()->flush();
-    //dump($donnees_sejour->getEnfants());
-    //exit();
+	$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
 
+	return $this->redirectToRoute('sejour_index');
+	}
 
-    $this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
-
-    return $this->redirectToRoute('sejour_index');
-  }
-
-  return $this->render('sejour/edit.html.twig', [
-    'sejour' => $sejour,
-    'listeAffaire' => $listeAffaireRepository -> findAll(),
-    'form' => $form->createView(),
-  ]);
+	return $this->render('sejour/edit.html.twig', [
+	'sejour' => $sejour,
+	'listeAffaire' => $listeAffaireRepository -> findAll(),
+	'form' => $form->createView(),
+	]);
 }
-// FIN
 
 /**
 * @Route("/consultation/{id}", name="sejour_suppression", methods={"DELETE"})
