@@ -68,53 +68,48 @@ class SejourController extends AbstractController
       'sejour' => $sejour,
     ]);
   }
-
-  // DEBUT
-  /**
-  * @Route("/modification/{id}", name="sejour_modification", methods={"GET","POST"})
-  */
-  public function edit(Request $request, Sejour $sejour, ListeAffaireRepository $listeAffaireRepository, EnfantRepository $enfantRepository): Response
-  {
-    $form = $this->createForm(SejourType::class, $sejour);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid())
+	
+// DEBUT
+    /**
+     * @Route("/modification/{id}", name="sejour_modification", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Sejour $sejour, ListeAffaireRepository $listeAffaireRepository, EnfantRepository $enfantRepository): Response
     {
-      $donnees_sejour = $form->getData();
-
-      foreach($sejour -> getEnfants() as $enfant)
-      {
-        $enfant -> removeSejour($sejour);
-
-        if($enfant == true)
-        {
-          $enfant -> addSejour($sejour);
+        $form = $this->createForm(SejourType::class, $sejour);
+        $form->handleRequest($request);
+		
+		$listeEnfant = $enfantRepository -> findAll();
+		
+        if ($form->isSubmitted() && $form->isValid()) 
+		{
+			$donnees_sejour = $form->getData();
+					
+			foreach($listeEnfant as $enfant)
+			{
+				if($donnees_sejour -> getEnfants() -> contains($enfant))
+				{
+					$enfant -> addSejour($sejour);
+				}
+				else
+				{
+					$enfant -> removeSejour($sejour);
+				}
+			}
+			
+			$this->getDoctrine()->getManager()->persist($donnees_sejour);
+			$this->getDoctrine()->getManager()->flush();
+			
+			$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
+			
+            return $this->redirectToRoute('sejour_index');
         }
-
-      }
-      /*
-      foreach($donnees_sejour->getEnfants() as $enfant)
-      {
-      $enfant -> addSejour($sejour);
+		
+        return $this->render('sejour/edit.html.twig', [
+            'sejour' => $sejour,
+			'listeAffaire' => $listeAffaireRepository -> findAll(),
+            'form' => $form->createView(),
+        ]);
     }
-    */
-
-    $this->getDoctrine()->getManager()->flush();
-    //dump($donnees_sejour->getEnfants());
-    //exit();
-
-
-    $this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
-
-    return $this->redirectToRoute('sejour_index');
-  }
-
-  return $this->render('sejour/edit.html.twig', [
-    'sejour' => $sejour,
-    'listeAffaire' => $listeAffaireRepository -> findAll(),
-    'form' => $form->createView(),
-  ]);
-}
 // FIN
 
 /**
