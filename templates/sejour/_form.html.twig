@@ -44,63 +44,80 @@
 	</div>	
 
 	<p id="demo">
-		Aucun
+	
 	</p>
 	
 	<script>
+						
+		var lAffaireJS = new Object();
+		theTableau = Array();
+			
+		lAffaireJS.leTableau = theTableau;
+		
+		{% for liste in listeAffaire %}
+			objetListe = new Object();
+			objetListe.nomfrancais = "{{ liste.nomFrancais }}";
+			objetListe.nombasque = "{{ liste.nomBasque }}";
+			
+			// On crée 3 tableaux pour : le nom français, basque et le type d'affaire
+			
+			// Celui là correspond au nom français
+			theaffaire = Array();
+			objetListe.affaire = theaffaire;
+			
+			{% for a in liste.affaire %}
+				objetAffaire = new Object();
+				objetAffaire.affaireFR = "{{ a.nomFrancais }}";
+				objetAffaire.affaireBA = "{{ a.nomBasque }}";
+				objetAffaire.affaireTY = "{{ a.typeAffaire.nom }}";
+				objetListe.affaire.push( objetAffaire );
+			{% endfor %}
+			
+			// On ajoute l'objet au tableau		
+			lAffaireJS.leTableau.push( objetListe );
+			
+		{% endfor %}
+		
+		console.log( theTableau );
 	
-		/*
-		var listeaffaire = {
-			0 : {
-				nomFrancais:"pouet",
-				nomBasque:"tee",
-				typeAffaire : { 
-							nom : "dfrf"
-			},
-			1 : {
-				nomFrancais:"pouet",
-				nomBasque:"tee",
-				typeAffaire : { 
-							nom : "dfrf"
-			}
-		}
-		*/
-		
-		// A mon avis il faudra faire un tableau de tableau
-		// Le premier tableau sera la liste des affaires
-		// Le deuxième tableau sera les affaires dans chaque listes
-		
-		var lAffaire = Array();
-		var lesAffaires = Array();
-		
-		{% for LA in listeAffaire %}
-			{% for affaire in LA %}
-				lesAffaires.push( "{{affaire.nomFrancais}}" );
+	/*
+		var lAffaireJS = new Object();
+				
+		{% for liste in listeAffaire %}
+			lAffaireJS.nomfrancais = "{{ liste.nomFrancais }}";
+			lAffaireJS.nombasque = "{{ liste.nomBasque }}";
+			
+			// On crée 3 tableaux pour : le nom français, basque et le type d'affaire
+			
+			// Celui là correspond au nom français
+			theaffaireFR = Array();
+			lAffaireJS.affaireFR = theaffaireFR;
+			
+			{% for a in liste.affaire %}	
+				lAffaireJS.affaireFR.push("{{ a.nomFrancais }}");
+			{% endfor %}
+			
+			// Celui là correspond au nom basque
+			theaffaireBA = Array();
+			lAffaireJS.affaireBA = theaffaireBA;
+			
+			{% for a in liste.affaire %}	
+				lAffaireJS.affaireBA.push("{{ a.nomBasque }}");
 			{% endfor %}
 
-			lAffaire.push( lesAffaires );
+			// Celui là correpsond au type de l'affaire
+			theaffaireTY = Array();
+			lAffaireJS.affaireTY = theaffaireTY;
+			
+			{% for a in liste.affaire %}	
+				lAffaireJS.affaireTY.push("{{ a.typeAffaire.nom }}");
+			{% endfor %}
+			
 		{% endfor %}
-		
-		var lAffaire2 = {{ listeAffaire | json_encode | raw }};
-		
-		var lAffaire3 = Array( "{{ listeAffaire[0].nomFrancais }}",
-							  "{{ listeAffaire[1].nomFrancais }}",
-							  "{{ listeAffaire[2].nomFrancais }}",
-							  "{{ listeAffaire[3].nomFrancais }}",
-							  "{{ listeAffaire[4].nomFrancais }}",
-							  "{{ listeAffaire[5].nomFrancais }}"
-							);
-		
-		var lAffaire4 = Array()
-		{% for l in listeAffaire[1].affaire %}
-			lAffaire4.push( "{{ l.nomFrancais }}" );
-		{% endfor %}
-		
-		console.log( lAffaire );
-		console.log( lAffaire2 );
-		console.log( lAffaire3 );	
-		console.log( lAffaire4 );
-		
+	*/
+	
+		console.log( lAffaireJS );
+	
 		function displayAffaire()
 		{
 			var listeChoisie = document.getElementById("sejour_listeAffaire");
@@ -108,10 +125,21 @@
 			var body = document.getElementById("tabAffaires");
 		
 			var index = listeChoisie.selectedIndex;
+				
+			body.innerHTML = "";
 			
-			pElem.innerHTML = lAffaire3[index];
+			for(var i = 0; i <= theTableau[index].affaire.length-1; i++)
+			{
 			
-
+			body.innerHTML +=
+				"<tr>" +
+					"<td> 1 </td>" +
+					"<td>" + theTableau[index].affaire[i].affaireFR + "</td>" +
+					"<td>" + theTableau[index].affaire[i].affaireBA + "</td>" +
+					"<td>" + theTableau[index].affaire[i].affaireTY + "</td>" +
+				"</tr>";
+			}
+			
 			/*
 			switch(index)
 			{
@@ -139,7 +167,7 @@
 					"{% endfor %}";
 					break;					
 			}
-			*/
+			*/		
 		}
 	</script>
 	

@@ -68,7 +68,6 @@ class SejourController extends AbstractController
       'sejour' => $sejour,
     ]);
   }
-<<<<<<< HEAD
 
   // DEBUT
   /**
@@ -80,7 +79,8 @@ class SejourController extends AbstractController
 	$form->handleRequest($request);
 
 	$listeEnfant = $enfantRepository -> findAll();
-
+	/*dump( $listeAffaireRepository -> findAll() );
+	exit();*/
 	if ($form->isSubmitted() && $form->isValid() )
 	{
 	  $donnees_sejour = $form->getData();
@@ -111,51 +111,7 @@ class SejourController extends AbstractController
 	'form' => $form->createView(),
 	]);
 }
-=======
-	
-// DEBUT
-    /**
-     * @Route("/modification/{id}", name="sejour_modification", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Sejour $sejour, ListeAffaireRepository $listeAffaireRepository, EnfantRepository $enfantRepository): Response
-    {
-        $form = $this->createForm(SejourType::class, $sejour);
-        $form->handleRequest($request);
-		
-		$listeEnfant = $enfantRepository -> findAll();
-		
-        if ($form->isSubmitted() && $form->isValid()) 
-		{
-			$donnees_sejour = $form->getData();
-					
-			foreach($listeEnfant as $enfant)
-			{
-				if($donnees_sejour -> getEnfants() -> contains($enfant))
-				{
-					$enfant -> addSejour($sejour);
-				}
-				else
-				{
-					$enfant -> removeSejour($sejour);
-				}
-			}
-			
-			$this->getDoctrine()->getManager()->persist($donnees_sejour);
-			$this->getDoctrine()->getManager()->flush();
-			
-			$this->addFlash('success', "Le séjour ".$donnees_sejour->getNom()." a été modifié avec succès !");
-			
-            return $this->redirectToRoute('sejour_index');
-        }
-		
-        return $this->render('sejour/edit.html.twig', [
-            'sejour' => $sejour,
-			'listeAffaire' => $listeAffaireRepository -> findAll(),
-            'form' => $form->createView(),
-        ]);
-    }
-// FIN
->>>>>>> 87493c975406f9035ae3719956769dc4fcb82a42
+
 
 /**
 * @Route("/consultation/{id}", name="sejour_suppression", methods={"DELETE"})
