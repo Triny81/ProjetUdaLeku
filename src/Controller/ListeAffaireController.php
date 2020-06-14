@@ -74,9 +74,9 @@ class ListeAffaireController extends AbstractController
   }
 
   /**
-  * @Route("/consultation{id}", name="liste_affaire_consultation", methods={"GET"})
+  * @Route("/consultation{id}", name="liste_affaire_consultation", methods={"GET","POST"})
   */
-  public function show(ListeAffaire $listeAffaire): Response
+  public function show(ListeAffaire $listeAffaire, ListeAffaireRepository $listeAffaireRepository): Response
   {
     return $this->render('liste_affaire/show.html.twig', [
       'liste_affaire' => $listeAffaire,
