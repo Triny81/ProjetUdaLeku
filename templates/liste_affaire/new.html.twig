@@ -5,12 +5,12 @@
 {% block titrePage %}Nouvelle liste d'affaires{% endblock %}
 
 {% block outils %}
+<a class="btn btn-secondary" href="{{ path('liste_affaire_index') }}" role="button">Retour</a>
 {% endblock %}
 
 {% block body %}
 
     {{ include('liste_affaire/_form.html.twig') }}
 
-<br>
-    <a class="btn btn-primary" href="{{ path('liste_affaire_index') }}" role="button">Retour</a>
+
 {% endblock %}
