@@ -27,8 +27,8 @@
                 <td>{{ sejour.dateDebut ? sejour.dateDebut|date('d/m/Y') : '' }}</td>
                 <td>{{ sejour.dateFin ? sejour.dateFin|date('d/m/Y') : '' }}</td>
                 <td>
-                    <a class="btn btn-primary" href="{{ path('sejour_consultation', {'id': sejour.id}) }}"> Consulter </a>
-                    <a class="btn btn-primary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
+                    <a class="btn btn-secondary" href="{{ path('sejour_consultation', {'id': sejour.id}) }}"> Consulter </a>
+                    <a class="btn btn-secondary" href="{{ path('sejour_modification', {'id': sejour.id}) }}"> Modifier </a>
                 </td>
             </tr>
         {% else %}
