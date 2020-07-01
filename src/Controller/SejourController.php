@@ -38,13 +38,30 @@ class SejourController extends AbstractController
   /**
   * @Route("/creation", name="sejour_creation", methods={"GET","POST"})
   */
-  public function new(Request $request, ListeAffaireRepository $listeAffaireRepository): Response
+  public function new(Request $request, ListeAffaireRepository $listeAffaireRepository, EnfantRepository $enfantRepository): Response
   {
     $sejour = new Sejour();
     $form = $this->createForm(SejourType::class, $sejour);
     $form->handleRequest($request);
+	
+	$listeEnfant = $enfantRepository -> findAll();
 
-    if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) 
+	{
+		$donnees_sejour = $form->getData();
+
+	  foreach($listeEnfant as $enfant)
+	  {
+		if($donnees_sejour -> getEnfants() -> contains($enfant) )
+		{
+			$enfant -> addSejour($sejour);
+		}
+		else
+		{
+			$enfant -> removeSejour($sejour);
+		}
+	  }
+		
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->persist($sejour);
       $entityManager->flush();

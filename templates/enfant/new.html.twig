@@ -2,6 +2,15 @@
 
 {% block title %}Nouvel Enfant{% endblock %}
 
+{% block outils %}
+	<a type="button" href="{{path('enfant_creation')}}" class="btn btn-success" id="prout">
+		Inscrire un nouvel enfant
+	</a>
+	<input type="button" class="btn btn-primary" id="faux_submit" value="Enregistrer !"/>
+
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalSuppressionEnfant">Désinscrire</button>
+{% endblock %}
+
 {% block body %}
   <div class="row">
     <div class="col-md-10">
@@ -25,5 +34,13 @@
   </div>
     
     {{ include('enfant/_form.html.twig') }}
+	
+	<script src="{{asset('https://code.jquery.com/jquery-3.5.0.js')}}"></script>
+	<script type="text/javascript">
+       $('#faux_submit').on("click", function () { // on a click on the button with id 'one'
+              var input = this;
+              $('#vrai_submit').trigger('click');
+        });
+</script>
     
 {% endblock %}

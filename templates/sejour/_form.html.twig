@@ -42,13 +42,9 @@
 		{{ form_label(form.listeAffaire,"Liste d'affaires pour ce séjour", {'errors': false}) }}
 		{{ form_widget(form.listeAffaire, {'attr': {'onChange': 'displayAffaire()' }}) }}
 	</div>	
-
-	<p id="demo">
 	
-	</p>
-	
-	<script>
-						
+	<script>	
+		// Il faut créer un tableau JS à partir du tableau php
 		var lAffaireJS = new Object();
 		theTableau = Array();
 			
@@ -59,11 +55,11 @@
 			objetListe.nomfrancais = "{{ liste.nomFrancais }}";
 			objetListe.nombasque = "{{ liste.nomBasque }}";
 			
-			// On crée 3 tableaux pour : le nom français, basque et le type d'affaire
-			
-			// Celui là correspond au nom français
 			theaffaire = Array();
 			objetListe.affaire = theaffaire;
+			
+			// Ici, on a un objet objetListe avec pour attribut nomfrancais, 
+			// nombasque et un tableau d'affaire
 			
 			{% for a in liste.affaire %}
 				objetAffaire = new Object();
@@ -73,55 +69,20 @@
 				objetListe.affaire.push( objetAffaire );
 			{% endfor %}
 			
+			// Ici, on a un objet objetAffaire avec pour attribut nomFrancais,
+			// nomBasque et son type d'affaire
+			
 			// On ajoute l'objet au tableau		
 			lAffaireJS.leTableau.push( objetListe );
 			
 		{% endfor %}
 		
 		console.log( theTableau );
-	
-	/*
-		var lAffaireJS = new Object();
-				
-		{% for liste in listeAffaire %}
-			lAffaireJS.nomfrancais = "{{ liste.nomFrancais }}";
-			lAffaireJS.nombasque = "{{ liste.nomBasque }}";
-			
-			// On crée 3 tableaux pour : le nom français, basque et le type d'affaire
-			
-			// Celui là correspond au nom français
-			theaffaireFR = Array();
-			lAffaireJS.affaireFR = theaffaireFR;
-			
-			{% for a in liste.affaire %}	
-				lAffaireJS.affaireFR.push("{{ a.nomFrancais }}");
-			{% endfor %}
-			
-			// Celui là correspond au nom basque
-			theaffaireBA = Array();
-			lAffaireJS.affaireBA = theaffaireBA;
-			
-			{% for a in liste.affaire %}	
-				lAffaireJS.affaireBA.push("{{ a.nomBasque }}");
-			{% endfor %}
-
-			// Celui là correpsond au type de l'affaire
-			theaffaireTY = Array();
-			lAffaireJS.affaireTY = theaffaireTY;
-			
-			{% for a in liste.affaire %}	
-				lAffaireJS.affaireTY.push("{{ a.typeAffaire.nom }}");
-			{% endfor %}
-			
-		{% endfor %}
-	*/
-	
 		console.log( lAffaireJS );
 	
 		function displayAffaire()
 		{
 			var listeChoisie = document.getElementById("sejour_listeAffaire");
-			var pElem = document.getElementById("demo");
 			var body = document.getElementById("tabAffaires");
 		
 			var index = listeChoisie.selectedIndex;
@@ -129,45 +90,15 @@
 			body.innerHTML = "";
 			
 			for(var i = 0; i <= theTableau[index].affaire.length-1; i++)
-			{
-			
-			body.innerHTML +=
-				"<tr>" +
-					"<td> 1 </td>" +
-					"<td>" + theTableau[index].affaire[i].affaireFR + "</td>" +
-					"<td>" + theTableau[index].affaire[i].affaireBA + "</td>" +
-					"<td>" + theTableau[index].affaire[i].affaireTY + "</td>" +
-				"</tr>";
-			}
-			
-			/*
-			switch(index)
-			{
-				case 0:
-					body.innerHTML =
-					"{% for affaire in listeAffaire[0].affaire %}" +
-						"<tr>" +
-							"<td> 1 </td>" +
-							"<td> {{ affaire.nomFrancais }} </td>" +
-							"<td> {{ affaire.nomBasque }} </td>" +
-							"<td> {{ affaire.typeAffaire.nom }} </td>" +
-						"</tr>" +
-					"{% endfor %}";
-					break;
-					
-				case 1:
-					body.innerHTML =
-					"{% for affaire in listeAffaire[1].affaire %}" +
-						"<tr>" +
-							"<td> 1 </td>" +
-							"<td> {{ affaire.nomFrancais }} </td>" +
-							"<td> {{ affaire.nomBasque }} </td>" +
-							"<td> {{ affaire.typeAffaire.nom }} </td>" +
-						"</tr>" +
-					"{% endfor %}";
-					break;					
-			}
-			*/		
+			{			
+				body.innerHTML +=
+					"<tr>" +
+						"<td> 1 </td>" +
+						"<td>" + theTableau[index].affaire[i].affaireFR + "</td>" +
+						"<td>" + theTableau[index].affaire[i].affaireBA + "</td>" +
+						"<td>" + theTableau[index].affaire[i].affaireTY + "</td>" +
+					"</tr>";
+			}	
 		}
 	</script>
 	
@@ -199,10 +130,12 @@
 
 	{# Partie concernant les enfants #}
 
-	Liste des enfants inscrits à ce séjour 
+	Liste des enfants inscrits à ce séjour :
+	{#
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjoutEnfants">
           Modifier
 	</button>
+	#}
 	
 		{{ form_widget(form.enfants) }}
 	
@@ -211,6 +144,7 @@
 {{ form_end(form) }}
 
 {#
+	Le pop-up
 	<div class="modal fade bd-example-modal-xl" id="modalAjoutEnfants" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
